@@ -3,12 +3,20 @@ import type { Metadata } from 'next';
 import { inter } from './ui/fonts';
 import SessionProvider from '@/components/auth/SessionProvider';
 import { ToastContainer } from 'react-toastify';
+import HeaderMobile from '@/components/navigation/HeaderMobile';
+import SideDrawer from '@/components/navigation/SideDrawer';
 
 import { auth } from '@/auth';
 
 import './globals.css';
 
 // ----------------------------------------------------------------
+
+/**
+ * 1. prvo zavrsiti header(mobile) sa sidebar-om  -> 1 bracnh
+ * 2. iz te ggrane krenuti Post model u bazi, tag model u bazi, spojiti sa userom, actione za create post, fetch post, action za filtriranje postova, filtriranje po tagovima (desno sidebar), (worlklow, knowdledgde, component) => mora imati pginaciju u server actionu () (NOV BRANCH)
+ * 3. HOME page (vidcemo)
+ */
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -26,9 +34,18 @@ const RootLayout = async ({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} antialiased`}>
         <SessionProvider session={session}>
-          <main className="h-screen">{children}</main>
+          <main className="flex h-screen">
+            <aside className="hidden bg-red-100 sm:flex">LEFT ASIDE</aside>
+            <div className=" flex flex-1 flex-col ">
+              <div className="sm:hidden">
+                <HeaderMobile />
+              </div>
+              {children}
+            </div>
+            <aside className="hidden bg-red-100 sm:flex">Right Aside</aside>
+          </main>
           <ToastContainer closeOnClick newestOnTop />
         </SessionProvider>
       </body>

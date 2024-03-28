@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import HeaderMobile from '@/components/navigation/HeaderMobile';
 
 // 1. izvaditi sve boje iz figme u tailwind config
 // 2. namestiti font-family
@@ -17,29 +17,9 @@ import { Button } from '@/components/ui/button';
 // app/(auth)/login/page.tsx implement RHF + ZOD ili Yup
 // REGIISTE
 const Home: React.FC = () => {
-  const handlSubmit = async () => {
-    // connect to mongo
-    // provera da li user vec postoji
-    // ako ne postoji onda create user
-    // ako postoji baca se/ prikazuje error
-    // ZA REGISTER
-    // 1. kada unese podatke da ga redirect na /login ---> proces dalje
-    // 2. drugi slucaj da sam posle registera opet signIn func za login i tako se pravi session
-  };
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        backgroundColor: '#10121E',
-        alignItems: 'center',
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <div className="w-[400px] ">Home Page</div>
+    <div className="w-full p-4">
+      <h2>THIS IS HOME PAGE</h2>
       {/* <h2 className="h2-bold">this is some text</h2>
       <p className="p1-medium">Paragraph 1 Medium</p> */}
     </div>

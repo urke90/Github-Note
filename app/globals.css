@@ -116,6 +116,19 @@
 }
 
 @layer utilities {
+  /* FLEX */
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  /* FLEX */
+
   /* HEADINGS */
   .h1-bold {
     @apply font-bold text-[32px] leading-[40px];
