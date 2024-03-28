@@ -1,6 +1,6 @@
 import {
   Drawer,
-  // DrawerClose,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   // DrawerFooter,
@@ -11,6 +11,8 @@ import {
   // DrawerPortal,
 } from '../ui/drawer';
 import { Button } from '../ui/button';
+import Image from 'next/image';
+import { X } from 'lucide-react';
 
 // ----------------------------------------------------------------
 
@@ -24,18 +26,32 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
   direction = 'right',
 }) => {
   return (
-    <div className="border-2 border-blue-400">
-      <Drawer direction={direction}>
-        <DrawerTrigger asChild>{drawerTrigger}</DrawerTrigger>
-        <DrawerOverlay className="fixed inset-0" />
-        <DrawerContent className="w-[322px]">
-          <DrawerHeader className="relative z-50">
-            <DrawerTitle>DRAWER TITLE</DrawerTitle>
-            <DrawerDescription>DESCRIPTION</DrawerDescription>
-          </DrawerHeader>
-        </DrawerContent>
-      </Drawer>
-    </div>
+    <Drawer direction={direction}>
+      <DrawerTrigger asChild>{drawerTrigger}</DrawerTrigger>
+      {/* <DrawerOverlay className="fixed inset-0" /> */}
+      <DrawerContent className="w-[322px] px-5 py-8">
+        <DrawerHeader>
+          <div className="flex-between">
+            <div className="flex">
+              <Image
+                src="/assets/images/github.png"
+                width={36}
+                height={36}
+                alt="Profile Image"
+                className="mr-4"
+              />
+              <div>
+                <p className="p3-medium text-white-100">Uros Bijelic</p>
+                <p className="p4-regular">urosbijelic90@gmail.com</p>
+              </div>
+            </div>
+            <DrawerClose>
+              <X className="text-white-100" />
+            </DrawerClose>
+          </div>
+        </DrawerHeader>
+      </DrawerContent>
+    </Drawer>
   );
 };
 

@@ -7,7 +7,7 @@ interface IHeaderMobileProps {}
 
 const HeaderMobile: React.FC<IHeaderMobileProps> = () => {
   return (
-    <header className="flex-between border-2 bg-black-800 px-5 py-6">
+    <header className="flex-between bg-black-800 px-5 py-6">
       <Image src="/assets/images/Logo.svg" width={102} height={24} alt="Logo" />
 
       <SideDrawer
