@@ -18,6 +18,7 @@ import { Plus, Search, X } from 'lucide-react';
 import { Input } from '../ui/input';
 import Link from 'next/link';
 import { signOut } from '@/lib/actions/auth';
+import NavPostItem from './NavPostItem';
 
 // 1. https://nextjs.org/docs/app/building-your-application/caching
 // 2. https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
@@ -40,7 +41,7 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
       {/* <DrawerOverlay className="fixed inset-0" /> */}
       <DrawerContent className="w-[322px] px-5 py-8">
         <DrawerHeader>
-          <div className="flex-between mb-8">
+          <header className="flex-between mb-8">
             <div className="flex">
               <Image
                 src="/assets/images/github.png"
@@ -57,8 +58,8 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
             <DrawerClose>
               <X className="text-white-100" />
             </DrawerClose>
-          </div>
-          <div className="mb-6">
+          </header>
+          <section className="mb-6">
             <Button className="mb-4">
               <Image
                 src="/assets/images/Plus.svg"
@@ -81,8 +82,8 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
               </div>
               <Input type="email" id="email" placeholder="Email" />
             </div>
-          </div>
-          <div className="border-y-[0.68px] border-white-500 py-6">
+          </section>
+          <section className="mb-6 border-y-[0.68px] border-white-500 py-6">
             <p className="mb-5 text-[10px] uppercase text-white-500">
               Quick Links
             </p>
@@ -125,7 +126,17 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
                 Logout
               </li>
             </ul>
-          </div>
+          </section>
+          <section>
+            <p className="mb-5 text-[10px] uppercase text-white-500">Posts</p>
+            <ul>
+              {/* <li> */}
+              <NavPostItem type="workflow" postText="Project setup" />
+              <NavPostItem type="component" postText="Mobile Navigation" />
+              <NavPostItem type="knowledge" postText="Design System" />
+              {/* </li> */}
+            </ul>
+          </section>
         </DrawerHeader>
       </DrawerContent>
     </Drawer>
