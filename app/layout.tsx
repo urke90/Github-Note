@@ -16,6 +16,8 @@ import './globals.css';
  * 1. prvo zavrsiti header(mobile) sa sidebar-om  -> 1 bracnh
  * 2. iz te ggrane krenuti Post model u bazi, tag model u bazi, spojiti sa userom, actione za create post, fetch post, action za filtriranje postova, filtriranje po tagovima (desno sidebar), (worlklow, knowdledgde, component) => mora imati pginaciju u server actionu () (NOV BRANCH)
  * 3. HOME page (vidcemo)
+ * 4. https://nextjs.org/docs/app/building-your-application/caching
+ * 5. https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
  */
 
 export const metadata: Metadata = {
@@ -38,7 +40,7 @@ const RootLayout = async ({
         <SessionProvider session={session}>
           <main className="flex h-screen">
             <aside className="hidden bg-red-100 sm:flex">LEFT ASIDE</aside>
-            <div className=" flex flex-1 flex-col ">
+            <div className="flex flex-1 flex-col ">
               <div className="sm:hidden">
                 <HeaderMobile />
               </div>

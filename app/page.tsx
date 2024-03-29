@@ -18,7 +18,7 @@ import HeaderMobile from '@/components/navigation/HeaderMobile';
 // REGIISTE
 const Home: React.FC = () => {
   return (
-    <div className="w-full  p-4">
+    <div className="w-full p-4">
       <h2>THIS IS HOME PAGE</h2>
       {/* <h2 className="h2-bold">this is some text</h2>
       <p className="p1-medium">Paragraph 1 Medium</p> */}

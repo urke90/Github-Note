@@ -10,7 +10,7 @@ const Drawer = ({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
   <DrawerPrimitive.Root
-    // shouldScaleBackground={shouldScaleBackground}
+    shouldScaleBackground={shouldScaleBackground}
     {...props}
   />
 );
@@ -43,7 +43,7 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed h-screen bottom-0 right-0 z-50 mt-24 flex-col  bg-black-800',
+        'fixed h-screen bottom-0 right-0 z-50 mt-24 flex-col bg-black-800',
         className
       )}
       {...props}
@@ -58,7 +58,7 @@ const DrawerHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn(' sm:text-left', className)} {...props} />
+  <div className={cn('sm:text-left', className)} {...props} />
 );
 DrawerHeader.displayName = 'DrawerHeader';
 

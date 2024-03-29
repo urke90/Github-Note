@@ -4,25 +4,16 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  // DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
-  DrawerOverlay,
-  // DrawerPortal,
 } from '../ui/drawer';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { Plus, Search, X } from 'lucide-react';
-import { Input } from '../ui/input';
+import { X } from 'lucide-react';
 import Link from 'next/link';
 import { signOut } from '@/lib/actions/auth';
 import NavPostItem from './NavPostItem';
-
-// 1. https://nextjs.org/docs/app/building-your-application/caching
-// 2. https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
-// 3. search je zapravo shadcn commend
+import SearchCommandDialog from '../shared/SearchCommandDialog';
 
 // ----------------------------------------------------------------
 
@@ -38,7 +29,6 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
   return (
     <Drawer direction={direction}>
       <DrawerTrigger asChild>{drawerTrigger}</DrawerTrigger>
-      {/* <DrawerOverlay className="fixed inset-0" /> */}
       <DrawerContent className="w-[322px] px-5 py-8">
         <DrawerHeader>
           <header className="flex-between mb-8">
@@ -60,28 +50,16 @@ const SideDrawer: React.FC<ISideDrawerProps> = ({
             </DrawerClose>
           </header>
           <section className="mb-6">
-            <Button className="mb-4">
+            <Button variant="gradient" className="mb-4 text-white-100">
               <Image
                 src="/assets/images/Plus.svg"
                 width={14}
                 height={14}
                 alt="Add"
               />
-              Create Post
+              <p className="p4-medium !text-white-100">Create Post</p>
             </Button>
-            {/* <Button variant="secondary">
-              <div>
-                <Search className="" />
-                Search
-              </div>
-            </Button> */}
-            <div className="relative grid w-full max-w-sm items-center gap-1.5">
-              <div className="flex items-center">
-                <Search className="size-[13px]" />
-                Search
-              </div>
-              <Input type="email" id="email" placeholder="Email" />
-            </div>
+            <SearchCommandDialog />
           </section>
           <section className="mb-6 border-y-[0.68px] border-white-500 py-6">
             <p className="mb-5 text-[10px] uppercase text-white-500">

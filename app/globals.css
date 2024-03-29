@@ -97,9 +97,6 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-black-900 text-white-300;
   }
@@ -176,7 +173,7 @@
   }
 
   .p4-medium {
-    @apply font-medium text-xs;
+    @apply font-medium text-xs text-white-500;
   }
   /* PARAGRAPHS MEDIUM */
 

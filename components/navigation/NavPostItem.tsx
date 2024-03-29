@@ -12,13 +12,13 @@ const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
   const getImageSrc = (postType: TPostType) => {
     switch (postType) {
       case 'component':
-        return '/assets/images/computer-icn.svg';
+        return '/assets/images/icn-computer.svg';
       case 'knowledge':
         return '/assets/images/icn-message-circle.svg';
       case 'workflow':
         return '/assets/images/icn-list-number.svg';
       default:
-        return '/assets/images/computer-icn.svg';
+        return '/assets/images/icn-computer.svg';
     }
   };
 
