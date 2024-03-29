@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* PRIMARY */
-    --primary-gredient: linear-gradient(90deg, #43b7fe 0%, #4f48e6 100%);
+    --primary-gradient: linear-gradient(90deg, #43b7fe 0%, #4f48e6 100%);
     --primary-500: #42bbff;
     --primary-800: #0c3247;
     --primary-900: #42bbff1a;
@@ -128,6 +128,12 @@
     align-items: center;
   }
   /* FLEX */
+
+  /* COLORS */
+  .bg-gradient-blue {
+    background-image: var(--primary-gradient);
+  }
+  /* COLORS */
 
   /* HEADINGS */
   .h1-bold {

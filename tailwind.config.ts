@@ -26,7 +26,7 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         // custom
         primary: {
-          gredient: 'var(--primary-gredient)',
+          // gradient: 'var(--primary-gradient)',
           500: 'var(--primary-500)',
           800: 'var(--primary-800)',
           900: 'var(--primary-900)',
