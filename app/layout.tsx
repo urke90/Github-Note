@@ -3,8 +3,7 @@ import type { Metadata } from 'next';
 import { inter } from './ui/fonts';
 import SessionProvider from '@/components/auth/SessionProvider';
 import { ToastContainer } from 'react-toastify';
-import HeaderMobile from '@/components/navigation/HeaderMobile';
-import SideDrawer from '@/components/navigation/SideDrawer';
+import MobileNav from '@/components/navigation/MobileNav';
 
 import { auth } from '@/auth';
 
@@ -42,7 +41,7 @@ const RootLayout = async ({
             <aside className="hidden bg-red-100 sm:flex">LEFT ASIDE</aside>
             <div className="flex flex-1 flex-col ">
               <div className="sm:hidden">
-                <HeaderMobile />
+                <MobileNav />
               </div>
               {children}
             </div>

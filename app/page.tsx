@@ -1,5 +1,3 @@
-import HeaderMobile from '@/components/navigation/HeaderMobile';
-
 // 1. izvaditi sve boje iz figme u tailwind config
 // 2. namestiti font-family
 // 3. namestiti sve variants button-a
