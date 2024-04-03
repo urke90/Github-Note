@@ -16,7 +16,10 @@ import { Button } from '@/components/ui/button';
 
 // app/(auth)/login/page.tsx implement RHF + ZOD ili Yup
 // REGIISTE
-const Home: React.FC = () => {
+const Home: React.FC = async () => {
+  // const posts = await getAllPosts();
+  // const tags = await getAllTags();
+
   const handlSubmit = async () => {
     // connect to mongo
     // provera da li user vec postoji
