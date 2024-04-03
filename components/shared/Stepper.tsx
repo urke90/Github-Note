@@ -34,19 +34,6 @@ interface IStepperProps {
   currentStep: number;
 }
 
-/**
- * step 1 width 0
- * step 2 width 33%
- * step 3 width 66%
- * step 4 width 100%
- *
- */
-/**
- * 1.  (1 - 1) / x * 100 = 0%
- * 2.  (2 - 1) / x  * 100 = 33%
- * 3.  (3 - 1) / x * 100 = 66%
- */
-
 const Stepper: React.FC<IStepperProps> = ({ currentStep }) => {
   const completedLineWidth = Math.round(((currentStep - 1) / 3) * 100);
 

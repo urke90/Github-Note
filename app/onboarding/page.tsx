@@ -10,13 +10,7 @@ const Onboarding = async () => {
   const session = await auth();
   if (!session?.user.id) return null;
 
-  let user: IUser | null = null;
-
-  try {
-    user = await getUserById(session.user.id);
-  } catch (error) {
-    console.log('Error fetching ', error);
-  }
+  const user: IUser | null = await getUserById(session.user.id);
 
   if (!user) {
     return null;

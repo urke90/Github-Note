@@ -30,15 +30,9 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
   const { trigger, setValue, getValues } = useFormContext();
   const [uploadedImage, setUploadedImage] = useState('');
 
-  const onSuccessUpload = (
-    result: CloudinaryUploadWidgetResults,
-    options: any
-  ) => {
-    console.log('result', result);
-    console.log('options', options);
-
-    if (!result || !result?.info) throw new Error('Image not uploaded!');
-    setUploadedImage((result.info as CloudinaryUploadWidgetInfo).secure_url);
+  const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
+    if (result.info instanceof String) throw new Error('Image not uploaded');
+    setUploadedImage(result.info.secure_url);
     setValue(
       'avatarImg',
       (result.info as CloudinaryUploadWidgetInfo).secure_url

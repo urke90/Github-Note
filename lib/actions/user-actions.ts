@@ -81,8 +81,6 @@ export const updateUserOnboardingStep = async (
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
-    console.log('error update User Onboarding State', error);
-    console.log('error update User Onboarding State TYPEOF', typeof error);
     if (error instanceof Error) {
       console.log('error update User Onboarding State', error instanceof Error);
     }

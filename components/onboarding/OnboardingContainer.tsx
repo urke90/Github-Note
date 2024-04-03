@@ -25,13 +25,6 @@ import { toast } from 'react-toastify';
 
 // ----------------------------------------------------------------
 
-/**
- * Kako da handlujem situaciju sa onboardingom ??? sta ako nema session? ako nema email? kada update step u mongoDB-u???
- * napraviti onboarding wrapper page gde se fetchuje session i prosledjuje ovom trenutnom Onboarding page-u
- * izbaciti toast na submit ako je bad request
- * ubaciti ENUM
- */
-
 const {
   BASIC_INFORMATION,
   KNOWLEDGE_LEVEL,
@@ -102,7 +95,6 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
 
     await updateUserOnboardingStep(user._id.toString(), data);
     setStep(newStep);
-    console.log('handleChangeStep opalio');
   };
 
   const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
