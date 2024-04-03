@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '../ui/button';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import { signOut } from '@/lib/actions/auth';
-import NavPostItem from './NavPostItem';
-import SearchCommandDialog from '../shared/SearchCommandDialog';
+import NavPostItem from '../post/PostItem';
+import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
+import PostsList from '../post/PostsList';
 
 import {
   Sheet,
@@ -48,18 +48,9 @@ const Navbar: React.FC = () => {
             <X className="text-white-100" />
           </SheetClose>
         </header>
-        <section className="mb-6">
-          <Button variant="gradient" className="mb-4 text-white-100">
-            <Image
-              src="/assets/images/Plus.svg"
-              width={14}
-              height={14}
-              alt="Add"
-            />
-            <p className="p4-medium !text-white-100">Create Post</p>
-          </Button>
-          <SearchCommandDialog />
-        </section>
+        <div className="mb-6">
+          <CreateOrSearchForPost />
+        </div>
         <section className="mb-6 border-y-[0.68px] border-white-500 py-6">
           <p className="mb-5 text-[10px] uppercase text-white-500">
             Quick Links
@@ -104,25 +95,10 @@ const Navbar: React.FC = () => {
             </li>
           </ul>
         </section>
-        <section>
-          <p className="mb-5 text-[10px] uppercase text-white-500">Posts</p>
-          <ul>
-            <NavPostItem type="workflow" postText="Project setup" />
-            <NavPostItem type="component" postText="Mobile Navigation" />
-            <NavPostItem type="knowledge" postText="Design System" />
-          </ul>
-        </section>
+        <PostsList />
       </SheetContent>
     </Sheet>
   );
-  // return (
-  //   <Drawer direction={direction}>
-  //     <DrawerTrigger asChild>{drawerTrigger}</DrawerTrigger>
-  //     <DrawerContent className="w-[322px] px-5 py-8">
-  //       <DrawerHeader></DrawerHeader>
-  //     </DrawerContent>
-  //   </Drawer>
-  // );
 };
 
 export default Navbar;

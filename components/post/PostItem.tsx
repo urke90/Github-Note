@@ -3,12 +3,12 @@ import type { TPostType } from '@/types/Posts';
 
 // ----------------------------------------------------------------
 
-interface INavPostItemProps {
+interface IPostItemProps {
   type: TPostType;
   postText: string;
 }
 
-const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
+const PostItem: React.FC<IPostItemProps> = ({ type, postText }) => {
   const getImageSrc = (postType: TPostType) => {
     switch (postType) {
       case 'component':
@@ -40,4 +40,4 @@ const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
   );
 };
 
-export default NavPostItem;
+export default PostItem;
