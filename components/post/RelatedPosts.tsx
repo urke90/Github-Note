@@ -3,6 +3,10 @@ import { Button } from '../ui/button';
 
 type IRelatedPostsProps = {};
 
+/**
+ * TODO  Check later if list item have onClick handler and what would the flow be????
+ */
+
 const RelatedPosts = (props: IRelatedPostsProps) => {
   return (
     <div>
