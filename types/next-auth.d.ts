@@ -11,6 +11,8 @@ declare module 'next-auth' {
       id: string;
       /** Current step of user onboarding process. If value is 5 then onboarding is finished */
       onboardingStep: number;
+      /** Fetched image from DB */
+      avatarImg: string;
     } & DefaultSession['user'];
   }
 }
@@ -22,5 +24,7 @@ declare module 'next-auth/jwt' {
     id?: string;
     /** OCurrent step of user onboarding process. If value is 5 then onboarding is finished */
     onboardingStep: number;
+    /** Fetched image from DB */
+    avatarImg: string;
   }
 }

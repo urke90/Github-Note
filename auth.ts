@@ -37,10 +37,11 @@ export const {
       try {
         if (!token.email) return token;
 
-        const userJWT = await getUserByEmail(token.email);
-        if (userJWT) {
-          token.id = userJWT._id.toString();
-          token.onboardingStep = userJWT.onboardingStep;
+        const fetchedUser = await getUserByEmail(token.email);
+        if (fetchedUser) {
+          token.id = fetchedUser._id.toString();
+          token.onboardingStep = fetchedUser.onboardingStep;
+          token.picture = fetchedUser.avatarImg;
         }
 
         return token;
@@ -54,6 +55,7 @@ export const {
       if (token.id) {
         session.user.id = token.id;
         session.user.onboardingStep = token.onboardingStep;
+        session.user.image = token.picture;
       }
 
       return session;
