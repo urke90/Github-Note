@@ -15,9 +15,10 @@
 // app/(auth)/login/page.tsx implement RHF + ZOD ili Yup
 // REGIISTE
 const Home: React.FC = () => {
+  // fetch all post
   return (
     <div className="w-full p-4">
-      <h2>THIS IS HOME PAGE</h2>
+      <h2>THIS IS HOME PAGEEEEEEEEEEEEEEEEEEEEEEE</h2>
       {/* <h2 className="h2-bold">this is some text</h2>
       <p className="p1-medium">Paragraph 1 Medium</p> */}
     </div>

@@ -8,13 +8,13 @@ type Props = {};
 
 const RightSidebar = (props: Props) => {
   return (
-    <aside className="flex max-w-[290px] flex-col bg-black-800 px-7 py-10 max-md:hidden">
+    <aside className="flex h-screen w-full max-w-[290px] flex-col border-l-[1.5px] border-l-[#4448691A] bg-black-800 px-7 py-10 max-md:hidden">
       <div className="mb-12">
         <NavProfileInfo />
       </div>
       <section>
-        {/* <TagsList /> */}
-        <RelatedPosts />
+        <TagsList />
+        {/* <RelatedPosts /> */}
       </section>
     </aside>
   );

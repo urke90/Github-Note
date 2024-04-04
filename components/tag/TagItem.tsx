@@ -9,11 +9,10 @@ interface ITagItemProps {
 
 const TagItem: React.FC<ITagItemProps> = ({ title, onClick }) => {
   return (
-    <li
-      onClick={() => onClick?.()}
-      className="p3-medium flex rounded-[3px] bg-black-700 px-2 py-0.5 text-center"
-    >
-      {title}
+    <li onClick={() => onClick?.()}>
+      <span className="p3-medium inline-block cursor-pointer rounded-[3px] bg-black-700 px-2 py-0.5 text-center">
+        {title}
+      </span>
     </li>
   );
 };
