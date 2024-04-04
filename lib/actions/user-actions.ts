@@ -96,14 +96,9 @@ export const updateUserOnboardingStep = async (
 export const updateUser = async (userId: string, data: IUserOnboarding) => {
   try {
     await connectToMongoDB();
-    const bla = await User.findByIdAndUpdate({ _id: userId }, data, {
+    await User.findByIdAndUpdate({ _id: userId }, data, {
       new: true,
     });
-
-    console.log(
-      'BLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-      bla
-    );
 
     return { ok: true, status: 200 };
   } catch (error) {
