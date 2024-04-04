@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Button } from '../ui/button';
 
-type IRelatedPostsProps = {};
+interface IRelatedPostsProps {}
 
 /**
  * TODO  Check later if list item have onClick handler and what would the flow be????
