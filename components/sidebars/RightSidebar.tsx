@@ -1,5 +1,6 @@
 import NavProfileInfo from '../shared/NavProfileInfo';
 import TagsList from '../tag/TagsList';
+import RelatedPosts from '../post/RelatedPosts';
 
 // ----------------------------------------------------------------
 
@@ -12,7 +13,8 @@ const RightSidebar = (props: Props) => {
         <NavProfileInfo />
       </div>
       <section>
-        <TagsList />
+        {/* <TagsList /> */}
+        <RelatedPosts />
       </section>
     </aside>
   );
