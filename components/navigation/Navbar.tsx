@@ -1,12 +1,8 @@
-'use client';
-
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import Link from 'next/link';
-import { signOut } from '@/lib/actions/auth';
 import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
 import PostsList from './NavPostsList';
-import NavSidebarProfileInfo from '../shared/NavSidebarProfileInfo';
+import NavProfileInfo from '../shared/NavProfileInfo';
 
 import {
   Sheet,
@@ -33,7 +29,7 @@ const Navbar: React.FC = () => {
       <SheetContent>
         <header className="flex-between mb-8">
           <div className="flex">
-            <NavSidebarProfileInfo />
+            <NavProfileInfo />
           </div>
           <SheetClose>
             <X className="text-white-100" />

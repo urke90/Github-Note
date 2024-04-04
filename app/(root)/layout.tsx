@@ -47,9 +47,7 @@ const RootLayout = async ({
               </div>
               {children}
             </main>
-            <aside className="hidden md:flex">
-              <RightSidebar />
-            </aside>
+            <RightSidebar />
           </div>
           <ToastContainer closeOnClick newestOnTop />
         </SessionProvider>

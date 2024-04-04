@@ -33,7 +33,7 @@ const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
         alt={postText}
         className="mr-3"
       />
-      <span className="transition-colors hover:text-primary-500">
+      <span className="p3-medium transition-colors  hover:text-primary-500">
         {postText}
       </span>
     </li>

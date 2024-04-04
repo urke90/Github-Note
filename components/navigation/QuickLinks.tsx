@@ -21,7 +21,7 @@ const QuickLinks = (props: Props) => {
             alt="JS Mastery"
             className="mr-3"
           />
-          JSM Courses
+          <span className="p3-medium">JSM Courses</span>
         </Link>
         <Link href="/" className="mb-5 flex items-center">
           <Image
@@ -31,7 +31,7 @@ const QuickLinks = (props: Props) => {
             alt="GitHub"
             className="mr-3"
           />
-          GitHub Organization
+          <span className="p3-medium">GitHub Organization</span>
         </Link>
       </div>
       <div
@@ -45,7 +45,7 @@ const QuickLinks = (props: Props) => {
           alt="Logout"
           className="mr-3"
         />
-        Logout
+        <span className="p3-medium">Logout</span>
       </div>
     </section>
   );

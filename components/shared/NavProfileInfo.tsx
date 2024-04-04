@@ -4,24 +4,22 @@ import Image from 'next/image';
 
 interface INavSidebarProfileInfoProps {}
 
-const NavSidebarProfileInfo: React.FC<INavSidebarProfileInfoProps> = (
-  props
-) => {
+const NavProfileInfo: React.FC<INavSidebarProfileInfoProps> = (props) => {
   return (
-    <div className="flex">
+    <section className="flex">
       <Image
         src="/assets/images/github.png"
         width={36}
         height={36}
         alt="Profile Image"
-        className="mr-4"
+        className="mr-1.5"
       />
       <div>
         <p className="p3-medium text-white-100">Uros Bijelic</p>
         <p className="p4-regular">urosbijelic90@gmail.com</p>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default NavSidebarProfileInfo;
+export default NavProfileInfo;
