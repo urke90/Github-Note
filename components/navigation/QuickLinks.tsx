@@ -6,9 +6,7 @@ import { signOut } from '@/lib/actions/auth';
 
 // ----------------------------------------------------------------
 
-type Props = {};
-
-const QuickLinks = (props: Props) => {
+const QuickLinks: React.FC = () => {
   return (
     <section className="flex flex-1 flex-col">
       <div>

@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/git-note/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/a/**',
+      },
     ],
   },
 };

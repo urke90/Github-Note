@@ -1,22 +1,23 @@
+import { auth } from '@/auth';
 import Image from 'next/image';
 
 // ----------------------------------------------------------------
 
-interface INavSidebarProfileInfoProps {}
+const NavProfileInfo: React.FC = async () => {
+  const session = await auth();
 
-const NavProfileInfo: React.FC<INavSidebarProfileInfoProps> = (props) => {
   return (
     <section className="flex">
       <Image
-        src="/assets/images/github.png"
+        src={session?.user.image ?? ''}
         width={36}
         height={36}
         alt="Profile Image"
         className="mr-1.5"
       />
       <div>
-        <p className="p3-medium text-white-100">Uros Bijelic</p>
-        <p className="p4-regular">urosbijelic90@gmail.com</p>
+        <p className="p3-medium text-white-100">{session?.user.name}</p>
+        <p className="p4-regular">{session?.user.email}</p>
       </div>
     </section>
   );

@@ -22,16 +22,9 @@ export const metadata: Metadata = {
 
 const RootLayout: React.FC<ILayoutProps> = ({ children }) => {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <SessionProvider>
-          <main className="flex h-screen">
-            <div className="flex flex-1 flex-col">{children}</div>
-          </main>
-          <ToastContainer closeOnClick newestOnTop />
-        </SessionProvider>
-      </body>
-    </html>
+    <section className="flex h-screen">
+      <div className="flex flex-1 flex-col">{children}</div>
+    </section>
   );
 };
 
