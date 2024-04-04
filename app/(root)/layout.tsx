@@ -4,6 +4,8 @@ import { inter } from '../ui/fonts';
 import SessionProvider from '@/components/auth/SessionProvider';
 import { ToastContainer } from 'react-toastify';
 import MobileNav from '@/components/navigation/MobileNav';
+import LeftSidebar from '@/components/sidebars/LeftSidebar';
+import RightSidebar from '@/components/sidebars/RightSidebar';
 
 import { auth } from '@/auth';
 
@@ -37,16 +39,18 @@ const RootLayout = async ({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <SessionProvider session={session}>
-          <main className="flex h-screen">
-            <aside className="hidden bg-red-100 sm:flex">LEFT ASIDE</aside>
-            <div className="flex flex-1 flex-col ">
-              <div className="sm:hidden">
+          <div className="flex h-screen">
+            <LeftSidebar />
+            <main className="flex flex-1 flex-col">
+              <div className="md:hidden">
                 <MobileNav />
               </div>
               {children}
-            </div>
-            <aside className="hidden bg-red-100 sm:flex">Right Aside</aside>
-          </main>
+            </main>
+            <aside className="hidden md:flex">
+              <RightSidebar />
+            </aside>
+          </div>
           <ToastContainer closeOnClick newestOnTop />
         </SessionProvider>
       </body>

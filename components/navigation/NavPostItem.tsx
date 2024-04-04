@@ -3,12 +3,12 @@ import type { TPostType } from '@/types/Posts';
 
 // ----------------------------------------------------------------
 
-interface IPostItemProps {
+interface INavPostItemProps {
   type: TPostType;
   postText: string;
 }
 
-const PostItem: React.FC<IPostItemProps> = ({ type, postText }) => {
+const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
   const getImageSrc = (postType: TPostType) => {
     switch (postType) {
       case 'component':
@@ -25,7 +25,7 @@ const PostItem: React.FC<IPostItemProps> = ({ type, postText }) => {
   const imageSrc = getImageSrc(type);
 
   return (
-    <li className="mb-5 flex">
+    <li className="mb-5 flex last:mb-0">
       <Image
         src={imageSrc}
         width={16}
@@ -40,4 +40,4 @@ const PostItem: React.FC<IPostItemProps> = ({ type, postText }) => {
   );
 };
 
-export default PostItem;
+export default NavPostItem;
