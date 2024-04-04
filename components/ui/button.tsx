@@ -15,6 +15,7 @@ const buttonVariants = cva(
         secondary:
           'font-inter shadow-tw-secondary-shadow rounded-[4px] bg-black-600 font-medium text-white-100 disabled:cursor-not-allowed disabled:bg-slate-400',
         gradient: 'bg-gradient-blue text-white-100',
+        file: 'bg-black-700 px-3.5 py-2',
       },
     },
     defaultVariants: {
