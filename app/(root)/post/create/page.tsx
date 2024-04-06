@@ -8,6 +8,7 @@ import RHFInput from '@/components/RHFInputs/RHFInput';
 import RHFSelect, {
   SelectOptionWithIcon,
 } from '@/components/RHFInputs/RHFSelect';
+import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
 import { SelectSeparator } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { POST_TYPE } from '@/constants/post';
@@ -16,14 +17,13 @@ import { EPostType } from '@/types/post-types';
 // ----------------------------------------------------------------
 
 const CreatePost = () => {
-  const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
-
   const postForm = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: '',
-      type: COMPONENT,
-      // continue adding default values
+      type: EPostType.COMPONENT,
+      tags: [], // TODO: Finish when i add: React Select library
+      description: '',
     },
   });
 
@@ -60,6 +60,16 @@ const CreatePost = () => {
                 </React.Fragment>
               ))}
             </RHFSelect>
+          </div>
+          <div className="mb-7 bg-black-700">
+            TAGS === REPLACE THIS WITH REACT SELECT
+          </div>
+          <div className="mb-7">
+            <RHFTextarea
+              name="description"
+              label="Description"
+              placeholder="Enter a short description"
+            />
           </div>
         </form>
         <div>
