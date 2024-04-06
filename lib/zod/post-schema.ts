@@ -16,7 +16,7 @@ const learningResourcesSchema = z.object({
 
 export type ILearningResources = z.infer<typeof learningResourcesSchema>;
 
-const postSchema = z.object({
+export const postSchema = z.object({
   title: z.string().trim().min(2, 'Please enter the title of the post!'),
   type: z.enum([COMPONENT, KNOWLEDGDE, WORKFLOW]),
   tags: z

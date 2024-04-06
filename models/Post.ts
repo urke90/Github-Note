@@ -7,14 +7,19 @@ import { EPostType } from '@/types/post-types';
  *     - preview tab ---- treba da se uradi syntax highlighting (prism lib)
  * 3.  content -rich text editor  rich text editor --- tinymce lib.
  * 4.  Tags ---> treba da bude i select i input da moze da se unese nov tag ili izabere vec postojeci (react select lib);
- * 5.
+ */
+
+/**
+ *  POSTS PAGES
+ *  ---- create
+ *  ---- update ===> treba mi postid
  */
 
 // ----------------------------------------------------------------
 
 interface IPost {
   title: string;
-  type: 'component' | 'knowledge' | 'workflow';
+  type: EPostType;
   tags: Schema.Types.ObjectId[];
   description: string;
   ownerId: Schema.Types.ObjectId;
