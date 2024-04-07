@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import Image from 'next/image';
+import { X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,7 +16,7 @@ import { SelectSeparator } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { POST_TYPE } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
-import { Label } from '@/components/ui/label';
+import LearningResources from '@/components/shared/LearningResources';
 
 // ----------------------------------------------------------------
 
@@ -36,29 +36,13 @@ const CreatePost = () => {
       learningResources: [],
     },
   });
-  const {
-    handleSubmit,
-    control,
-    getValues,
-    formState: { errors },
-  } = postForm;
-
-  // const {
-  //   fields: learningResourcesFields,
-  //   append: appendLearningResources,
-  //   remove: removeLearningResources,
-  // } = useFieldArray({
-  //   control,
-  //   name: 'learningResources',
-  // });
+  const { handleSubmit, getValues } = postForm;
 
   const onSubmit = (data: IPostSchema) => {
     console.log('data on submit', data);
   };
 
   const postType = getValues('type');
-
-  // console.log('postForm.formState', postForm.formState);
 
   return (
     <section className="mb-7.5">
@@ -103,15 +87,9 @@ const CreatePost = () => {
               <Checklist postType={postType} />
             </div>
           )}
-          <div className="mb-7 bg-red-100">RICH TEXT EDITOR</div>
+          <div className="mb-7 bg-black-700">RICH TEXT EDITOR</div>
           <div className="mb-16 gap-7">
-            <Label className="uppercase text-white-500">
-              Resources & Links
-            </Label>
-            <div className="flex">
-              <RHFInput name="" />
-              <RHFInput name="" />
-            </div>
+            <LearningResources />
           </div>
           <Button type="submit">Create Post</Button>
         </form>
@@ -121,7 +99,7 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
-
+/** className="bg-black-700 px-3 py-3.5 text-white-300" */
 /* <li
                 key={field.id}
                 className="flex-between my-2 rounded bg-black-700 px-3 py-1"
