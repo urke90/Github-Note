@@ -1,7 +1,9 @@
 'use client';
 
-import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Fragment } from 'react';
+import Image from 'next/image';
+import { Form } from '@/components/ui/form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postSchema, type IPostSchema } from '@/lib/zod/post-schema';
 import RHFInput from '@/components/RHFInputs/RHFInput';
@@ -9,36 +11,61 @@ import RHFSelect, {
   SelectOptionWithIcon,
 } from '@/components/RHFInputs/RHFSelect';
 import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
+import Checklist from '@/components/shared/Checklist';
 import { SelectSeparator } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { POST_TYPE } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
+import { Label } from '@/components/ui/label';
 
 // ----------------------------------------------------------------
 
 const CreatePost = () => {
+  const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
+
   const postForm = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: '',
-      type: EPostType.COMPONENT,
+      type: COMPONENT,
       tags: [], // TODO: Finish when i add: React Select library
       description: '',
+      codeExample: '',
+      checklist: [],
+      content: '',
+      learningResources: [],
     },
   });
+  const {
+    handleSubmit,
+    control,
+    getValues,
+    formState: { errors },
+  } = postForm;
 
-  // const { handleSubmit } = postForm;
+  // const {
+  //   fields: learningResourcesFields,
+  //   append: appendLearningResources,
+  //   remove: removeLearningResources,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'learningResources',
+  // });
 
   const onSubmit = (data: IPostSchema) => {
     console.log('data on submit', data);
   };
 
+  const postType = getValues('type');
+
+  // console.log('postForm.formState', postForm.formState);
+
   return (
     <section className="mb-7.5">
       <h1 className="h1-bold my-[30px] lg:my-8">Create Post</h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
-      <FormProvider {...postForm}>
-        <form onSubmit={postForm.handleSubmit(onSubmit)}>
+      <Form {...postForm}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-7">
             <RHFInput
               name="title"
@@ -49,7 +76,7 @@ const CreatePost = () => {
           <div className="mb-7">
             <RHFSelect name="type" label="Create Type">
               {POST_TYPE.map(({ imgUrl, label, value }, index) => (
-                <React.Fragment key={value}>
+                <Fragment key={value}>
                   <SelectOptionWithIcon
                     key={value}
                     value={value}
@@ -57,7 +84,7 @@ const CreatePost = () => {
                     label={label}
                   />
                   {index !== POST_TYPE.length - 1 && <SelectSeparator />}
-                </React.Fragment>
+                </Fragment>
               ))}
             </RHFSelect>
           </div>
@@ -71,13 +98,50 @@ const CreatePost = () => {
               placeholder="Enter a short description"
             />
           </div>
+          {postType !== COMPONENT && (
+            <div className="mb-7">
+              <Checklist postType={postType} />
+            </div>
+          )}
+          <div className="mb-7 bg-red-100">RICH TEXT EDITOR</div>
+          <div className="mb-16 gap-7">
+            <Label className="uppercase text-white-500">
+              Resources & Links
+            </Label>
+            <div className="flex">
+              <RHFInput name="" />
+              <RHFInput name="" />
+            </div>
+          </div>
+          <Button type="submit">Create Post</Button>
         </form>
-        <div>
-          <Button>Create Post</Button>
-        </div>
-      </FormProvider>
+      </Form>
     </section>
   );
 };
 
 export default CreatePost;
+
+/* <li
+                key={field.id}
+                className="flex-between my-2 rounded bg-black-700 px-3 py-1"
+              >
+                <div className="flex flex-1 items-center ">
+                  <Image
+                    src="assets/images/icn-check-square.svg"
+                    alt="Checked"
+                    width={20}
+                    height={20}
+                    className="mr-2"
+                  />
+                  <RHFInput
+                    name={`knowledgeLevel.${index}`}
+                    placeholder="Enter your expertise level"
+                    className="pl-0"
+                  />
+                </div>
+                <X
+                  className="cursor-pointer text-white-500"
+                  onClick={() => remove(index)}
+                />
+              </li> */
