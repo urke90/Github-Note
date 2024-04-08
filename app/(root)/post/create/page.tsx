@@ -17,10 +17,25 @@ import { POST_TYPE } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
 import LearningResources from '@/components/shared/LearningResources';
 import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
+import RHFCreatableSelect from '@/components/RHFInputs/RHFCreatableSelect';
+import { useSession } from 'next-auth/react';
 
 // ----------------------------------------------------------------
 
+/**
+ * 1. Da li treba da dohvatam Usera u Wrapper Page-u da bude Server side i da samo prosledim ovoj komponenti CreatePost (kao sto sam radio sa Onboardingom) ===>
+ * 2. create post action proverava tagove. AKo ne postoji kreira nov/e tagove , ako postoji onda ne mora 2 poziva
+ *
+ * 1.  Mora get poziv za tagove da se  populate dropdown ( Onda imam sve tagove ---> imaju objectIds )
+ * 2.
+ *
+ *
+ * 1. crate Post
+ */
+
 const CreatePost = () => {
+  const { data: session } = useSession();
+
   const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
 
   const postForm = useForm<IPostSchema>({
@@ -33,22 +48,23 @@ const CreatePost = () => {
       codeExample: '',
       checklist: [],
       content: '',
-      // learningResources: [],
+      learningResources: [],
     },
   });
-  const { handleSubmit, getValues } = postForm;
+  const { handleSubmit, getValues, watch } = postForm;
 
   const onSubmit = (data: IPostSchema) => {
     console.log('data on submit', data);
+    // TODO: user id dodajemo tek na submit jer default values u useForm se samo jednom triggeruje
+    data.ownerId = session?.user.id || '';
   };
 
   const postType = getValues('type');
 
-  const content = getValues('content');
-
   useEffect(() => {
-    console.log('content U PAGE', content);
-  }, [content]);
+    const watchTags = watch('tags');
+    console.log('watch tags', watchTags);
+  }, [watch]);
 
   return (
     <section className="mb-7.5">
@@ -78,8 +94,13 @@ const CreatePost = () => {
               ))}
             </RHFSelect>
           </div>
-          <div className="mb-7 bg-black-700">
-            TAGS === REPLACE THIS WITH REACT SELECT
+          <div className="mb-7">
+            <RHFCreatableSelect
+              name="tags"
+              label="Tags"
+              placeholder="Search tags"
+              description="ovde dodati neku vrednost"
+            />
           </div>
           <div className="mb-7">
             <RHFTextarea

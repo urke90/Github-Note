@@ -15,10 +15,19 @@ const learningResourcesSchema = z.object({
 
 export type ILearningResources = z.infer<typeof learningResourcesSchema>;
 
+/**
+ * tag treba da bude array object { label: string, value: string}
+ */
+
+const tagSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+});
+
 export const postSchema = z.object({
   title: z.string().trim().min(2, 'Please enter the title of the post!'),
   type: z.enum([COMPONENT, KNOWLEDGDE, WORKFLOW]),
-  tags: z.array(z.string()).nonempty('Please add at leats one tag!'),
+  tags: z.array(tagSchema).nonempty('Please add at leats one tag!'),
   description: z
     .string()
     .trim()
