@@ -1,0 +1,31 @@
+.tox .tox-edit-area .tox-edit-area__iframe {
+  background-color: #1d2032;
+  cursor: text;
+}
+
+.tox .tox-toolbar-overlord .tox-toolbar__primary {
+  background-color: #2e3757;
+  cursor: pointer;
+}
+
+.tox:not(.tox-tinymce-inline)
+  .tox-editor-header:not(.tox-editor-dock-transition) {
+  background-color: #2e3757;
+  padding: 0;
+}
+
+.tox.tox-tinymce {
+  border: none;
+}
+
+.tox .tox-toolbar__group .tox-tbtn {
+  background-color: transparent;
+  color: #adb3cc;
+}
+.tox .tox-toolbar__group .tox-tbtn svg {
+  fill: #adb3cc;
+}
+
+.tox .tox-sidebar-wrap .tox-edit-area::before {
+  border: none;
+}

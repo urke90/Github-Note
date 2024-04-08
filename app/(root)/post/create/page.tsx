@@ -1,9 +1,8 @@
 'use client';
 
-import { Fragment } from 'react';
-import { X } from 'lucide-react';
+import { Fragment, useEffect } from 'react';
 import { Form } from '@/components/ui/form';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postSchema, type IPostSchema } from '@/lib/zod/post-schema';
 import RHFInput from '@/components/RHFInputs/RHFInput';
@@ -17,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { POST_TYPE } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
 import LearningResources from '@/components/shared/LearningResources';
+import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
 
 // ----------------------------------------------------------------
 
@@ -33,7 +33,7 @@ const CreatePost = () => {
       codeExample: '',
       checklist: [],
       content: '',
-      learningResources: [],
+      // learningResources: [],
     },
   });
   const { handleSubmit, getValues } = postForm;
@@ -43,6 +43,12 @@ const CreatePost = () => {
   };
 
   const postType = getValues('type');
+
+  const content = getValues('content');
+
+  useEffect(() => {
+    console.log('content U PAGE', content);
+  }, [content]);
 
   return (
     <section className="mb-7.5">
@@ -87,7 +93,9 @@ const CreatePost = () => {
               <Checklist postType={postType} />
             </div>
           )}
-          <div className="mb-7 bg-black-700">RICH TEXT EDITOR</div>
+          <div className="mb-7 bg-black-700">
+            <RHFTextEditor name="content" label="" />
+          </div>
           <div className="mb-16 gap-7">
             <LearningResources />
           </div>
