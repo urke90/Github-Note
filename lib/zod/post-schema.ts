@@ -32,7 +32,7 @@ export const postSchema = z.object({
     .string()
     .trim()
     .min(3, 'Please enter the description of the post'),
-  ownerId: z.string(),
+  ownerId: z.string().optional(),
   checklist: z.array(z.string()).optional(),
   codeExample: z
     .string()

@@ -22,6 +22,7 @@ import RHFCreatableSelect, {
 } from '@/components/RHFInputs/RHFCreatableSelect';
 import { useSession } from 'next-auth/react';
 import { createTag } from '@/lib/actions/tag-actions';
+import CodeExampleTabs from '../shared/CodeExampleTabs';
 
 // ----------------------------------------------------------------
 
@@ -62,7 +63,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
       learningResources: [],
     },
   });
-  const { handleSubmit, getValues, watch } = postForm;
+  const { handleSubmit, getValues, watch, formState } = postForm;
 
   const onSubmit = (data: IPostSchema) => {
     console.log('data on submit', data);
@@ -77,12 +78,15 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
     console.log('watch tags', watchTags);
   }, [watch]);
 
+  console.log('formStaet', formState);
+  console.log('formStaetErrors', formState.errors);
+
   return (
     <section className="mb-7.5">
       <h1 className="h1-bold my-[30px] lg:my-8">Create Post</h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
       <Form {...postForm}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-10">
           <div className="mb-7">
             <RHFInput
               name="title"
@@ -120,13 +124,15 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
               placeholder="Enter a short description"
             />
           </div>
-          {postType !== COMPONENT && (
-            <div className="mb-7">
+          <div className="mb-[70px]">
+            {postType !== COMPONENT ? (
               <Checklist postType={postType} />
-            </div>
-          )}
-          <div className="mb-7 bg-black-700">
-            <RHFTextEditor name="content" label="" />
+            ) : (
+              <CodeExampleTabs />
+            )}
+          </div>
+          <div className="mb-7">
+            <RHFTextEditor name="content" />
           </div>
           <div className="mb-16 gap-7">
             <LearningResources />
@@ -134,17 +140,6 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
           <Button type="submit">Create Post</Button>
         </form>
       </Form>
-
-      <button
-        onClick={() =>
-          createTag({
-            title: 'ESLint/Prettier',
-            ownerId: '66117e127ccf46145c5c05f2',
-          })
-        }
-      >
-        TAG ADD BUTTON
-      </button>
     </section>
   );
 };

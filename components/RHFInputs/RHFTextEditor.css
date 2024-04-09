@@ -10,7 +10,6 @@
 
 .tox:not(.tox-tinymce-inline)
   .tox-editor-header:not(.tox-editor-dock-transition) {
-  background-color: #2e3757;
   padding: 0;
 }
 

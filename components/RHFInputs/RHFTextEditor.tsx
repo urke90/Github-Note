@@ -28,35 +28,39 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
   const { control } = useFormContext();
 
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
-          <FormControl>
-            <Editor
-              onEditorChange={(_, editor) => {
-                const content = editor.getContent({ format: 'text' });
+    <>
+      <p className="mb-7 text-sm uppercase text-white-500">Content</p>
 
-                field.onChange(content);
-              }}
-              apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
-              init={{
-                height: 216,
-                menubar: false,
-                statusbar: false,
-                plugins: ['lists', 'link', 'image'],
-                toolbar: 'bold italic blockquote link image numlist bullist',
-                content_style: 'body { font-size:14px; color: #ADB3CC;  }',
-              }}
-            />
-          </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+      <FormField
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <FormItem>
+            {label && <FormLabel>{label}</FormLabel>}
+            <FormControl>
+              <Editor
+                onEditorChange={(_, editor) => {
+                  const content = editor.getContent({ format: 'text' });
+
+                  field.onChange(content);
+                }}
+                apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
+                init={{
+                  height: 216,
+                  menubar: false,
+                  statusbar: false,
+                  plugins: ['lists', 'link', 'image'],
+                  toolbar: 'bold italic blockquote link image numlist bullist',
+                  content_style: 'body { font-size:14px; color: #ADB3CC; }',
+                }}
+              />
+            </FormControl>
+            {description && <FormDescription>{description}</FormDescription>}
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
   );
 };
 
