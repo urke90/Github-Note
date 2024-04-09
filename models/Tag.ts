@@ -1,8 +1,8 @@
-import { Schema, model, models, Model } from 'mongoose';
+import { Schema, model, models, Model, Document } from 'mongoose';
 
 // ----------------------------------------------------------------
 
-interface ITag {
+export interface ITag extends Document {
   title: string;
   ownerId: Schema.Types.ObjectId;
 }

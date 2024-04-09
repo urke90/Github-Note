@@ -1,4 +1,4 @@
-import { Schema, model, models, Model } from 'mongoose';
+import { Schema, model, models, Model, Document } from 'mongoose';
 import { EPostType } from '@/types/post-types';
 
 /**
@@ -17,7 +17,7 @@ import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-interface IPost {
+interface IPost extends Document {
   title: string;
   type: EPostType;
   tags: Schema.Types.ObjectId[];

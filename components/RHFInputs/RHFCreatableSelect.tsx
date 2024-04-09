@@ -1,7 +1,6 @@
 // import Select from 'react-select';
-import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import makeAnimated from 'react-select/animated';
+// import makeAnimated from 'react-select/animated';
 import {
   FormField,
   FormItem,
@@ -16,12 +15,18 @@ import Image from 'next/image';
 
 // ----------------------------------------------------------------
 
+export interface ISelectOptions {
+  label: string;
+  value: string;
+}
+
 interface IRHFReactSelectProps {
   name: string;
   label?: string;
   description?: string;
   isMulti?: boolean;
   placeholder?: string;
+  options: ISelectOptions[];
 }
 
 const DropdownIndicator = () => {
@@ -35,13 +40,7 @@ const DropdownIndicator = () => {
   );
 };
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
-
-const animatedComponents = makeAnimated();
+// const animatedComponents = makeAnimated();
 
 const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
   name,
@@ -49,8 +48,9 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
   description,
   isMulti = true,
   placeholder,
+  options,
 }) => {
-  const { control, formState } = useFormContext();
+  const { control } = useFormContext();
 
   const blackPrimary = '#1D2032';
   const blackSecondary = '#2E3757';
@@ -58,8 +58,6 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
 
   // delimiter
   // inputValue
-
-  console.log('formState', formState.errors);
 
   return (
     <FormField
@@ -73,11 +71,8 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
               {...field}
               noOptionsMessage={() => 'No tags available!'}
               onChange={(newValue) => {
-                console.log('newValue', newValue);
-                // console.log('actionMeta', actionMeta);
                 field.onChange(newValue);
               }}
-              // {...field}
               styles={{
                 indicatorsContainer: (base) => ({
                   ...base,
