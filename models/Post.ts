@@ -1,4 +1,4 @@
-import { Schema, model, models, Model, Document } from 'mongoose';
+import { Schema, model, models, Model } from 'mongoose';
 import { EPostType } from '@/types/post-types';
 
 /**
@@ -17,7 +17,7 @@ import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-interface IPost extends Document {
+export interface IPost {
   title: string;
   type: EPostType;
   tags: Schema.Types.ObjectId[];
@@ -30,6 +30,10 @@ interface IPost extends Document {
     label: string;
     link: string;
   }[];
+}
+
+export interface IPostWithId extends IPost {
+  _id: string;
 }
 
 interface ILearningResourcesSchema {
@@ -60,9 +64,10 @@ const postSchema = new Schema<IPost>({
   learningResources: [learningResourcesSchema],
 });
 
-const Post: Model<IPost> = models?.Post || model<IPost>('Post', postSchema);
+const PostModel: Model<IPost> =
+  models?.Post || model<IPost>('Post', postSchema);
 
-export default Post;
+export default PostModel;
 
 /** ************************************************ THIS IS LEFT FOR REFERENCE */
 /**

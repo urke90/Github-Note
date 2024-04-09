@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,8 +20,7 @@ import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
 import RHFCreatableSelect, {
   ISelectOptions,
 } from '@/components/RHFInputs/RHFCreatableSelect';
-import { useSession } from 'next-auth/react';
-import { createTag } from '@/lib/actions/tag-actions';
+import { createNewPost } from '@/lib/actions/post-actions';
 import CodeExampleTabs from '../shared/CodeExampleTabs';
 
 // ----------------------------------------------------------------
@@ -31,24 +30,22 @@ import CodeExampleTabs from '../shared/CodeExampleTabs';
  * 2. create post action proverava tagove. AKo ne postoji kreira nov/e tagove , ako postoji onda ne mora 2 poziva
  *
  * 1.  Mora get poziv za tagove da se  populate dropdown ( Onda imam sve tagove ---> imaju objectIds )
- * 2.
+ * 2.PRISM JS ZA SYNTAX HIGHLIGHTING ili react syntax hightligter ==> ovo za code exmple
+ * 3. html-react-parser ===> koristimo za rich text editor
+ *  ------ videti tinymce code plugin
+ * 4.
  *
  *
- * 1. crate Post
+ * 1. Home page ( napraviti post card)
+ *  2. Post Details page
  */
 
 interface ICreatePostContainerProps {
-  userId: string;
   tags: ISelectOptions[];
 }
 
-const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
-  tags,
-  userId,
-}) => {
-  const { data: session } = useSession();
-
-  const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
+const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
+  const { COMPONENT } = EPostType;
 
   const postForm = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
@@ -63,23 +60,14 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({
       learningResources: [],
     },
   });
-  const { handleSubmit, getValues, watch, formState } = postForm;
+  const { handleSubmit, getValues, reset } = postForm;
 
   const onSubmit = (data: IPostSchema) => {
-    console.log('data on submit', data);
-    // TODO: user id dodajemo tek na submit jer default values u useForm se samo jednom triggeruje
-    data.ownerId = session?.user.id || '';
+    createNewPost(data);
+    reset();
   };
 
   const postType = getValues('type');
-
-  useEffect(() => {
-    const watchTags = watch('tags');
-    console.log('watch tags', watchTags);
-  }, [watch]);
-
-  console.log('formStaet', formState);
-  console.log('formStaetErrors', formState.errors);
 
   return (
     <section className="mb-7.5">

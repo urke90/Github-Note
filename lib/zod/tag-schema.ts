@@ -7,4 +7,4 @@ export const tagSchema = z.object({
   ownerId: z.string(),
 });
 
-export type ITag = z.infer<typeof tagSchema>;
+export type ITagSchema = z.infer<typeof tagSchema>;

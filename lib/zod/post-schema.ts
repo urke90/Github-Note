@@ -15,10 +15,6 @@ const learningResourcesSchema = z.object({
 
 export type ILearningResources = z.infer<typeof learningResourcesSchema>;
 
-/**
- * tag treba da bude array object { label: string, value: string}
- */
-
 const tagSchema = z.object({
   label: z.string(),
   value: z.string(),
@@ -32,7 +28,6 @@ export const postSchema = z.object({
     .string()
     .trim()
     .min(3, 'Please enter the description of the post'),
-  ownerId: z.string().optional(),
   checklist: z.array(z.string()).optional(),
   codeExample: z
     .string()

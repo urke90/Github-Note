@@ -6,9 +6,7 @@ import { useFieldArray } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 
-interface ILearningResourcesProps {}
-
-const LearningResources: React.FC<ILearningResourcesProps> = (props) => {
+const LearningResources: React.FC = () => {
   const { fields, append, remove } = useFieldArray({
     name: 'learningResources',
   });
