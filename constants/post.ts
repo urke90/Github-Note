@@ -5,7 +5,7 @@ const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
 /**
  * Used to create options in the select(dropdown) for type of the post user is creating. Values: 'COMPONENT' | 'KNOWLEDGDE' | 'WORKFLOW'
  */
-export const POST_TYPE = [
+export const POST_TYPES = [
   {
     value: COMPONENT,
     imgUrl: '/assets/icons/icn-computer.svg',
@@ -19,6 +19,6 @@ export const POST_TYPE = [
   {
     value: WORKFLOW,
     imgUrl: '/assets/icons/icn-list-number.svg',
-    label: 'Workflow',
+    label: 'WorkFlow',
   },
 ];

@@ -29,11 +29,7 @@ export const postSchema = z.object({
     .trim()
     .min(3, 'Please enter the description of the post'),
   checklist: z.array(z.string()).optional(),
-  codeExample: z
-    .string()
-    .trim()
-    .min(3, 'Code example must be at least 3 characters long')
-    .optional(),
+  codeExample: z.string().trim().optional(),
   content: z
     .string()
     .trim()

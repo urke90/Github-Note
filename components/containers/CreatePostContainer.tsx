@@ -13,7 +13,7 @@ import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
 import Checklist from '@/components/shared/Checklist';
 import { SelectSeparator } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { POST_TYPE } from '@/constants/post';
+import { POST_TYPES } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
 import LearningResources from '@/components/shared/LearningResources';
 import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
@@ -22,6 +22,8 @@ import RHFCreatableSelect, {
 } from '@/components/RHFInputs/RHFCreatableSelect';
 import { createNewPost } from '@/lib/actions/post-actions';
 import CodeExampleTabs from '../shared/CodeExampleTabs';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 // ----------------------------------------------------------------
 
@@ -45,6 +47,7 @@ interface ICreatePostContainerProps {
 }
 
 const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
+  const router = useRouter();
   const { COMPONENT } = EPostType;
 
   const postForm = useForm<IPostSchema>({
@@ -60,10 +63,19 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
       learningResources: [],
     },
   });
-  const { handleSubmit, getValues, reset } = postForm;
+  const { handleSubmit, getValues, reset, formState } = postForm;
 
-  const onSubmit = (data: IPostSchema) => {
-    createNewPost(data);
+  const onSubmit = async (data: IPostSchema) => {
+    try {
+      const response = await createNewPost(data);
+      console.log('response', response);
+      if (response?.ok === true && response?.code === 201) {
+        router.push(response.redirectRoute);
+        toast.success('Created Post successfully!');
+      }
+    } catch (error) {
+      console.log('Error creating new post', error);
+    }
     reset();
   };
 
@@ -84,7 +96,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
           </div>
           <div className="mb-7">
             <RHFSelect name="type" label="Create Type">
-              {POST_TYPE.map(({ imgUrl, label, value }, index) => (
+              {POST_TYPES.map(({ imgUrl, label, value }, index) => (
                 <Fragment key={value}>
                   <SelectOptionWithIcon
                     key={value}
@@ -92,7 +104,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
                     imgUrl={imgUrl}
                     label={label}
                   />
-                  {index !== POST_TYPE.length - 1 && <SelectSeparator />}
+                  {index !== POST_TYPES.length - 1 && <SelectSeparator />}
                 </Fragment>
               ))}
             </RHFSelect>

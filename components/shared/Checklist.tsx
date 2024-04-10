@@ -29,6 +29,9 @@ const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
       ? 'Start adding what you have learned...'
       : 'Add steps to follow...';
 
+  const placeholderMessage =
+    postType === KNOWLEDGDE ? 'Enter what you learned' : 'Enter new step';
+
   return (
     <div>
       <p className="mb-2 text-sm">
@@ -40,7 +43,7 @@ const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
             return (
               <li
                 key={field.id}
-                className="flex-between my-1 rounded bg-black-700 px-3 "
+                className="flex-between my-1 rounded bg-black-700 px-3"
               >
                 <div className="flex flex-1 items-center">
                   <Image
@@ -52,7 +55,7 @@ const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
                   />
                   <RHFInput
                     name={`checklist.${index}`}
-                    placeholder="Enter your expertise level"
+                    placeholder={placeholderMessage}
                     className="pl-0"
                   />
                 </div>
