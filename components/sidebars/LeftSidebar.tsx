@@ -6,7 +6,7 @@ import QuickLinks from '../navigation/QuickLinks';
 
 const LeftSidebar = () => {
   return (
-    <aside className="flex h-screen w-full max-w-[290px] flex-col border-r-[1.5px] border-r-[#4448691A] bg-black-800 px-7 max-md:hidden">
+    <aside className="flex min-h-screen w-full max-w-[290px] flex-col border-r-[1.5px] border-r-[#4448691A] bg-black-800 px-7 max-md:hidden">
       <Image
         src="/assets/images/Logo.svg"
         alt="Github Note"

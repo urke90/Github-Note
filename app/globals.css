@@ -98,6 +98,9 @@
 
 @layer base {
   body {
+    height: 100%;
+    min-height: 100vh;
+
     @apply bg-black-900 text-white-300;
   }
 

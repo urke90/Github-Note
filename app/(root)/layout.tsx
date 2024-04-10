@@ -10,7 +10,7 @@ const Layout = async ({
   children: React.ReactNode;
 }>) => {
   return (
-    <section className="flex h-screen">
+    <section className="mx-auto flex h-full max-w-[1440px] justify-center">
       <LeftSidebar />
       <main className="flex flex-1 flex-col px-5">
         <div className="md:hidden">

@@ -17,7 +17,7 @@ import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-export interface IPost {
+export interface IPostModel {
   title: string;
   type: EPostType;
   tags: Schema.Types.ObjectId[];
@@ -32,7 +32,7 @@ export interface IPost {
   }[];
 }
 
-export interface IPostWithId extends IPost {
+export interface IPostWithId extends IPostModel {
   _id: string;
 }
 
@@ -48,7 +48,7 @@ const learningResourcesSchema = new Schema<ILearningResourcesSchema>({
 
 const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
 
-const postSchema = new Schema<IPost>({
+const postSchema = new Schema<IPostModel>({
   title: { type: String, required: true },
   type: {
     type: String,
@@ -64,8 +64,8 @@ const postSchema = new Schema<IPost>({
   learningResources: [learningResourcesSchema],
 });
 
-const PostModel: Model<IPost> =
-  models?.Post || model<IPost>('Post', postSchema);
+const PostModel: Model<IPostModel> =
+  models?.Post || model<IPostModel>('Post', postSchema);
 
 export default PostModel;
 

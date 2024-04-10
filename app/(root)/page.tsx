@@ -4,6 +4,7 @@ import PostItemBadge from '@/components/post/PostItemBadge';
 import PostItem from '@/components/post/PostItem';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
+import type { IPost } from '@/types/Post';
 
 // ----------------------------------------------------------------
 
@@ -13,11 +14,12 @@ import { getAllPosts } from '@/lib/actions/post-actions';
 
 const Home: React.FC = async () => {
   const session = await auth();
+
   if (!session) return null;
 
-  const posts = await getAllPosts();
+  const posts: IPost[] = await getAllPosts();
 
-  // console.log('posts u Home pageu', posts);
+  console.log('posts u Home page-u', posts);
   // const tags = await getAllTags();
 
   return (
@@ -37,13 +39,27 @@ const Home: React.FC = async () => {
       <div className="flex-between mb-5">
         <h2 className="h2-bold">Recent Posts</h2>
         <div className="flex gap-3.5 ">
-          {POST_TYPES.map(({ value, imgUrl, label }) => (
+          {POST_TYPES.map(({ value }) => (
             <PostItemBadge key={value} postType={value} />
           ))}
         </div>
       </div>
-      <ul>
-        <PostItem />
+      <ul className="flex flex-col gap-5">
+        {posts.length > 0 ? (
+          posts.map(({ _id, title, tags, type }) => (
+            <PostItem
+              key={_id}
+              title={title}
+              postType={type}
+              postId={_id}
+              tags={tags}
+            />
+          ))
+        ) : (
+          <h2 className="h2-bold text-center">
+            There are no posts to display!
+          </h2>
+        )}
       </ul>
     </section>
   );

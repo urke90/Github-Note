@@ -58,8 +58,9 @@ export const getAllPosts = async () => {
     if (!session) throw new Error('User from session is not available!');
     await connectToMongoDB();
 
-    const posts = await PostModel.find({ ownerId: session.user.id });
-    console.log('posts u getAllPosts');
+    const posts = await PostModel.find({ ownerId: session.user.id })
+      .populate('tags')
+      .lean();
 
     return JSON.parse(JSON.stringify(posts));
   } catch (error) {

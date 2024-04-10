@@ -2,20 +2,21 @@ import { Schema, model, models, Model } from 'mongoose';
 
 // ----------------------------------------------------------------
 
-export interface ITag {
+export interface IModelTag {
   title: string;
   ownerId: Schema.Types.ObjectId;
 }
 
-export interface ITagWithId extends ITag {
+export interface ITagWithId extends IModelTag {
   _id: string;
 }
 
-const tagSchema = new Schema<ITag>({
+const tagSchema = new Schema<IModelTag>({
   title: { type: String, required: true },
   ownerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
-const TagModel: Model<ITag> = models?.Tag || model<ITag>('Tag', tagSchema);
+const TagModel: Model<IModelTag> =
+  models?.Tag || model<IModelTag>('Tag', tagSchema);
 
 export default TagModel;

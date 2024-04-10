@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 const NavProfileInfo: React.FC = async () => {
   const session = await auth();
+  // console.log('session', session);
 
   return (
     <section className="flex">

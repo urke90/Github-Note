@@ -1,21 +1,22 @@
 import Image from 'next/image';
-import type { TPostType } from '@/types/Posts';
+import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
 interface INavPostItemProps {
-  type: TPostType;
+  type: EPostType;
   postText: string;
 }
 
 const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
-  const getImageSrc = (postType: TPostType) => {
+  const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
+  const getImageSrc = (postType: EPostType) => {
     switch (postType) {
-      case 'component':
+      case COMPONENT:
         return '/assets/images/icn-computer.svg';
-      case 'knowledge':
+      case KNOWLEDGDE:
         return '/assets/images/icn-message-circle.svg';
-      case 'workflow':
+      case WORKFLOW:
         return '/assets/images/icn-list-number.svg';
       default:
         return '/assets/images/icn-computer.svg';

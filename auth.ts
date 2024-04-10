@@ -25,6 +25,7 @@ export const {
           fullName: user.name ?? '',
           email: user.email,
           password: '',
+          avatarImg: user.image ?? '',
         });
 
         return true;
