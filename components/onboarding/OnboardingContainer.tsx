@@ -113,7 +113,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   };
 
   return (
-    <section className="h-screen px-5">
+    <section className=" px-5">
       <div className="m-auto max-w-[600px]">
         <Image
           src="/assets/images/Logo.svg"
