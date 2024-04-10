@@ -4,9 +4,19 @@ import { inter } from './ui/fonts';
 import SessionProvider from '@/components/auth/SessionProvider';
 import { ToastContainer } from 'react-toastify';
 
+import { auth } from '@/auth';
+
 import './globals.css';
 
 // ----------------------------------------------------------------
+
+/**
+ * 1. prvo zavrsiti header(mobile) sa sidebar-om  -> 1 bracnh
+ * 2. iz te ggrane krenuti Post model u bazi, tag model u bazi, spojiti sa userom, actione za create post, fetch post, action za filtriranje postova, filtriranje po tagovima (desno sidebar), (worlklow, knowdledgde, component) => mora imati pginaciju u server actionu () (NOV BRANCH)
+ * 3. HOME page (vidcemo)
+ * 4. https://nextjs.org/docs/app/building-your-application/caching
+ * 5. https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+ */
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,11 +28,13 @@ const RootLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const session = await auth();
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SessionProvider>
-          <main className="h-screen">{children}</main>
+      <body className={`${inter.className} antialiased`}>
+        <SessionProvider session={session}>
+          {children}
           <ToastContainer closeOnClick newestOnTop />
         </SessionProvider>
       </body>

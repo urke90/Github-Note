@@ -19,14 +19,9 @@ const config = {
     },
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
         // custom
         primary: {
-          gredient: 'var(--primary-gredient)',
+          // gradient: 'var(--primary-gradient)',
           500: 'var(--primary-500)',
           800: 'var(--primary-800)',
           900: 'var(--primary-900)',

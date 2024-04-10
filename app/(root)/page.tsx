@@ -17,11 +17,11 @@ const Home: React.FC = async () => {
 
   const posts = await getAllPosts();
 
-  console.log('posts u Home pageu', posts);
+  // console.log('posts u Home pageu', posts);
   // const tags = await getAllTags();
 
   return (
-    <section className="px-5">
+    <section>
       <h1 className="h1-bold mb-2.5 mt-10">Hello {session.user.name},</h1>
       <p className="p1-regular mb-6.5">
         Time to jot down your latest learnings today!

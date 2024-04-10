@@ -31,7 +31,8 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
   const [uploadedImage, setUploadedImage] = useState('');
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
-    if (result.info instanceof String) throw new Error('Image not uploaded');
+    if (!result?.info || typeof result?.info === 'string')
+      throw new Error('Image not uploaded');
     setUploadedImage(result.info.secure_url);
     setValue(
       'avatarImg',
@@ -75,7 +76,7 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
             className="mr-3.5 rounded-[5px]"
           />
         </div>
-        {/* <CldImage src={uploadedImage} alt="ja" width="90" height="90" /> */}
+
         <Label className="flex-center w-[200px] cursor-pointer gap-2 rounded-md bg-black-700 p-2">
           <CldUploadButton
             className="flex items-center gap-2"
