@@ -82,8 +82,8 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
   const postType = getValues('type');
 
   return (
-    <section className="mb-7.5">
-      <h1 className="h1-bold my-[30px] lg:my-8">Create Post</h1>
+    <section className="px-[30px]">
+      <h1 className="h1-bold mb-[30px]  lg:mb-8">Create Post</h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
       <Form {...postForm}>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-10">

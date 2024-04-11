@@ -67,3 +67,16 @@ export const getAllPosts = async () => {
     console.log('Error fetching posts!', error);
   }
 };
+
+export const getPostById = async (postId: string) => {
+  try {
+    await connectToMongoDB();
+
+    const post = await PostModel.findById(postId).populate('tags').lean();
+    console.log(' postbyId post', post);
+
+    return JSON.parse(JSON.stringify(post));
+  } catch (error) {
+    console.log('Error fetching post with specific ID', error);
+  }
+};
