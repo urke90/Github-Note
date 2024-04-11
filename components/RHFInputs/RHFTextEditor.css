@@ -28,3 +28,72 @@
 .tox .tox-sidebar-wrap .tox-edit-area::before {
   border: none;
 }
+
+.tox .tox-form .tox-dialog__iframe.tox-dialog__iframe--opaque {
+  background-color: #1d2032;
+}
+
+.tox .tox-dialog__footer-end button[data-mce-name='Close'] {
+  background-color: #42bbff;
+  color: #10121e;
+}
+
+/* DIALOG */
+.tox .tox-dialog-wrap .tox-dialog-wrap__backdrop {
+  background-color: rgba(16, 18, 30, 0.9);
+}
+/* HEADER */
+
+.tox .tox-dialog .tox-dialog__header {
+  background-color: #2e3757;
+  color: #adb3cc;
+}
+.tox .tox-dialog__header .tox-button {
+  color: #adb3cc;
+}
+/* HEADER */
+
+/* BODY */
+.tox .tox-dialog__body {
+  background-color: #1d2032;
+}
+
+.tox .tox-form__group .tox-textarea-wrap {
+  border: none;
+  background-color: #1d2032;
+}
+
+.tox .tox-form__group .tox-textarea-wrap .tox-textarea {
+  border: none;
+  background-color: #1d2032;
+  color: #adb3cc;
+}
+
+.tox .tox-form__group .tox-textarea-wrap .tox-textarea:focus {
+  border: none;
+  background-color: #1d2032;
+  color: #adb3cc;
+}
+.tox .tox-form__group .tox-textarea-wrap:focus-within {
+  border: none;
+  background-color: #1d2032;
+  box-shadow: none;
+}
+/* BODY */
+
+/* FOOTER */
+.tox .tox-dialog .tox-dialog__footer {
+  background-color: #2e3757;
+}
+
+.tox .tox-dialog .tox-dialog__footer button[data-mce-name='Cancel'] {
+  background-color: #2e3757;
+  color: #adb3cc;
+}
+.tox .tox-dialog .tox-dialog__footer button[data-mce-name='Save'] {
+  background-color: #42bbff;
+  border-color: #42bbff;
+  color: #10121e;
+  outline: none;
+}
+/* FOOTER */

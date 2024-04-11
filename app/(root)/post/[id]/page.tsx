@@ -69,6 +69,7 @@ const PostDetails: React.FC<IPostDetails> = async ({ params }) => {
           ))}
         </ul>
       </div>
+      <div></div>
     </section>
   );
 };

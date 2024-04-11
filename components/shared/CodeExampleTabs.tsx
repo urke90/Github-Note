@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RHFTextarea from '../RHFInputs/RHFTextarea';
+import RHFCodeExample from '../RHFInputs/RHFCodeExample';
 
 type Props = {};
 
@@ -28,10 +29,11 @@ const CodeExampleTabs = (props: Props) => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="code">
-        <RHFTextarea name="codeExample" className="min-h-[200px]" />
+        {/* <RHFTextarea name="codeExample" className="min-h-[200px]" /> */}
+        <RHFCodeExample name="codeExample" />
       </TabsContent>
       <TabsContent value="preview">
-        ADD PREVIEW FOR PASTER CODE EXAMPLE HERE
+        <RHFCodeExample name="codeExample" isEdit={false} />
       </TabsContent>
     </Tabs>
   );
