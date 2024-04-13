@@ -23,6 +23,7 @@ interface IPostDetailsProps {
 
 const parserOptions: HTMLReactParserOptions = {
   replace: (domNode) => {
+    // if user adds code to the Rich Text Editor, format it with SyntaxHighlighter
     if (domNode instanceof Element && domNode.name === 'pre') {
       const codeTag = domNode.children.find(
         (node) => node instanceof Element && node.name === 'code'
@@ -39,6 +40,14 @@ const parserOptions: HTMLReactParserOptions = {
 
         return <SyntaxHighlightAndCopy code={codeData} />;
       }
+    }
+
+    // This will add blue text color and text-underline to the 'a' tag
+    // TODO: Check this with Mateo, since i am working with links which might be bolded/italic...etc
+    if (domNode instanceof Element && domNode.name === 'a') {
+      console.log('domNodeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', domNode);
+      domNode.attribs.class = 'text-primary-500 underline';
+      return domNode;
     }
   },
 };
