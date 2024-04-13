@@ -80,3 +80,14 @@ export const getPostById = async (postId: string) => {
     console.log('Error fetching post with specific ID', error);
   }
 };
+
+export const deletePost = async (postId: string) => {
+  try {
+    await connectToMongoDB();
+    await PostModel.findByIdAndDelete(postId);
+
+    return { ok: true, code: 200 };
+  } catch (error) {
+    console.log('Error deleting post!', error);
+  }
+};

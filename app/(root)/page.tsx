@@ -19,9 +19,6 @@ const Home: React.FC = async () => {
 
   const posts: IPost[] = await getAllPosts();
 
-  console.log('posts u Home page-u', posts);
-  // const tags = await getAllTags();
-
   return (
     <section className="px-[30px]">
       <h1 className="h1-bold mb-2.5 mt-10">Hello {session.user.name},</h1>

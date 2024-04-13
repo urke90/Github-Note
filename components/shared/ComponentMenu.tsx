@@ -1,18 +1,24 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Image from 'next/image';
 
 // ----------------------------------------------------------------
 
-interface IMenuProps {}
+interface IComponentMenuProps {
+  postId: string;
+  onDeletePost: () => void;
+}
 
-const ComponentMenu: React.FC = (props) => {
+const ComponentMenu: React.FC<IComponentMenuProps> = ({
+  postId,
+  onDeletePost,
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -24,23 +30,29 @@ const ComponentMenu: React.FC = (props) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem className="gap-2">
-          <Image
-            src="/assets/icons/icn-edit.svg"
-            alt="Menu"
-            width={14}
-            height={14}
-          />
-          <span className="text-sm text-white-100">Upadete Post</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2">
+        <Link href={`/post/${postId}/edit`}>
+          <DropdownMenuItem className="gap-2">
+            <Image
+              src="/assets/icons/icn-edit.svg"
+              alt="Menu"
+              width={14}
+              height={14}
+            />
+            <DropdownMenuLabel className="text-sm text-white-100">
+              Upadete Post
+            </DropdownMenuLabel>
+          </DropdownMenuItem>
+        </Link>
+        <DropdownMenuItem className="gap-2" onClick={onDeletePost}>
           <Image
             src="/assets/icons/icn-trash.svg"
             alt="Menu"
             width={14}
             height={14}
           />
-          <span className="text-sm text-white-100">Delete Post</span>
+          <DropdownMenuLabel className="text-sm text-white-100">
+            Delete Post
+          </DropdownMenuLabel>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
