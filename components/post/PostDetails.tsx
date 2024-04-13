@@ -6,13 +6,11 @@ import parse, {
   Element,
   Text,
 } from 'html-react-parser';
-import { Button } from '../ui/button';
 import TagItem from '../tag/TagItem';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import ComponentMenu from '../shared/ComponentMenu';
 import PostItemBadge from './PostItemBadge';
-import { IPost } from '@/types/Post';
+import SyntaxHighlightAndCopy from '../shared/SyntaxHighlightAndCopy';
+import type { IPost } from '@/types/Post';
 
 interface IPostDetailsProps {
   post: IPost;
@@ -21,14 +19,6 @@ interface IPostDetailsProps {
 const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   const { title, type, description, tags, codeExample, content, checklist } =
     post;
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (error) {
-      console.log('Copy to clipboard failed!', error);
-    }
-  };
 
   const parserOptions: HTMLReactParserOptions = {
     replace: (domNode) => {
@@ -46,28 +36,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
 
           if (!codeData) return domNode;
 
-          return (
-            <div className="relative">
-              <Button
-                onClick={() => copyToClipboard(codeData)}
-                className="absolute right-5 top-5 size-[16px] bg-transparent p-0"
-              >
-                <Image
-                  src="/assets/icons/icn-copy.svg"
-                  width={16}
-                  height={16}
-                  alt="Copy"
-                />
-              </Button>
-              <SyntaxHighlighter
-                customStyle={{ backgroundColor: '#131625' }}
-                language="typescript"
-                style={monokai}
-              >
-                {codeData}
-              </SyntaxHighlighter>
-            </div>
-          );
+          return <SyntaxHighlightAndCopy code={codeData} />;
         }
       }
     },
@@ -103,16 +72,9 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
       </div>
       <div className="flex flex-1 flex-col p-[30px]">
         {type === 'COMPONENT' && !!codeExample && (
-          <SyntaxHighlighter
-            customStyle={{ backgroundColor: '#131625' }}
-            language="typescript"
-            style={monokai}
-          >
-            {codeExample}
-          </SyntaxHighlighter>
+          <SyntaxHighlightAndCopy code={codeExample} />
         )}
       </div>
-
       <div>
         {content && (
           <div className="bg-black prose prose-invert p-[30px]">
