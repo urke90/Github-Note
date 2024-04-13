@@ -14,6 +14,7 @@ import ChecklistItem from '../shared/ChecklistItem';
 import LearningResourceItem from '../shared/LearningResourceItem';
 import type { IPost } from '@/types/Post';
 import { EPostType } from '@/types/post-types';
+import { format } from 'date-fns';
 
 // ----------------------------------------------------------------
 
@@ -63,6 +64,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
     content,
     checklist,
     learningResources,
+    createdAt,
   } = post;
 
   const checklistTitle =
@@ -87,7 +89,9 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
               height={14}
               alt="calender"
             />
-            <span className="p3-regular">14 Feb 2024</span>
+            <span className="p3-regular">
+              {format(createdAt, 'dd MMM yyyy')}
+            </span>
           </div>
         </div>
         <ul className="flex gap-3">
