@@ -63,7 +63,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
       learningResources: [],
     },
   });
-  const { handleSubmit, getValues, reset, formState } = postForm;
+  const { handleSubmit, getValues, reset } = postForm;
 
   const onSubmit = async (data: IPostSchema) => {
     try {
@@ -82,7 +82,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
   const postType = getValues('type');
 
   return (
-    <section className="px-[30px]">
+    <section className="mt-[30px] px-[30px]">
       <h1 className="h1-bold mb-[30px]  lg:mb-8">Create Post</h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
       <Form {...postForm}>

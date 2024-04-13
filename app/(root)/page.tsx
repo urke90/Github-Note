@@ -23,7 +23,7 @@ const Home: React.FC = async () => {
   // const tags = await getAllTags();
 
   return (
-    <section>
+    <section className="px-[30px]">
       <h1 className="h1-bold mb-2.5 mt-10">Hello {session.user.name},</h1>
       <p className="p1-regular mb-6.5">
         Time to jot down your latest learnings today!

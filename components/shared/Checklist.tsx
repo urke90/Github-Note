@@ -38,7 +38,7 @@ const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
         {postType === KNOWLEDGDE ? 'What you learned' : 'Steps to follow'}
       </p>
       <ul className="mb-3.5">
-        {fields.length > 0 ? (
+        {fields.length ? (
           fields.map((field, index) => {
             return (
               <li

@@ -73,7 +73,7 @@ export const getPostById = async (postId: string) => {
     await connectToMongoDB();
 
     const post = await PostModel.findById(postId).populate('tags').lean();
-    console.log(' postbyId post', post);
+    // console.log(' getPostById post', post);
 
     return JSON.parse(JSON.stringify(post));
   } catch (error) {

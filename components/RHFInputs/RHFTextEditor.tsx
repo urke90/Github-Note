@@ -38,17 +38,15 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
             {label && <FormLabel>{label}</FormLabel>}
             <FormControl>
               <Editor
-                // onEditorChange={(value, editor) => {
-                //   field.onChange(value);
-                // }}
                 onEditorChange={field.onChange}
                 apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
                 init={{
                   height: 216,
                   menubar: false,
                   statusbar: false,
-                  plugins: ['lists', 'link', 'image'],
-                  toolbar: 'bold italic blockquote link image numlist bullist',
+                  plugins: ['lists', 'link', 'image', 'codesample'],
+                  toolbar:
+                    'bold italic blockquote link image numlist bullist codesample',
                   content_style: 'body { font-size:14px; color: #ADB3CC; }',
                 }}
               />

@@ -12,7 +12,7 @@ const Layout = async ({
   return (
     <section className="mx-auto flex h-full max-w-[1440px] justify-center">
       <LeftSidebar />
-      <main className="flex flex-1 flex-col pt-10">
+      <main className="flex flex-1 flex-col">
         <div className="mb-[30px] md:hidden">
           <MobileNav />
         </div>

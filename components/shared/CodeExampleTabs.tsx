@@ -1,11 +1,18 @@
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RHFTextarea from '../RHFInputs/RHFTextarea';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RHFCodeExample from '../RHFInputs/RHFCodeExample';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {};
 
 const CodeExampleTabs = (props: Props) => {
+  const { getValues, trigger } = useFormContext();
+
+  const code = getValues('codeExample');
+
   return (
     <Tabs defaultValue="code">
       <TabsList>
@@ -18,7 +25,11 @@ const CodeExampleTabs = (props: Props) => {
           />
           Code
         </TabsTrigger>
-        <TabsTrigger value="preview" className="gap-2">
+        <TabsTrigger
+          value="preview"
+          className="gap-2"
+          onClick={() => trigger('codeExample')}
+        >
           <Image
             src="/assets/icons/icn-eye.svg"
             alt="Eye"
@@ -30,10 +41,12 @@ const CodeExampleTabs = (props: Props) => {
       </TabsList>
       <TabsContent value="code">
         {/* <RHFTextarea name="codeExample" className="min-h-[200px]" /> */}
-        <RHFCodeExample name="codeExample" />
+        <RHFTextarea name="codeExample" />
       </TabsContent>
       <TabsContent value="preview">
-        <RHFCodeExample name="codeExample" isEdit={false} />
+        <SyntaxHighlighter language="javascript" style={monokai}>
+          {code}
+        </SyntaxHighlighter>
       </TabsContent>
     </Tabs>
   );

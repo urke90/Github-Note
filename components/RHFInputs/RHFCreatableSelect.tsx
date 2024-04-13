@@ -109,8 +109,10 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
                     outline: 'none',
                   },
                 }),
-                menuList: () => ({
+                menu: (base) => ({
+                  ...base,
                   backgroundColor: blackPrimary,
+                  marginTop: 4,
                 }),
                 option: (base, { data, options }) => {
                   const isLastOption = data === options[options.length - 1];
