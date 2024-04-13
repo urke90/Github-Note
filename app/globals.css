@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'react-toastify/dist/ReactToastify.css';
-
 @layer base {
   :root {
     /* PRIMARY */
@@ -36,6 +34,12 @@
     --green-500: #42ff77;
     --green-900: #42ff771a;
     /* GREEN */
+
+    /* RED */
+    --red-text-error: #e79f9f;
+    --red-bg-error: #ff4c3f26;
+
+    /* RED */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;

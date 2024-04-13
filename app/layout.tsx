@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 // fonts
 import { inter } from './ui/fonts';
 import SessionProvider from '@/components/auth/SessionProvider';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from '@/components/ui/toaster';
 
 import { auth } from '@/auth';
 
@@ -25,7 +25,7 @@ const RootLayout = async ({
       <body className={`${inter.className} antialiased`}>
         <SessionProvider>
           {children}
-          <ToastContainer closeOnClick newestOnTop />
+          <Toaster />
         </SessionProvider>
       </body>
     </html>

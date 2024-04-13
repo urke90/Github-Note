@@ -46,6 +46,10 @@ const config = {
           500: 'var(--green-500)',
           900: 'var(--green-900)',
         },
+        red: {
+          text: 'var(--red-text-error)',
+          bg: 'var(--red-bg-error)',
+        },
       },
 
       boxShadow: {

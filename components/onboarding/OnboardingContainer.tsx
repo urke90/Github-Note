@@ -21,7 +21,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { useToast } from '../ui/use-toast';
 
 // ----------------------------------------------------------------
 
@@ -53,6 +53,7 @@ interface IOnboardingContainer {
 }
 
 const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
+  const { toast } = useToast();
   const {
     fullName,
     portfolioUrl,
@@ -104,7 +105,10 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
       if (!_id) return;
       const response = await updateUser(_id, data);
       if (response?.ok && response?.status === 200) {
-        toast.success('Onboarding finished successfully!');
+        toast({
+          variant: 'success',
+          title: 'Onboarding finished successfully!',
+        });
         router.push('/');
       }
     } catch (error) {

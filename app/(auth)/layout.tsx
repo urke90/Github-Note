@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 // fonts
-import { inter } from '../ui/fonts';
-import SessionProvider from '@/components/auth/SessionProvider';
-import { ToastContainer } from 'react-toastify';
-import MobileNav from '@/components/navigation/MobileNav';
-
-import { auth } from '@/auth';
 
 import '../globals.css';
 

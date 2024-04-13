@@ -41,7 +41,7 @@ export const createNewUser = async ({
   fullName: string;
   email: string;
   password: string;
-  avatarImg: string;
+  avatarImg?: string;
 }) => {
   try {
     await connectToMongoDB();

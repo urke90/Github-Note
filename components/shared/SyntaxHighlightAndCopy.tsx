@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '../ui/button';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { Button } from '../ui/button';
 import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { useToast } from '../ui/use-toast';
 
 // ----------------------------------------------------------------
 
@@ -14,11 +15,22 @@ interface ISyntaxHighlightAndCopyProps {
 const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
   code,
 }) => {
+  const { toast } = useToast();
+
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
+      toast({
+        title: 'Copied to clipboard',
+        description: 'dasdas',
+        variant: 'success',
+      });
     } catch (error) {
       console.log('Copy to clipboard failed!', error);
+      toast({
+        title: 'Failed to copy to clipboard',
+        variant: 'destructive',
+      });
     }
   };
 

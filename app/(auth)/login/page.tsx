@@ -10,11 +10,12 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 import { loginFormSchema, type ILoginFormData } from '@/lib/zod/user-schema';
-import { toast } from 'react-toastify';
+import { useToast } from '@/components/ui/use-toast';
 
 // ----------------------------------------------------------------
 
 const Login = () => {
+  const { toast } = useToast();
   const loginForm = useForm<ILoginFormData>({
     mode: 'onChange',
     resolver: zodResolver(loginFormSchema),
@@ -35,12 +36,13 @@ const Login = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast.error('Invalid email or password!', {
-          // bodyClassName: 'bg-red-500',
+        toast({
+          variant: 'destructive',
+          title: 'Invalid email or password!',
         });
-      }
 
-      console.log('Error LOGIN PAGE', error);
+        console.log('Error LOGIN PAGE', error);
+      }
     }
   };
 

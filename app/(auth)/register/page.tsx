@@ -11,13 +11,14 @@ import { createNewUser } from '@/lib/actions/user-actions';
 import { signUpFormSchema, type ISignUpFormData } from '@/lib/zod/user-schema';
 import Image from 'next/image';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { useToast } from '@/components/ui/use-toast';
 // models
 import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 
 // ----------------------------------------------------------------
 
 const Register = () => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const registerForm = useForm<ISignUpFormData>({
@@ -35,7 +36,11 @@ const Register = () => {
       const result = await createNewUser(data);
       console.log('result', result);
       if (!result.ok) {
-        if (result.status === 409) return toast.error('Email already exists!');
+        if (result.status === 409)
+          return toast({
+            variant: 'destructive',
+            title: 'Email already exists!',
+          });
       }
 
       await signIn('credentials', {

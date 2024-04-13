@@ -23,7 +23,7 @@ import RHFCreatableSelect, {
 import { createNewPost } from '@/lib/actions/post-actions';
 import CodeExampleTabs from '../shared/CodeExampleTabs';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { useToast } from '../ui/use-toast';
 
 // ----------------------------------------------------------------
 
@@ -47,6 +47,7 @@ interface ICreatePostContainerProps {
 }
 
 const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
+  const { toast } = useToast();
   const router = useRouter();
   const { COMPONENT } = EPostType;
 
@@ -71,7 +72,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
       console.log('response', response);
       if (response?.ok === true && response?.code === 201) {
         router.push(response.redirectRoute);
-        toast.success('Created Post successfully!');
+        toast({ variant: 'success', title: 'Created Post successfully!' });
       }
     } catch (error) {
       console.log('Error creating new post', error);
