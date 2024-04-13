@@ -48,21 +48,24 @@ const learningResourcesSchema = new Schema<ILearningResourcesSchema>({
 
 const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
 
-const postSchema = new Schema<IPostModel>({
-  title: { type: String, required: true },
-  type: {
-    type: String,
-    enum: [COMPONENT, KNOWLEDGDE, WORKFLOW],
-    required: true,
+const postSchema = new Schema<IPostModel>(
+  {
+    title: { type: String, required: true },
+    type: {
+      type: String,
+      enum: [COMPONENT, KNOWLEDGDE, WORKFLOW],
+      required: true,
+    },
+    description: { type: String, required: true },
+    tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+    ownerId: { type: Schema.Types.ObjectId, required: true },
+    checklist: [String],
+    codeExample: String,
+    content: String,
+    learningResources: [learningResourcesSchema],
   },
-  description: { type: String, required: true },
-  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-  ownerId: { type: Schema.Types.ObjectId, required: true },
-  checklist: [String],
-  codeExample: String,
-  content: String,
-  learningResources: [learningResourcesSchema],
-});
+  { timestamps: true }
+);
 
 const PostModel: Model<IPostModel> =
   models?.Post || model<IPostModel>('Post', postSchema);

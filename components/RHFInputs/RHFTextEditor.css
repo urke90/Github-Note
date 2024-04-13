@@ -22,6 +22,10 @@
   border: none;
 }
 
+.tox .tox-form__group .tox-label {
+  color: #adb3cc;
+}
+
 .tox .tox-toolbar__group .tox-tbtn {
   background-color: transparent;
   color: #adb3cc;

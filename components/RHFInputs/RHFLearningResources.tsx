@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import RHFInput from '../RHFInputs/RHFInput';
+import RHFInput from './RHFInput';
 import { Button } from '../ui/button';
 import { useFieldArray } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 
-const LearningResources: React.FC = () => {
+const RHFLearningResources: React.FC = () => {
   const { fields, append, remove } = useFieldArray({
     name: 'learningResources',
   });
 
   return (
-    <div>
+    <>
       <p className="mb-7 text-sm uppercase text-white-500">Resources & Links</p>
       <ul>
         {fields.length > 0 ? (
@@ -54,8 +54,8 @@ const LearningResources: React.FC = () => {
         />
         <span className="text-xs text-white-100">New Resource</span>
       </Button>
-    </div>
+    </>
   );
 };
 
-export default LearningResources;
+export default RHFLearningResources;

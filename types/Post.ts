@@ -17,4 +17,6 @@ export interface IPost {
     label: string;
     link: string;
   }[];
+  createdAt: string;
+  updatedAt: string;
 }

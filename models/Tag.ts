@@ -11,10 +11,13 @@ export interface ITagWithId extends IModelTag {
   _id: string;
 }
 
-const tagSchema = new Schema<IModelTag>({
-  title: { type: String, required: true },
-  ownerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-});
+const tagSchema = new Schema<IModelTag>(
+  {
+    title: { type: String, required: true },
+    ownerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  },
+  { timestamps: true }
+);
 
 const TagModel: Model<IModelTag> =
   models?.Tag || model<IModelTag>('Tag', tagSchema);

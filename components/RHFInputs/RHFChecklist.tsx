@@ -1,7 +1,7 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { X } from 'lucide-react';
 import Image from 'next/image';
-import RHFInput from '../RHFInputs/RHFInput';
+import RHFInput from './RHFInput';
 import { Button } from '../ui/button';
 import { EPostType } from '@/types/post-types';
 
@@ -12,11 +12,11 @@ import { EPostType } from '@/types/post-types';
  */
 const { KNOWLEDGDE } = EPostType;
 
-interface IChecklistProps {
+interface IRHFChecklistProps {
   postType: EPostType.KNOWLEDGDE | EPostType.WORKFLOW;
 }
 
-const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
+const RHFChecklist: React.FC<IRHFChecklistProps> = ({ postType }) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -87,4 +87,4 @@ const Checklist: React.FC<IChecklistProps> = ({ postType }) => {
   );
 };
 
-export default Checklist;
+export default RHFChecklist;

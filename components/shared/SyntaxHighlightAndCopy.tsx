@@ -38,7 +38,7 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
     <div className="relative">
       <Button
         onClick={() => copyToClipboard(code)}
-        className="absolute right-5 top-5 size-[16px] bg-transparent p-0"
+        className="absolute right-3.5 top-3.5 size-[16px] bg-transparent p-0"
       >
         <Image
           src="/assets/icons/icn-copy.svg"

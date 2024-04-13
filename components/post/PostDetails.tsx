@@ -10,41 +10,58 @@ import TagItem from '../tag/TagItem';
 import ComponentMenu from '../shared/ComponentMenu';
 import PostItemBadge from './PostItemBadge';
 import SyntaxHighlightAndCopy from '../shared/SyntaxHighlightAndCopy';
+import ChecklistItem from '../shared/ChecklistItem';
+import LearningResourceItem from '../shared/LearningResourceItem';
 import type { IPost } from '@/types/Post';
+import { EPostType } from '@/types/post-types';
+
+// ----------------------------------------------------------------
 
 interface IPostDetailsProps {
   post: IPost;
 }
 
-const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
-  const { title, type, description, tags, codeExample, content, checklist } =
-    post;
+const parserOptions: HTMLReactParserOptions = {
+  replace: (domNode) => {
+    if (domNode instanceof Element && domNode.name === 'pre') {
+      const codeTag = domNode.children.find(
+        (node) => node instanceof Element && node.name === 'code'
+      );
 
-  const parserOptions: HTMLReactParserOptions = {
-    replace: (domNode) => {
-      if (domNode instanceof Element && domNode.name === 'pre') {
-        const codeTag = domNode.children.find(
-          (node) => node instanceof Element && node.name === 'code'
-        );
+      if (codeTag) {
+        const codeData = (
+          (codeTag as Element).children.find(
+            (node) => node instanceof Text && node.data
+          ) as Text | undefined
+        )?.data;
 
-        if (codeTag) {
-          const codeData = (
-            (codeTag as Element).children.find(
-              (node) => node instanceof Text && node.data
-            ) as Text | undefined
-          )?.data;
+        if (!codeData) return domNode;
 
-          if (!codeData) return domNode;
-
-          return <SyntaxHighlightAndCopy code={codeData} />;
-        }
+        return <SyntaxHighlightAndCopy code={codeData} />;
       }
-    },
-  };
+    }
+  },
+};
+
+const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
+  const { COMPONENT, KNOWLEDGDE } = EPostType;
+  const {
+    title,
+    type,
+    description,
+    tags,
+    codeExample,
+    content,
+    checklist,
+    learningResources,
+  } = post;
+
+  const checklistTitle =
+    type === KNOWLEDGDE ? 'Key Takeaways' : 'Task Checklist';
 
   return (
-    <section className="mt-[30px]">
-      <div className="flex flex-col gap-5 border-b border-b-[#55597D1A] px-[30px] pb-8">
+    <section>
+      <div className=" flex flex-col gap-5 border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
         <div className="lg:flex-between  flex gap-2.5 max-lg:flex-col">
           <h1 className="h1-bold line-clamp-2">{title}</h1>
           <div className="flex-between lg:flex-center ">
@@ -70,18 +87,36 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
           ))}
         </ul>
       </div>
-      <div className="flex flex-1 flex-col p-[30px]">
-        {type === 'COMPONENT' && !!codeExample && (
+      <div className="flex flex-1 flex-col border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
+        {type === COMPONENT && !!codeExample && (
           <SyntaxHighlightAndCopy code={codeExample} />
         )}
-      </div>
-      <div>
-        {content && (
-          <div className="bg-black prose prose-invert p-[30px]">
-            {parse(content, parserOptions)}
-          </div>
+        {type !== COMPONENT && checklist?.length && (
+          <>
+            <p className="p1-bold mb-2.5 text-white-100">{checklistTitle}</p>
+            <ul className="flex flex-col gap-2.5">
+              {checklist.map((item) => (
+                <ChecklistItem key={item} title={item} />
+              ))}
+            </ul>
+          </>
         )}
       </div>
+      {!!content && (
+        <div className="prose prose-invert border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
+          {parse(content, parserOptions)}
+        </div>
+      )}
+      {learningResources && learningResources?.length > 0 && (
+        <div className="px-[30px] pb-8 pt-[30px]">
+          <p className="p2-bold mb-2 text-white-100">Resources & Links</p>
+          <ul>
+            {learningResources.map(({ label, link }) => (
+              <LearningResourceItem key={label} label={label} link={link} />
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 };

@@ -10,12 +10,12 @@ import RHFSelect, {
   SelectOptionWithIcon,
 } from '@/components/RHFInputs/RHFSelect';
 import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
-import Checklist from '@/components/shared/Checklist';
+import RHFChecklist from '@/components/RHFInputs/RHFChecklist';
 import { SelectSeparator } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { POST_TYPES } from '@/constants/post';
 import { EPostType } from '@/types/post-types';
-import LearningResources from '@/components/shared/LearningResources';
+import RHFLearningResources from '@/components/RHFInputs/RHFLearningResources';
 import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
 import RHFCreatableSelect, {
   ISelectOptions,
@@ -127,7 +127,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
           </div>
           <div className="mb-[70px]">
             {postType !== COMPONENT ? (
-              <Checklist postType={postType} />
+              <RHFChecklist postType={postType} />
             ) : (
               <CodeExampleTabs />
             )}
@@ -136,7 +136,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
             <RHFTextEditor name="content" />
           </div>
           <div className="mb-16 gap-7">
-            <LearningResources />
+            <RHFLearningResources />
           </div>
           <Button type="submit">Create Post</Button>
         </form>
