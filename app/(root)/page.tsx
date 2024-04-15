@@ -2,9 +2,11 @@ import { auth } from '@/auth';
 import Image from 'next/image';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import PostItem from '@/components/post/PostItem';
+import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
 import type { IPost } from '@/types/Post';
+import { useSearchParams } from 'next/navigation';
 
 // ----------------------------------------------------------------
 
@@ -13,6 +15,7 @@ import type { IPost } from '@/types/Post';
  */
 
 const Home: React.FC = async () => {
+  // const searchParams = useSearchParams();
   const session = await auth();
 
   if (!session) return null;
@@ -41,7 +44,7 @@ const Home: React.FC = async () => {
           ))}
         </div>
       </div>
-      <ul className="flex flex-col gap-5">
+      <ul className="mb-10 flex flex-col gap-5">
         {posts.length > 0 ? (
           posts.map(({ _id, title, tags, type }) => (
             <PostItem
@@ -58,6 +61,7 @@ const Home: React.FC = async () => {
           </h2>
         )}
       </ul>
+      <Pagination />
     </section>
   );
 };
