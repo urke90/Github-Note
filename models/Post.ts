@@ -1,4 +1,5 @@
-import { Schema, model, models, Model } from 'mongoose';
+import { Model, model, models, Schema } from 'mongoose';
+
 import { EPostType } from '@/types/post-types';
 
 /**
@@ -67,10 +68,10 @@ const postSchema = new Schema<IPostModel>(
   { timestamps: true }
 );
 
-const PostModel: Model<IPostModel> =
+const Post: Model<IPostModel> =
   models?.Post || model<IPostModel>('Post', postSchema);
 
-export default PostModel;
+export default Post;
 
 /** ************************************************ THIS IS LEFT FOR REFERENCE */
 /**

@@ -4,9 +4,10 @@ import { connectToMongoDB } from '../database/mongodb';
 import { IPostSchema } from '../zod/post-schema';
 
 import { auth } from '@/auth';
-import PostModel from '@/models/Post';
+import Post from '@/models/Post';
 import TagModel from '@/models/Tag';
 import { IPost } from '@/types/Post';
+import { EPostType, EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
@@ -38,7 +39,7 @@ export const createNewPost = async (data: IPostSchema) => {
 
     tags.concat(createdTags);
 
-    const newPost = await PostModel.create({
+    const newPost = await Post.create({
       ...data,
       tags,
       ownerId: session.user.id,
@@ -54,34 +55,39 @@ export const createNewPost = async (data: IPostSchema) => {
   }
 };
 
-interface IGetAllPostsResponse {
-  ok: boolean;
-  status: number;
-  posts: IPost[];
-  totalPosts: number;
+interface IGetAllPosts {
+  page: string;
+  postType: EQueryPostType;
+  tags: string | string[];
 }
 
-export const getAllPosts = async (): Promise<
-  IGetAllPostsResponse | undefined
-> => {
+export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
 
     await connectToMongoDB();
 
-    const posts: IPost[] = await PostModel.find({ ownerId: session.user.id })
-      .populate('tags')
-      .lean();
-    const postsCount = await PostModel.find({
+    const posts: IPost[] = await Post.find({
+      ownerId: session.user.id,
+    }).populate('tags');
+
+    const postsCount = await Post.find({
       ownerId: session.user.id,
     }).countDocuments({});
+
+    const postsPerPage = 3;
+    const totalPages = Math.ceil(postsCount / postsPerPage);
+    const hasNextPage = Number(page) < totalPages;
+    const hasPrevPage = Number(page) > 1;
 
     return {
       ok: true,
       status: 200,
       posts: JSON.parse(JSON.stringify(posts)),
-      totalPosts: postsCount,
+      totalPages,
+      hasNextPage,
+      hasPrevPage,
     };
   } catch (error) {
     console.log('Error fetching posts!', error);
@@ -92,7 +98,7 @@ export const getPostById = async (postId: string) => {
   try {
     await connectToMongoDB();
 
-    const post = await PostModel.findById(postId).populate('tags').lean();
+    const post = await Post.findById(postId).populate('tags').lean();
     // console.log(' getPostById post', post);
 
     return JSON.parse(JSON.stringify(post));
@@ -104,7 +110,7 @@ export const getPostById = async (postId: string) => {
 export const deletePost = async (postId: string) => {
   try {
     await connectToMongoDB();
-    await PostModel.findByIdAndDelete(postId);
+    await Post.findByIdAndDelete(postId);
 
     return { ok: true, code: 200 };
   } catch (error) {

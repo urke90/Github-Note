@@ -85,6 +85,11 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
             className="flex items-center gap-2"
             uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME ?? ''}
             onSuccess={onSuccessUpload}
+            options={{
+              multiple: false,
+              cropping: true,
+              croppingShowDimensions: true,
+            }}
           >
             <Image
               src="/assets/images/icn-upload-cloud.png"

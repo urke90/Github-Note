@@ -22,7 +22,6 @@ import type { IPost } from '@/types/Post';
 import { deletePost } from '@/lib/actions/post-actions';
 import { EPostType } from '@/types/post-types';
 
-
 // ----------------------------------------------------------------
 
 interface IPostDetailsProps {

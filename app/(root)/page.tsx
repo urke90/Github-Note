@@ -6,6 +6,9 @@ import PostItem from '@/components/post/PostItem';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
+import { parseSearchParams } from '@/utils/query';
+import { EQueryPostType } from '@/types/post-types';
+import { IPostsResponse } from '@/types/Post';
 
 // ----------------------------------------------------------------
 
@@ -17,24 +20,34 @@ import { getAllPosts } from '@/lib/actions/post-actions';
 // https://www.youtube.com/watch?v=49mkK-jr5no
 
 interface IHomeProps {
-  searchParams?: {
-    page?: string;
-    query?: string;
+  searchParams: {
+    page: string | string[] | undefined;
+    postType: string | string[] | undefined;
+    tags: string | string[] | undefined;
   };
   params: {};
 }
 
 const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
-  const currentPage = Number(searchParams?.page) || 1;
+  const page = parseSearchParams(searchParams.page, '1');
+  const postType = parseSearchParams(
+    searchParams.postType,
+    ''
+  ) as EQueryPostType;
+  const tags = parseSearchParams(searchParams.tags, '');
 
   const session = await auth();
 
   if (!session) return null;
 
-  const response = await getAllPosts();
+  const response: IPostsResponse | undefined = await getAllPosts({
+    page,
+    postType,
+    tags,
+  });
   if (!response?.ok && response?.status !== 200) return;
 
-  const { posts, totalPosts } = response;
+  const { posts, totalPages, hasNextPage, hasPrevPage } = response;
 
   return (
     <section className="px-[30px]">
@@ -75,7 +88,12 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
           </h2>
         )}
       </ul>
-      <Pagination />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={page}
+        hasNextPage={hasNextPage}
+        hasPrevPage={hasPrevPage}
+      />
     </section>
   );
 };

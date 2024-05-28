@@ -4,3 +4,9 @@ export enum EPostType {
   KNOWLEDGDE = 'KNOWLEDGDE',
   WORKFLOW = 'WORKFLOW',
 }
+
+export enum EQueryPostType {
+  COMPONENT = 'component',
+  KNOWLEDGDE = 'knowledge',
+  WORKFLOW = 'workflow',
+}

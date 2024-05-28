@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
+import { MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { ButtonProps, buttonVariants } from '@/components/ui/button';
+import { ButtonProps } from '@/components/ui/button';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -37,25 +38,20 @@ PaginationItem.displayName = 'PaginationItem';
 type PaginationLinkProps = {
   isActive?: boolean;
 } & Pick<ButtonProps, 'size'> &
-  React.ComponentProps<'a'>;
+  React.ComponentProps<typeof Link>;
 
 const PaginationLink = ({
-  className,
-  isActive,
-  size = 'icon',
+  // className,
+  // isActive,
+  // size = 'icon',
   ...props
 }: PaginationLinkProps) => (
-  <a
-    aria-current={isActive ? 'page' : undefined}
-    className={cn(
-      buttonVariants({
-        variant: isActive ? 'primary' : 'secondary',
-        size,
-      }),
-      className
-    )}
-    {...props}
-  />
+  <a>
+    <Link
+      {...props}
+      className="flex-center rounded-[5px] bg-black-700 px-3.5 py-2.5"
+    />
+  </a>
 );
 PaginationLink.displayName = 'PaginationLink';
 
@@ -66,11 +62,10 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn('gap-1 pl-2.5', className)}
+    className={cn('gap-1 pl-2.5 text-white-100', className)}
     {...props}
   >
-    <ChevronLeft className="size-4" />
-    <span>Previous</span>
+    <span>Prev</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = 'PaginationPrevious';
@@ -82,11 +77,10 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn('gap-1 pr-2.5', className)}
+    className={cn('gap-1 pr-2.5 text-white-100', className)}
     {...props}
   >
     <span>Next</span>
-    <ChevronRight className="size-4" />
   </PaginationLink>
 );
 PaginationNext.displayName = 'PaginationNext';

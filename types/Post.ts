@@ -20,3 +20,12 @@ export interface IPost {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IPostsResponse {
+  ok: boolean;
+  status: number;
+  posts: IPost[];
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
