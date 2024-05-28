@@ -1,10 +1,12 @@
 'use server';
 
 import { connectToMongoDB } from '../database/mongodb';
+import { IPostSchema } from '../zod/post-schema';
+
 import { auth } from '@/auth';
 import PostModel from '@/models/Post';
-import { IPostSchema } from '../zod/post-schema';
 import TagModel from '@/models/Tag';
+import { IPost } from '@/types/Post';
 
 // ----------------------------------------------------------------
 
@@ -52,17 +54,35 @@ export const createNewPost = async (data: IPostSchema) => {
   }
 };
 
-export const getAllPosts = async () => {
+interface IGetAllPostsResponse {
+  ok: boolean;
+  status: number;
+  posts: IPost[];
+  totalPosts: number;
+}
+
+export const getAllPosts = async (): Promise<
+  IGetAllPostsResponse | undefined
+> => {
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
+
     await connectToMongoDB();
 
-    const posts = await PostModel.find({ ownerId: session.user.id })
+    const posts: IPost[] = await PostModel.find({ ownerId: session.user.id })
       .populate('tags')
       .lean();
+    const postsCount = await PostModel.find({
+      ownerId: session.user.id,
+    }).countDocuments({});
 
-    return JSON.parse(JSON.stringify(posts));
+    return {
+      ok: true,
+      status: 200,
+      posts: JSON.parse(JSON.stringify(posts)),
+      totalPosts: postsCount,
+    };
   } catch (error) {
     console.log('Error fetching posts!', error);
   }

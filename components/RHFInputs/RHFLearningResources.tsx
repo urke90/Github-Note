@@ -1,7 +1,9 @@
+import RHFInput from './RHFInput';
+
+import { Button } from '../ui/button';
+
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import RHFInput from './RHFInput';
-import { Button } from '../ui/button';
 import { useFieldArray } from 'react-hook-form';
 
 // ----------------------------------------------------------------

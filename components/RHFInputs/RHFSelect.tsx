@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { useFormContext } from 'react-hook-form';
+
 import {
   FormControl,
   FormDescription,
@@ -14,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useFormContext } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 

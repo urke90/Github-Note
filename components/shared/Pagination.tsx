@@ -1,11 +1,11 @@
 import {
-  Pagination as ShadCNPagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  Pagination as ShadCNPagination,
 } from '@/components/ui/pagination';
 
 interface IPaginationProps {}

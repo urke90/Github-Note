@@ -1,4 +1,5 @@
 import z from 'zod';
+
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------

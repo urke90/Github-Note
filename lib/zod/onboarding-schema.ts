@@ -1,5 +1,4 @@
 import z from 'zod';
-import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
 
@@ -14,10 +13,10 @@ export const onboardingSchema = z.object({
   avatarImg: z.string().trim().optional(),
   learningGoals: z
     .array(learningGoalsSchema)
-    .nonempty('Please add at lease one goal!'),
+    .min(1, 'Please add at lease one goal!'),
   knowledgeLevel: z
     .array(z.string().min(3, 'Experise must contain at least 3 characters!'))
-    .nonempty('Please add your expertise level!'),
+    .min(1, 'Please add your expertise level!'),
   techStack: z.string().trim(),
   startDate: z
     .date({ required_error: 'Plase enter start date!' })

@@ -1,9 +1,10 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '../ui/button';
 import SearchCommandDialog from '../shared/SearchCommandDialog';
+
+import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // ----------------------------------------------------------------

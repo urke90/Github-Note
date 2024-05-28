@@ -1,10 +1,12 @@
 'use client';
 
+import { Button } from '../ui/button';
+import { useToast } from '../ui/use-toast';
+
 import Image from 'next/image';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { Button } from '../ui/button';
 import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { useToast } from '../ui/use-toast';
+
 
 // ----------------------------------------------------------------
 

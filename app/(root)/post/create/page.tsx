@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { auth } from '@/auth';
 import { getTags } from '@/lib/actions/tag-actions';
 import type { ITagWithId } from '@/models/Tag';

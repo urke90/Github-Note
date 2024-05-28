@@ -1,5 +1,8 @@
 'use client';
 
+import { Editor, type IAllProps } from '@tinymce/tinymce-react';
+import { useFormContext } from 'react-hook-form';
+
 import {
   FormControl,
   FormDescription,
@@ -8,8 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Editor, type IAllProps } from '@tinymce/tinymce-react';
-import { useFormContext } from 'react-hook-form';
 // import Prism from 'prismjs';
 // import 'prismjs/components/prism-javascript';
 // import 'prismjs/components/prism-css';

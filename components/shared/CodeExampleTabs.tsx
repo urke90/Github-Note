@@ -1,10 +1,12 @@
-import Image from 'next/image';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RHFTextarea from '../RHFInputs/RHFTextarea';
+import RHFCodeExample from '../RHFInputs/RHFCodeExample';
+
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import RHFCodeExample from '../RHFInputs/RHFCodeExample';
+import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 type Props = {};
 

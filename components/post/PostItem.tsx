@@ -1,10 +1,13 @@
 'use client';
 
-import { EPostType } from '@/types/post-types';
 import PostItemBadge from './PostItemBadge';
+
 import TagItem from '../tag/TagItem';
-import type { ITag } from '@/types/Tag';
+
 import { useRouter } from 'next/navigation';
+
+import type { ITag } from '@/types/Tag';
+import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 

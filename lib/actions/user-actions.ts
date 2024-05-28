@@ -1,12 +1,14 @@
 'use server';
 
-import User from '@/models/User';
-import { genSalt, hash } from 'bcryptjs';
-
-import { MongoError } from 'mongodb';
 import { connectToMongoDB } from '../database/mongodb';
-import type { IUser } from '@/models/User';
 import type { IUserOnboarding } from '../zod/onboarding-schema';
+
+import { genSalt, hash } from 'bcryptjs';
+import { MongoError } from 'mongodb';
+
+import User from '@/models/User';
+import type { IUser } from '@/models/User';
+
 
 // ----------------------------------------------------------------
 

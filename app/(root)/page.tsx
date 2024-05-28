@@ -1,26 +1,40 @@
-import { auth } from '@/auth';
 import Image from 'next/image';
+
+import { auth } from '@/auth';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import PostItem from '@/components/post/PostItem';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
-import type { IPost } from '@/types/Post';
-import { useSearchParams } from 'next/navigation';
 
 // ----------------------------------------------------------------
 
 /**
- * 1. Podsetiti Matea da mi objasni za Error Boundries?!?!?!?!?!??!?!???!??!????!???!?!?!??!??!?
+ * pogledati tiny mce custom plugin za Warning code message
+ * react calendar heatmap ===> pratimo broj commitova pushova na / HOME
  */
 
-const Home: React.FC = async () => {
-  // const searchParams = useSearchParams();
+// https://www.youtube.com/watch?v=49mkK-jr5no
+
+interface IHomeProps {
+  searchParams?: {
+    page?: string;
+    query?: string;
+  };
+  params: {};
+}
+
+const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
+  const currentPage = Number(searchParams?.page) || 1;
+
   const session = await auth();
 
   if (!session) return null;
 
-  const posts: IPost[] = await getAllPosts();
+  const response = await getAllPosts();
+  if (!response?.ok && response?.status !== 200) return;
+
+  const { posts, totalPosts } = response;
 
   return (
     <section className="px-[30px]">

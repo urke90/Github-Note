@@ -1,9 +1,10 @@
-import React from 'react';
 import TagItem from './TagItem';
 
-type Props = {};
+// ----------------------------------------------------------------
 
-const TagsList = (props: Props) => {
+interface ITagsListProps {}
+
+const TagsList: React.FC<ITagsListProps> = () => {
   return (
     <>
       <p className="p3-bold mb-4">Tags</p>

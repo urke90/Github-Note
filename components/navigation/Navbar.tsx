@@ -1,16 +1,20 @@
+import PostsList from './NavPostsList';
+import QuickLinks from './QuickLinks';
+
+import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
+import NavProfileInfo from '../shared/NavProfileInfo';
+
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
-import PostsList from './NavPostsList';
-import NavProfileInfo from '../shared/NavProfileInfo';
+
 
 import {
   Sheet,
-  SheetContent,
   SheetClose,
+  SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import QuickLinks from './QuickLinks';
+
 
 // ----------------------------------------------------------------
 

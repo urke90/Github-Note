@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import { Button } from '../ui/button';
+
+import Image from 'next/image';
 
 interface IRelatedPostsProps {}
 

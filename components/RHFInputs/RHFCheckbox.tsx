@@ -1,3 +1,9 @@
+import { Checkbox } from '../ui/checkbox';
+
+import { CheckboxProps } from '@radix-ui/react-checkbox';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import {
   FormControl,
   FormDescription,
@@ -5,11 +11,6 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
-import { Checkbox } from '../ui/checkbox';
-import { CheckboxProps } from '@radix-ui/react-checkbox';
-
-import React from 'react';
-import { useFormContext } from 'react-hook-form';
 
 interface IRHFCheckboxProps extends CheckboxProps {
   name: string;

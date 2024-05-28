@@ -1,23 +1,27 @@
 'use client';
 
-import Image from 'next/image';
-import parse, {
-  HTMLReactParserOptions,
-  Element,
-  Text,
-} from 'html-react-parser';
+import PostItemBadge from './PostItemBadge';
+
 import TagItem from '../tag/TagItem';
 import ComponentMenu from '../shared/ComponentMenu';
-import PostItemBadge from './PostItemBadge';
 import SyntaxHighlightAndCopy from '../shared/SyntaxHighlightAndCopy';
 import ChecklistItem from '../shared/ChecklistItem';
 import LearningResourceItem from '../shared/LearningResourceItem';
+import { useToast } from '../ui/use-toast';
+
+import { format } from 'date-fns';
+import parse, {
+  Element,
+  HTMLReactParserOptions,
+  Text,
+} from 'html-react-parser';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import type { IPost } from '@/types/Post';
 import { deletePost } from '@/lib/actions/post-actions';
 import { EPostType } from '@/types/post-types';
-import { format } from 'date-fns';
-import { useToast } from '../ui/use-toast';
-import { useRouter } from 'next/navigation';
+
 
 // ----------------------------------------------------------------
 
@@ -125,7 +129,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
         {type === COMPONENT && !!codeExample && (
           <SyntaxHighlightAndCopy code={codeExample} />
         )}
-        {type !== COMPONENT && checklist?.length && (
+        {type !== COMPONENT && checklist && checklist.length > 0 && (
           <>
             <p className="p1-bold mb-2.5 text-white-100">{checklistTitle}</p>
             <ul className="flex flex-col gap-2.5">

@@ -1,18 +1,10 @@
+import { Suspense } from 'react';
+
 import { getPostById } from '@/lib/actions/post-actions';
 import type { IPost } from '@/types/Post';
-
-import { Suspense } from 'react';
 import PostDetails from '@/components/post/PostDetails';
 
 // ----------------------------------------------------------------
-
-/**
- * pogledati tiny mce custom plugin za Warning code message
- * split SyntaxHighlighter i copy ot Clipboar u novu komponentu
- * kada je type === COMPONENT --> render codeExcample ;;;;  type === WORKFLOW || KNOWLEDGE renderuj checklist: string[]
- * izabcujemo stars i review izbacujem
- * react calendar heatmap ===> pratimo broj commitova pushova na / HOME
- */
 
 interface IPostDetailsPage {
   params: { id: string };

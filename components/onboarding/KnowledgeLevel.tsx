@@ -1,10 +1,12 @@
 'use client';
 
+import RHFInput from '../RHFInputs/RHFInput';
+import { Button } from '../ui/button';
+
 import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Plus, X } from 'lucide-react';
-import RHFInput from '../RHFInputs/RHFInput';
-import { Button } from '../ui/button';
+
 import { EOnboardingStep } from '@/types/onboarding-step';
 import type { IUserOnboarding } from '@/lib/zod/onboarding-schema';
 

@@ -1,7 +1,8 @@
+import { Suspense } from 'react';
+
 import { auth } from '@/auth';
 import { getUserById } from '@/lib/actions/user-actions';
 import OnboardingContainer from '@/components/onboarding/OnboardingContainer';
-import { Suspense } from 'react';
 import type { IUser } from '@/models/User';
 
 // ----------------------------------------------------------------

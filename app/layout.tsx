@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
-// fonts
 import { inter } from './ui/fonts';
+
+import type { Metadata } from 'next';
+
+// fonts
 import SessionProvider from '@/components/auth/SessionProvider';
 import { Toaster } from '@/components/ui/toaster';
-
 import { auth } from '@/auth';
 
 import './globals.css';

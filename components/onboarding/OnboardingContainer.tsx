@@ -1,5 +1,13 @@
 'use client';
 
+import { useToast } from '../ui/use-toast';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 import BasicInformation from '@/components/onboarding/BasicInformations';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import LearningGoals from '@/components/onboarding/LearningGoals';
@@ -11,17 +19,12 @@ import {
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
 import {
-  onboardingSchema,
   type IUserOnboarding,
+  onboardingSchema,
 } from '@/lib/zod/onboarding-schema';
 import { IUser } from '@/models/User';
 import { EOnboardingStep } from '@/types/onboarding-step';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useToast } from '../ui/use-toast';
+
 
 // ----------------------------------------------------------------
 

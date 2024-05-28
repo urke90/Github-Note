@@ -1,14 +1,15 @@
 // import Select from 'react-select';
-import CreatableSelect from 'react-select/creatable';
-// import makeAnimated from 'react-select/animated';
 import {
-  FormField,
-  FormItem,
   FormControl,
   FormDescription,
+  FormField,
+  FormItem,
   FormLabel,
   FormMessage,
 } from '../ui/form';
+
+import CreatableSelect from 'react-select/creatable';
+// import makeAnimated from 'react-select/animated';
 
 import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';

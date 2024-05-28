@@ -1,8 +1,11 @@
+import RHFInput from './RHFInput';
+
+import { Button } from '../ui/button';
+
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { X } from 'lucide-react';
 import Image from 'next/image';
-import RHFInput from './RHFInput';
-import { Button } from '../ui/button';
+
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------

@@ -1,4 +1,7 @@
+import { Textarea, TextareaProps } from '../ui/textarea';
+
 import { useFormContext } from 'react-hook-form';
+
 import {
   FormControl,
   FormDescription,
@@ -7,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea, TextareaProps } from '../ui/textarea';
 
 // ----------------------------------------------------------------
 

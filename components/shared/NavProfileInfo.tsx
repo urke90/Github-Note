@@ -1,5 +1,6 @@
-import { auth } from '@/auth';
 import Image from 'next/image';
+
+import { auth } from '@/auth';
 
 // ----------------------------------------------------------------
 

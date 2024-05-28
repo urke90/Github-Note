@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { EOnboardingStep } from '@/types/onboarding-step';
+
+import { cn } from '@/lib/utils';
 
 // ----------------------------------------------------------------
 

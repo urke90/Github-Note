@@ -1,7 +1,8 @@
-import Image from 'next/image';
 import PostsList from '../navigation/NavPostsList';
 import QuickLinks from '../navigation/QuickLinks';
 import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
+
+import Image from 'next/image';
 import Link from 'next/link';
 
 // ----------------------------------------------------------------

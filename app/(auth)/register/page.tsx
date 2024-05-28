@@ -3,16 +3,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-// components
+import Image from 'next/image';
+import Link from 'next/link';
+
 import RHFInput from '@/components/RHFInputs/RHFInput';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { createNewUser } from '@/lib/actions/user-actions';
-import { signUpFormSchema, type ISignUpFormData } from '@/lib/zod/user-schema';
-import Image from 'next/image';
-import Link from 'next/link';
+import { type ISignUpFormData, signUpFormSchema } from '@/lib/zod/user-schema';
 import { useToast } from '@/components/ui/use-toast';
-// models
 import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 
 // ----------------------------------------------------------------

@@ -1,10 +1,12 @@
 'use client';
 
-import { Plus, X } from 'lucide-react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Button } from '../ui/button';
 import RHFCheckbox from '../RHFInputs/RHFCheckbox';
 import RHFInput from '../RHFInputs/RHFInput';
+
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Plus, X } from 'lucide-react';
+
 import { EOnboardingStep } from '@/types/onboarding-step';
 import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
 

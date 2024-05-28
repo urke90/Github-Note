@@ -1,7 +1,11 @@
 'use client';
 
-import { EOnboardingStep } from '@/types/onboarding-step';
+import RHFInput from '../RHFInputs/RHFInput';
+import { Button } from '../ui/button';
+import { Label } from '../ui/label';
+
 import {
+  CldImage,
   CldUploadButton,
   CloudinaryUploadWidgetInfo,
   CloudinaryUploadWidgetResults,
@@ -9,9 +13,8 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import RHFInput from '../RHFInputs/RHFInput';
-import { Button } from '../ui/button';
-import { Label } from '../ui/label';
+
+import { EOnboardingStep } from '@/types/onboarding-step';
 import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
 
 // ----------------------------------------------------------------
@@ -65,7 +68,7 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
     <section>
       <div className="mb-6 flex flex-row items-center">
         <div>
-          <Image
+          <CldImage
             src={
               uploadedImage ||
               `${'/assets/images/image-upload-placeholder.svg'}`
