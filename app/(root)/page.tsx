@@ -63,9 +63,9 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
           height={165}
         />
       </div>
-      <div className="flex-between mb-5">
+      <div className="flex-between mb-5 gap-4">
         <h2 className="h2-bold">Recent Posts</h2>
-        <div className="flex gap-3.5 ">
+        <div className="flex flex-wrap gap-3.5">
           {POST_TYPES.map(({ value }) => (
             <PostItemBadge key={value} postType={value} />
           ))}

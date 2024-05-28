@@ -62,21 +62,26 @@ interface IGetAllPosts {
 }
 
 export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
+  const postsPerPage = 3;
+  const skip = (Number(page) - 1) * postsPerPage;
+
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
 
     await connectToMongoDB();
 
-    const posts: IPost[] = await Post.find({
+    const posts = await Post.find({
       ownerId: session.user.id,
-    }).populate('tags');
+    })
+      .populate('tags')
+      .skip(skip)
+      .limit(postsPerPage);
 
     const postsCount = await Post.find({
       ownerId: session.user.id,
     }).countDocuments({});
 
-    const postsPerPage = 3;
     const totalPages = Math.ceil(postsCount / postsPerPage);
     const hasNextPage = Number(page) < totalPages;
     const hasPrevPage = Number(page) > 1;

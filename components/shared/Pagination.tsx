@@ -40,7 +40,6 @@ const Pagination: React.FC<IPaginationProps> = ({
     return params.toString();
   };
 
-  console.log('pathname: ' + pathname);
   return (
     <ShadCNPagination className="mb-10">
       <PaginationContent>
