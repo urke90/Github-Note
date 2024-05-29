@@ -10,14 +10,13 @@ interface INavPostItemProps {
 }
 
 const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
-  const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
   const getImageSrc = (postType: EPostType) => {
     switch (postType) {
-      case COMPONENT:
+      case EPostType.COMPONENT:
         return '/assets/images/icn-computer.svg';
-      case KNOWLEDGDE:
+      case EPostType.KNOWLEDGE:
         return '/assets/images/icn-message-circle.svg';
-      case WORKFLOW:
+      case EPostType.WORKFLOW:
         return '/assets/images/icn-list-number.svg';
       default:
         return '/assets/images/icn-computer.svg';

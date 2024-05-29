@@ -38,11 +38,11 @@ const PostItemBadge: React.FC<IPostItemBadgeProps> = ({ postType }) => {
         label = 'Component';
         postTypeQuery = EQueryPostType.COMPONENT;
         break;
-      case EPostType.KNOWLEDGDE:
+      case EPostType.KNOWLEDGE:
         styles = 'text-green-500 bg-[#42FF771A]';
         imgUrl = '/assets/icons/icn-message-circle.svg';
         label = 'Knowledge';
-        postTypeQuery = EQueryPostType.KNOWLEDGDE;
+        postTypeQuery = EQueryPostType.KNOWLEDGE;
         break;
       case EPostType.WORKFLOW:
         styles = 'text-primary-500  bg-[#9542FF1A]';

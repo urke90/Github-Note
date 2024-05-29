@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
 import { auth } from '@/auth';
-import PostItemBadge from '@/components/post/PostItemBadge';
 import PostItem from '@/components/post/PostItem';
+import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
-import { parseSearchParams } from '@/utils/query';
-import { EPostType, EQueryPostType } from '@/types/post-types';
 import { IPostsResponse } from '@/types/Post';
+import { EQueryPostType } from '@/types/post-types';
+import { parseSearchParams } from '@/utils/query';
 
 // ----------------------------------------------------------------
 
@@ -76,8 +76,8 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
             <PostItem
               key={_id}
               title={title}
-              postType={type}
-              postId={_id}
+              type={type}
+              id={_id}
               tags={tags}
             />
           ))
@@ -87,12 +87,14 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
           </h2>
         )}
       </ul>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={page}
-        hasNextPage={hasNextPage}
-        hasPrevPage={hasPrevPage}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={page}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+        />
+      )}
     </section>
   );
 };

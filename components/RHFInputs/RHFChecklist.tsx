@@ -2,9 +2,9 @@ import RHFInput from './RHFInput';
 
 import { Button } from '../ui/button';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { EPostType } from '@/types/post-types';
 
@@ -13,10 +13,9 @@ import { EPostType } from '@/types/post-types';
 /**
  * post type can be 'KNOWLEDGE' or 'WORKFLOW' only since Checklist doesn't exist for type 'COMPONENT'
  */
-const { KNOWLEDGDE } = EPostType;
 
 interface IRHFChecklistProps {
-  postType: EPostType.KNOWLEDGDE | EPostType.WORKFLOW;
+  postType: EPostType.KNOWLEDGE | EPostType.WORKFLOW;
 }
 
 const RHFChecklist: React.FC<IRHFChecklistProps> = ({ postType }) => {
@@ -28,17 +27,21 @@ const RHFChecklist: React.FC<IRHFChecklistProps> = ({ postType }) => {
   });
 
   const noContentMessage =
-    postType === KNOWLEDGDE
+    postType === EPostType.KNOWLEDGE
       ? 'Start adding what you have learned...'
       : 'Add steps to follow...';
 
   const placeholderMessage =
-    postType === KNOWLEDGDE ? 'Enter what you learned' : 'Enter new step';
+    postType === EPostType.KNOWLEDGE
+      ? 'Enter what you learned'
+      : 'Enter new step';
 
   return (
     <div>
       <p className="mb-2 text-sm">
-        {postType === KNOWLEDGDE ? 'What you learned' : 'Steps to follow'}
+        {postType === EPostType.KNOWLEDGE
+          ? 'What you learned'
+          : 'Steps to follow'}
       </p>
       <ul className="mb-3.5">
         {fields.length ? (

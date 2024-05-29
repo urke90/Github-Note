@@ -4,8 +4,6 @@ import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
-
 const learningResourcesSchema = z.object({
   label: z.string().trim().min(1, 'Please provide resource label!'),
   link: z
@@ -23,7 +21,7 @@ const tagSchema = z.object({
 
 export const postSchema = z.object({
   title: z.string().trim().min(2, 'Please enter the title of the post!'),
-  type: z.enum([COMPONENT, KNOWLEDGDE, WORKFLOW]),
+  type: z.enum([EPostType.COMPONENT, EPostType.KNOWLEDGE, EPostType.WORKFLOW]),
   tags: z.array(tagSchema).nonempty('Please add at leats one tag!'),
   description: z
     .string()

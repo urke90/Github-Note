@@ -61,7 +61,7 @@ const parserOptions: HTMLReactParserOptions = {
 const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   const { toast } = useToast();
   const router = useRouter();
-  const { COMPONENT, KNOWLEDGDE } = EPostType;
+
   const {
     title,
     type,
@@ -76,7 +76,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   } = post;
 
   const checklistTitle =
-    type === KNOWLEDGDE ? 'Key Takeaways' : 'Task Checklist';
+    type === EPostType.KNOWLEDGE ? 'Key Takeaways' : 'Task Checklist';
 
   // ? Is this good example for asking about pure functions? SHould ID be passed to func args firs or directly into deletePost ????
   const handleDeletePost = async () => {
@@ -125,10 +125,10 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
         </ul>
       </div>
       <div className="flex flex-1 flex-col border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
-        {type === COMPONENT && !!codeExample && (
+        {type === EPostType.COMPONENT && !!codeExample && (
           <SyntaxHighlightAndCopy code={codeExample} />
         )}
-        {type !== COMPONENT && checklist && checklist.length > 0 && (
+        {type !== EPostType.COMPONENT && checklist && checklist.length > 0 && (
           <>
             <p className="p1-bold mb-2.5 text-white-100">{checklistTitle}</p>
             <ul className="flex flex-col gap-2.5">

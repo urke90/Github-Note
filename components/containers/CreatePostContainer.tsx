@@ -27,8 +27,6 @@ import RHFCreatableSelect, {
 } from '@/components/RHFInputs/RHFCreatableSelect';
 import { createNewPost } from '@/lib/actions/post-actions';
 
-
-
 // ----------------------------------------------------------------
 
 /**
@@ -53,13 +51,12 @@ interface ICreatePostContainerProps {
 const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
   const { toast } = useToast();
   const router = useRouter();
-  const { COMPONENT } = EPostType;
 
   const postForm = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: '',
-      type: COMPONENT,
+      type: EPostType.COMPONENT,
       tags: [], // TODO: Finish when i add: React Select library
       description: '',
       codeExample: '',
@@ -130,7 +127,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
             />
           </div>
           <div className="mb-[70px]">
-            {postType !== COMPONENT ? (
+            {postType !== EPostType.COMPONENT ? (
               <RHFChecklist postType={postType} />
             ) : (
               <CodeExampleTabs />

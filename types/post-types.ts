@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 export enum EPostType {
   COMPONENT = 'COMPONENT',
-  KNOWLEDGDE = 'KNOWLEDGDE',
+  KNOWLEDGE = 'KNOWLEDGE',
   WORKFLOW = 'WORKFLOW',
 }
 
 export enum EQueryPostType {
   COMPONENT = 'component',
-  KNOWLEDGDE = 'knowledge',
+  KNOWLEDGE = 'knowledge',
   WORKFLOW = 'workflow',
 }

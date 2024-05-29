@@ -47,14 +47,12 @@ const learningResourcesSchema = new Schema<ILearningResourcesSchema>({
   link: { type: String, required: true },
 });
 
-const { COMPONENT, KNOWLEDGDE, WORKFLOW } = EPostType;
-
 const postSchema = new Schema<IPostModel>(
   {
     title: { type: String, required: true },
     type: {
       type: String,
-      enum: [COMPONENT, KNOWLEDGDE, WORKFLOW],
+      enum: [EPostType.COMPONENT, EPostType.KNOWLEDGE, EPostType.WORKFLOW],
       required: true,
     },
     description: { type: String, required: true },

@@ -12,7 +12,7 @@ export const POST_TYPES = [
     label: 'Component',
   },
   {
-    value: EPostType.KNOWLEDGDE,
+    value: EPostType.KNOWLEDGE,
     imgUrl: '/assets/icons/icn-message-circle.svg',
     label: 'Knowledge',
   },

@@ -6,13 +6,11 @@ import { IPostSchema } from '../zod/post-schema';
 import { auth } from '@/auth';
 import Post from '@/models/Post';
 import TagModel from '@/models/Tag';
-import { IPost } from '@/types/Post';
-import { EPostType, EQueryPostType } from '@/types/post-types';
+import { EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
 export const createNewPost = async (data: IPostSchema) => {
-  console.log('data u create New Post', data);
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
@@ -69,20 +67,21 @@ export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
 
+    const query: { [key: string]: any } = {
+      ownerId: session.user.id,
+    };
+
+    if (postType) query.type = postType.toUpperCase();
+    if (tags?.length > 0) query.tags = { $in: tags };
+
     await connectToMongoDB();
 
-    const posts = await Post.find({
-      ownerId: session.user.id,
-      type: postType.toUpperCase(),
-      // tags,
-    })
+    const posts = await Post.find(query)
       .populate('tags')
       .skip(skip)
       .limit(postsPerPage);
 
-    const postsCount = await Post.find({
-      ownerId: session.user.id,
-    }).countDocuments({});
+    const postsCount = await Post.find(query).countDocuments({});
 
     const totalPages = Math.ceil(postsCount / postsPerPage);
     const hasNextPage = Number(page) < totalPages;
