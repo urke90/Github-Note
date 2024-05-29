@@ -73,6 +73,8 @@ export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
 
     const posts = await Post.find({
       ownerId: session.user.id,
+      type: postType.toUpperCase(),
+      // tags,
     })
       .populate('tags')
       .skip(skip)

@@ -7,7 +7,7 @@ import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
 import { parseSearchParams } from '@/utils/query';
-import { EQueryPostType } from '@/types/post-types';
+import { EPostType, EQueryPostType } from '@/types/post-types';
 import { IPostsResponse } from '@/types/Post';
 
 // ----------------------------------------------------------------
@@ -25,7 +25,6 @@ interface IHomeProps {
     postType: string | string[] | undefined;
     tags: string | string[] | undefined;
   };
-  params: {};
 }
 
 const Home: React.FC<IHomeProps> = async ({ searchParams }) => {

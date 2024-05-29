@@ -34,7 +34,9 @@ const PostItem: React.FC<IPostItemProps> = ({
       <h1 className="h1-medium my-4 line-clamp-2 text-white-100">{title}</h1>
       <ul className="flex gap-2.5">
         {tags.length
-          ? tags.map((tag) => <TagItem key={tag.title} title={tag.title} />)
+          ? tags.map((tag) => (
+              <TagItem key={tag.title} title={tag.title} isLink={false} />
+            ))
           : null}
       </ul>
     </li>

@@ -30,7 +30,6 @@ const Pagination: React.FC<IPaginationProps> = ({
     const currentPageNumber = Number(currentPage);
     const prevPageNumber = (currentPageNumber - 1).toString();
     const nextPageNumber = (currentPageNumber + 1).toString();
-
     const params = new URLSearchParams(searchParams.toString());
 
     isNextPage
