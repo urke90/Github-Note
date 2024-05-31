@@ -3,10 +3,13 @@
 import { connectToMongoDB } from '../database/mongodb';
 import { IPostSchema } from '../zod/post-schema';
 
+import { FilterQuery } from 'mongoose';
+
 import { auth } from '@/auth';
 import Post from '@/models/Post';
-import TagModel from '@/models/Tag';
-import { EQueryPostType } from '@/types/post-types';
+import Tag from '@/models/Tag';
+import { IPost } from '@/types/post';
+import { EPostType, EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
@@ -32,7 +35,7 @@ export const createNewPost = async (data: IPostSchema) => {
 
     const createdTags =
       newTags.length > 0
-        ? (await TagModel.insertMany(newTags)).map((t) => t._id.toString())
+        ? (await Tag.insertMany(newTags)).map((t) => t._id.toString())
         : [];
 
     tags.concat(createdTags);
@@ -56,7 +59,7 @@ export const createNewPost = async (data: IPostSchema) => {
 interface IGetAllPosts {
   page: string;
   postType: EQueryPostType;
-  tags: string | string[];
+  tags: string[];
 }
 
 export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
@@ -67,12 +70,21 @@ export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
 
-    const query: { [key: string]: any } = {
+    const tagsArray = tags.map((tag) => new RegExp(`^${tag}$`, 'i'));
+
+    const fetchedTags = await Tag.find({ title: { $in: tagsArray } });
+    const fetchedTagsIds = fetchedTags.map((tag) => tag._id);
+
+    let query: FilterQuery<IPost> = {
       ownerId: session.user.id,
     };
 
-    if (postType) query.type = postType.toUpperCase();
-    if (tags?.length > 0) query.tags = { $in: tags };
+    if (postType) {
+      query = { ...query, type: postType.toUpperCase() as EPostType };
+    }
+    if (tags?.length > 0) {
+      query = { ...query, tags: { $in: fetchedTagsIds } };
+    }
 
     await connectToMongoDB();
 

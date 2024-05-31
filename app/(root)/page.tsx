@@ -6,9 +6,9 @@ import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts } from '@/lib/actions/post-actions';
-import { IPostsResponse } from '@/types/Post';
+import { IPostsResponse } from '@/types/post';
 import { EQueryPostType } from '@/types/post-types';
-import { parseSearchParams } from '@/utils/query';
+import { parseSearchParams, parseTagsParams } from '@/utils/params';
 
 // ----------------------------------------------------------------
 
@@ -23,7 +23,7 @@ interface IHomeProps {
   searchParams: {
     page: string | string[] | undefined;
     postType: string | string[] | undefined;
-    tags: string | string[] | undefined;
+    tag: string | string[] | undefined;
   };
 }
 
@@ -33,7 +33,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
     searchParams.postType,
     ''
   ) as EQueryPostType;
-  const tags = parseSearchParams(searchParams.tags, '');
+  const tags = parseTagsParams(searchParams.tag);
 
   const session = await auth();
 

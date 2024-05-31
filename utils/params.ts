@@ -13,3 +13,16 @@ export const parseSearchParams = <T extends string = string>(
 
   return defaultValue as T;
 };
+
+export const parseTagsParams = <T extends string = string>(
+  param: string | string[] | undefined
+  // defaultValue: string
+) => {
+  if (Array.isArray(param)) {
+    return param as T[];
+  } else if (typeof param === 'string' && param !== '') {
+    return [param] as T[];
+  }
+
+  return [];
+};

@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
-import { getPostById } from '@/lib/actions/post-actions';
-import type { IPost } from '@/types/Post';
 import PostDetails from '@/components/post/PostDetails';
+import { getPostById } from '@/lib/actions/post-actions';
+import type { IPost } from '@/types/post';
 
 // ----------------------------------------------------------------
 
@@ -11,7 +11,7 @@ interface IPostDetailsPage {
 }
 
 const PostDetailsPage: React.FC<IPostDetailsPage> = async ({ params }) => {
-  const { id } = params;
+  const id = params.id;
 
   const post: IPost | undefined = await getPostById(id);
 

@@ -1,5 +1,5 @@
-import { ITag } from './Tag';
 import { EPostType } from './post-types';
+import { ITag } from './tag';
 
 // ----------------------------------------------------------------
 

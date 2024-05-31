@@ -9,7 +9,7 @@ export const createTag = async ({ title, ownerId }: ITagSchema) => {
   try {
     await connectToMongoDB();
 
-    const newTag = new Tag({ title, ownerId });
+    const newTag = new Tag({ title: title.toLowerCase(), ownerId });
     const createdTag = await newTag.save();
 
     return JSON.parse(JSON.stringify(createdTag));

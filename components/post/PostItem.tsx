@@ -6,8 +6,8 @@ import TagItem from '../tag/TagItem';
 
 import { useRouter } from 'next/navigation';
 
-import type { ITag } from '@/types/Tag';
 import { EPostType } from '@/types/post-types';
+import type { ITag } from '@/types/tag';
 
 // ----------------------------------------------------------------
 
@@ -20,6 +20,7 @@ interface IPostItemProps {
 
 const PostItem: React.FC<IPostItemProps> = ({ title, type, tags, id }) => {
   const router = useRouter();
+  console.log('tags', tags);
   return (
     <li
       className="max-h-[182px] cursor-pointer rounded-lg bg-black-800 px-9 py-6"
