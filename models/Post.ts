@@ -31,6 +31,8 @@ export interface IPostModel {
     label: string;
     link: string;
   }[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IPostWithId extends IPostModel {

@@ -1,26 +1,27 @@
 'use client';
 
-import { Button } from '../ui/button';
 import RHFCheckbox from '../RHFInputs/RHFCheckbox';
 import RHFInput from '../RHFInputs/RHFInput';
+import { Button } from '../ui/button';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Plus, X } from 'lucide-react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { EOnboardingStep } from '@/types/onboarding-step';
 import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
+import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
 
 interface ILearningGoalsProps {
   handleChangeStep: (
+    // eslint-disable-next-line no-unused-vars
     data: Partial<IUserOnboarding>,
+    // eslint-disable-next-line no-unused-vars
     newStep: EOnboardingStep
   ) => void;
 }
 
 const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
-  const { KNOWLEDGE_LEVEL } = EOnboardingStep;
   const {
     trigger,
     formState: { errors },
@@ -35,8 +36,8 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
     const learningGoals = getValues('learningGoals');
 
     await handleChangeStep(
-      { learningGoals, onboardingStep: KNOWLEDGE_LEVEL },
-      KNOWLEDGE_LEVEL
+      { learningGoals, onboardingStep: EOnboardingStep.KNOWLEDGE_LEVEL },
+      EOnboardingStep.KNOWLEDGE_LEVEL
     );
   };
 
@@ -45,8 +46,8 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
       <p className="p3-medium">Learning goals</p>
       <div className="mb-6">
         <ul>
-          {fields.length > 0 ? (
-            fields?.map((field, index) => (
+          {fields?.length > 0 ? (
+            fields.map((field, index) => (
               <li
                 key={field.id}
                 className="flex-between my-2 rounded  bg-black-700 px-3 py-1"

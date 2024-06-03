@@ -1,6 +1,6 @@
+import LeftSidebar from '@/components/layout/LeftSidebar';
+import RightSidebar from '@/components/layout/RightSidebar';
 import MobileNav from '@/components/navigation/MobileNav';
-import LeftSidebar from '@/components/sidebars/LeftSidebar';
-import RightSidebar from '@/components/sidebars/RightSidebar';
 
 // ----------------------------------------------------------------
 

@@ -2,11 +2,11 @@
 
 import PostItemBadge from './PostItemBadge';
 
-import TagItem from '../tag/TagItem';
-import ComponentMenu from '../shared/ComponentMenu';
-import SyntaxHighlightAndCopy from '../shared/SyntaxHighlightAndCopy';
 import ChecklistItem from '../shared/ChecklistItem';
+import ComponentMenu from '../shared/ComponentMenu';
 import LearningResourceItem from '../shared/LearningResourceItem';
+import SyntaxHighlightAndCopy from '../shared/SyntaxHighlightAndCopy';
+import TagItem from '../shared/TagItem';
 import { useToast } from '../ui/use-toast';
 
 import { format } from 'date-fns';
@@ -18,8 +18,8 @@ import parse, {
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import type { IPost } from '@/types/Post';
 import { deletePost } from '@/lib/actions/post-actions';
+import type { IPost } from '@/types/Post';
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------

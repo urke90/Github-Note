@@ -1,4 +1,4 @@
-import TagItem from './TagItem';
+import TagItem from '../shared/TagItem';
 
 // ----------------------------------------------------------------
 

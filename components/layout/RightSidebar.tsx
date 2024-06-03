@@ -1,5 +1,5 @@
 import NavProfileInfo from '../shared/NavProfileInfo';
-import TagsList from '../tag/TagsList';
+import TagsList from '../shared/TagsList';
 
 // ----------------------------------------------------------------
 

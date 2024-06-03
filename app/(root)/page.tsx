@@ -1,11 +1,10 @@
-import Image from 'next/image';
-
 import { auth } from '@/auth';
+import GithubHeatMap from '@/components/HeatMap';
 import PostItem from '@/components/post/PostItem';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
-import { getAllPosts } from '@/lib/actions/post-actions';
+import { fetchPostsForHeatMap, getAllPosts } from '@/lib/actions/post-actions';
 import { IPostsResponse } from '@/types/post';
 import { EQueryPostType } from '@/types/post-types';
 import { parseSearchParams, parseTagsParams } from '@/utils/params';
@@ -16,8 +15,6 @@ import { parseSearchParams, parseTagsParams } from '@/utils/params';
  * pogledati tiny mce custom plugin za Warning code message
  * react calendar heatmap ===> pratimo broj commitova pushova na / HOME
  */
-
-// https://www.youtube.com/watch?v=49mkK-jr5no
 
 interface IHomeProps {
   searchParams: {
@@ -46,6 +43,9 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   });
   if (!response?.ok && response?.status !== 200) return;
 
+  const heatMapPosts: { date: string; count: number }[] =
+    await fetchPostsForHeatMap();
+
   const { posts, totalPages, hasNextPage, hasPrevPage } = response;
 
   return (
@@ -55,12 +55,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
         Time to jot down your latest learnings today!
       </p>
       <div className="mx-auto mb-9 max-w-[800]">
-        <Image
-          src="/assets/images/github-progress.svg"
-          alt="Github progress"
-          width={800}
-          height={165}
-        />
+        <GithubHeatMap value={heatMapPosts} />
       </div>
       <div className="flex-between mb-5 gap-4">
         <h2 className="h2-bold">Recent Posts</h2>

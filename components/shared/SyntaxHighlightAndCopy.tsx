@@ -7,7 +7,6 @@ import Image from 'next/image';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-
 // ----------------------------------------------------------------
 
 interface ISyntaxHighlightAndCopyProps {
@@ -24,7 +23,6 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
       await navigator.clipboard.writeText(text);
       toast({
         title: 'Copied to clipboard',
-        description: 'dasdas',
         variant: 'success',
       });
     } catch (error) {

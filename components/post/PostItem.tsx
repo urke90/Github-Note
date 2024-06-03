@@ -2,7 +2,7 @@
 
 import PostItemBadge from './PostItemBadge';
 
-import TagItem from '../tag/TagItem';
+import TagItem from '../shared/TagItem';
 
 import { useRouter } from 'next/navigation';
 
@@ -20,7 +20,7 @@ interface IPostItemProps {
 
 const PostItem: React.FC<IPostItemProps> = ({ title, type, tags, id }) => {
   const router = useRouter();
-  console.log('tags', tags);
+
   return (
     <li
       className="max-h-[182px] cursor-pointer rounded-lg bg-black-800 px-9 py-6"

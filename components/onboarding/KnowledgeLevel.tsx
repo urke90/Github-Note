@@ -3,12 +3,12 @@
 import RHFInput from '../RHFInputs/RHFInput';
 import { Button } from '../ui/button';
 
+import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { Plus, X } from 'lucide-react';
 
-import { EOnboardingStep } from '@/types/onboarding-step';
 import type { IUserOnboarding } from '@/lib/zod/onboarding-schema';
+import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
 
@@ -27,7 +27,6 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
     formState: { errors },
     getValues,
   } = useFormContext();
-  const { SCHEDULE_AND_AVAILABILITY } = EOnboardingStep;
   const { fields, append, remove } = useFieldArray({ name: 'knowledgeLevel' });
 
   const validateAndChangeStep = async () => {
@@ -38,8 +37,11 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
     const knowledgeLevel = getValues('knowledgeLevel');
 
     handleChangeStep(
-      { knowledgeLevel, onboardingStep: SCHEDULE_AND_AVAILABILITY },
-      SCHEDULE_AND_AVAILABILITY
+      {
+        knowledgeLevel,
+        onboardingStep: EOnboardingStep.SCHEDULE_AND_AVAILABILITY,
+      },
+      EOnboardingStep.SCHEDULE_AND_AVAILABILITY
     );
   };
 

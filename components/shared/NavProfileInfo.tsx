@@ -9,13 +9,13 @@ const NavProfileInfo: React.FC = async () => {
   // console.log('session', session);
 
   return (
-    <section className="flex">
+    <section className="flex gap-1.5">
       <Image
         src={session?.user.image ?? ''}
         width={36}
         height={36}
         alt="Profile Image"
-        className="mr-1.5"
+        className="rounded-lg"
       />
       <div>
         <p className="p3-medium text-white-100">{session?.user.name}</p>

@@ -14,14 +14,16 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { EOnboardingStep } from '@/types/onboarding-step';
 import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
+import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
 
 interface IBasicInformationsProps {
   handleChangeStep: (
+    // eslint-disable-next-line no-unused-vars
     data: Partial<IUserOnboarding>,
+    // eslint-disable-next-line no-unused-vars
     newStep: EOnboardingStep
   ) => void;
 }
@@ -29,7 +31,6 @@ interface IBasicInformationsProps {
 const BasicInformations: React.FC<IBasicInformationsProps> = ({
   handleChangeStep,
 }) => {
-  const { LEARNING_GOALS } = EOnboardingStep;
   const { trigger, setValue, getValues } = useFormContext();
   const [uploadedImage, setUploadedImage] = useState('');
 
@@ -59,8 +60,13 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
     ]);
 
     await handleChangeStep(
-      { fullName, portfolioUrl, avatarImg, onboardingStep: LEARNING_GOALS },
-      LEARNING_GOALS
+      {
+        fullName,
+        portfolioUrl,
+        avatarImg,
+        onboardingStep: EOnboardingStep.LEARNING_GOALS,
+      },
+      EOnboardingStep.LEARNING_GOALS
     );
   };
 

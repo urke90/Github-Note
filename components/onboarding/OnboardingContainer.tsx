@@ -18,33 +18,22 @@ import {
   updateUser,
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
-import {
-  type IUserOnboarding,
-  onboardingSchema,
-} from '@/lib/zod/onboarding-schema';
+import type { IUserOnboarding } from '@/lib/zod/onboarding-schema';
+import { onboardingSchema } from '@/lib/zod/onboarding-schema';
 import { IUser } from '@/models/User';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
-
 // ----------------------------------------------------------------
-
-const {
-  BASIC_INFORMATION,
-  KNOWLEDGE_LEVEL,
-  LEARNING_GOALS,
-  SCHEDULE_AND_AVAILABILITY,
-  FINISHED_ONBOARDING,
-} = EOnboardingStep;
 
 const generateTitleBasedOnStep = (step: EOnboardingStep) => {
   switch (step) {
-    case BASIC_INFORMATION:
+    case EOnboardingStep.BASIC_INFORMATION:
       return 'Basic Information';
-    case LEARNING_GOALS:
+    case EOnboardingStep.LEARNING_GOALS:
       return 'Add your learning goals';
-    case KNOWLEDGE_LEVEL:
+    case EOnboardingStep.KNOWLEDGE_LEVEL:
       return 'Add your knowledge level';
-    case SCHEDULE_AND_AVAILABILITY:
+    case EOnboardingStep.SCHEDULE_AND_AVAILABILITY:
       return 'Schedule & availability';
     default:
       return 'Basic Information';
@@ -72,7 +61,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   } = user || {};
   const router = useRouter();
   const [step, setStep] = useState<EOnboardingStep>(
-    onboardingStep || BASIC_INFORMATION
+    onboardingStep || EOnboardingStep.BASIC_INFORMATION
   );
 
   const onboardingForm = useForm<IUserOnboarding>({
@@ -102,7 +91,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   };
 
   const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
-    data.onboardingStep = FINISHED_ONBOARDING;
+    data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
 
     try {
       if (!_id) return;
@@ -137,16 +126,16 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
           <article>
             <Form {...onboardingForm}>
               <form onSubmit={onboardingForm.handleSubmit(onSubmit)}>
-                {step === BASIC_INFORMATION && (
+                {step === EOnboardingStep.BASIC_INFORMATION && (
                   <BasicInformation handleChangeStep={handleChangeStep} />
                 )}
-                {step === LEARNING_GOALS && (
+                {step === EOnboardingStep.LEARNING_GOALS && (
                   <LearningGoals handleChangeStep={handleChangeStep} />
                 )}
-                {step === KNOWLEDGE_LEVEL && (
+                {step === EOnboardingStep.KNOWLEDGE_LEVEL && (
                   <KnowledgeLevel handleChangeStep={handleChangeStep} />
                 )}
-                {step === SCHEDULE_AND_AVAILABILITY && (
+                {step === EOnboardingStep.SCHEDULE_AND_AVAILABILITY && (
                   <ScheduleAndAvailability />
                 )}
               </form>

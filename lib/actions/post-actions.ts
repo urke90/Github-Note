@@ -135,3 +135,34 @@ export const deletePost = async (postId: string) => {
     console.log('Error deleting post!', error);
   }
 };
+
+export const fetchPostsForHeatMap = async () => {
+  try {
+    await connectToMongoDB();
+
+    const session = await auth();
+    if (!session) throw new Error('User from session is not available!');
+
+    const posts = await Post.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          date: '$_id',
+          count: 1,
+        },
+      },
+    ]);
+
+    console.log('posts', posts);
+
+    return JSON.parse(JSON.stringify(posts));
+  } catch (error) {
+    console.log('Error deleting post!', error);
+  }
+};

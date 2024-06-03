@@ -20,7 +20,6 @@ const PostItemBadge: React.FC<IPostItemBadgeProps> = ({ postType }) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('postType', value);
     params.set('page', '1');
-    params.delete('tag');
 
     return params.toString();
   };
