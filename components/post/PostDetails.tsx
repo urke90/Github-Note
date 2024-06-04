@@ -79,7 +79,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   const handleDeletePost = async () => {
     try {
       const response = await deletePost(_id);
-      if (response?.ok && response.code === 200) {
+      if (response?.ok && response.status === 200) {
         toast({ variant: 'success', title: 'Post deleted successfully!' });
         router.push('/');
       }

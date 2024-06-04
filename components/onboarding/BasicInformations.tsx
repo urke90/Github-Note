@@ -32,12 +32,12 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
   handleChangeStep,
 }) => {
   const { trigger, setValue, getValues } = useFormContext();
-  const [uploadedImage, setUploadedImage] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
     if (!result?.info || typeof result?.info === 'string')
       throw new Error('Image not uploaded');
-    setUploadedImage(result.info.secure_url);
+    setImagePreview(result.info.secure_url);
     setValue(
       'avatarImg',
       (result.info as CloudinaryUploadWidgetInfo).secure_url
@@ -74,16 +74,24 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
     <section>
       <div className="mb-6 flex flex-row items-center">
         <div>
-          <CldImage
-            src={
-              uploadedImage ||
-              `${'/assets/images/image-upload-placeholder.svg'}`
-            }
-            alt="Upload Image"
-            width={90}
-            height={90}
-            className="mr-3.5 rounded-[5px]"
-          />
+          {imagePreview ? (
+            <CldImage
+              src={imagePreview}
+              alt="Upload Image"
+              width={90}
+              height={90}
+              crop="fill"
+              className="mr-3.5 rounded-[5px] "
+            />
+          ) : (
+            <Image
+              src="/assets/images/image-upload-placeholder.svg"
+              alt="Upload Image"
+              width={90}
+              height={90}
+              className="mr-3.5 rounded-[5px] object-scale-down"
+            />
+          )}
         </div>
 
         <Label className="flex-center w-[200px] cursor-pointer gap-2 rounded-md bg-black-700 p-2">

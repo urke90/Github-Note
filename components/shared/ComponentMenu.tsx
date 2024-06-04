@@ -35,7 +35,7 @@ const ComponentMenu: React.FC<IComponentMenuProps> = ({
           <DropdownMenuItem className="gap-2">
             <Image
               src="/assets/icons/icn-edit.svg"
-              alt="Menu"
+              alt="Edit"
               width={14}
               height={14}
             />
@@ -47,7 +47,7 @@ const ComponentMenu: React.FC<IComponentMenuProps> = ({
         <DropdownMenuItem className="gap-2" onClick={onDeletePost}>
           <Image
             src="/assets/icons/icn-trash.svg"
-            alt="Menu"
+            alt="Delete"
             width={14}
             height={14}
           />

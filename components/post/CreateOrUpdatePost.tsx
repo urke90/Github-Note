@@ -33,43 +33,31 @@ import { EPostType } from '@/types/post-types';
 interface ICreateOrUpdatePostProps {
   tags: ISelectOptions[];
   post?: IPost;
-  isEditPage?: boolean;
 }
 
 const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
   tags,
   post,
-  isEditPage,
 }) => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const {
-    _id,
-    title,
-    tags: existingTags,
-    description,
-    type,
-    codeExample,
-    checklist,
-    content,
-    learningResources,
-  } = post || {};
+  const isEditPage = !!post;
 
   const modifiedTags =
-    existingTags?.map(({ title }) => ({ label: title, value: title })) || [];
+    post?.tags?.map(({ title }) => ({ label: title, value: title })) || [];
 
   const form = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      title: title || '',
-      type: type || EPostType.COMPONENT,
+      title: post?.title || '',
+      type: post?.type || EPostType.COMPONENT,
       tags: modifiedTags || [],
-      description: description || '',
-      codeExample: codeExample || '',
-      checklist: checklist || [],
-      content: content || '',
-      learningResources: learningResources || [],
+      description: post?.description || '',
+      codeExample: post?.codeExample || '',
+      checklist: post?.checklist || [],
+      content: post?.content || '',
+      learningResources: post?.learningResources || [],
     },
   });
   const { handleSubmit, getValues, reset } = form;
@@ -79,16 +67,16 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
 
     try {
       if (isEditPage) {
-        if (!_id) return;
-        const response = await updatePost(_id, data);
-        console.log('response update post', response);
+        if (!post?._id) return;
+        const response = await updatePost(post?._id, data);
+
         if (response.ok && response.status === 200) {
           router.push(response.redirectRoute);
           toast({ variant: 'success', title: 'Post updated successfully!' });
         }
       } else {
         const response = await createNewPost(data);
-        if (response?.ok === true && response?.code === 201) {
+        if (response?.ok === true && response?.status === 201) {
           toast({ variant: 'success', title: 'Post created successfully' });
           router.push(response.redirectRoute);
         }

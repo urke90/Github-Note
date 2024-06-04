@@ -5,8 +5,6 @@ import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
 import NavProfileInfo from '../shared/NavProfileInfo';
 
 import Image from 'next/image';
-import { X } from 'lucide-react';
-
 
 import {
   Sheet,
@@ -14,7 +12,6 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-
 
 // ----------------------------------------------------------------
 
@@ -36,7 +33,12 @@ const Navbar: React.FC = () => {
             <NavProfileInfo />
           </div>
           <SheetClose>
-            <X className="text-white-100" />
+            <Image
+              src="/assets/icons/x.svg"
+              alt="close"
+              width={24}
+              height={24}
+            />
           </SheetClose>
         </header>
         <div className="mb-6">

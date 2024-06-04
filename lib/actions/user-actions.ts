@@ -14,7 +14,9 @@ import User from '@/models/user';
 export const getUserById = async (userId: string) => {
   try {
     await connectToMongoDB();
+
     const user = await User.findById<IUser>(userId);
+
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     console.log('Error getting user from MongoDB', error);

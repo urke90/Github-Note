@@ -32,10 +32,10 @@ const Register = () => {
 
   const onSubmit = async (data: ISignUpFormData) => {
     try {
-      const result = await createNewUser(data);
-      console.log('result', result);
-      if (!result.ok) {
-        if (result.status === 409)
+      const response = await createNewUser(data);
+      console.log('result', response);
+      if (!response.ok) {
+        if (response.status === 409)
           return toast({
             variant: 'error',
             title: 'Email already exists!',

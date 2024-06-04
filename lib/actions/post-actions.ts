@@ -48,7 +48,7 @@ export const createNewPost = async (data: IPostSchema) => {
 
     return {
       ok: true,
-      code: 201,
+      status: 201,
       redirectRoute: '/post/' + newPost._id.toString(),
     };
   } catch (error) {
@@ -118,7 +118,6 @@ export const getPostById = async (postId: string) => {
     await connectToMongoDB();
 
     const post = await Post.findById(postId).populate('tags').lean();
-    // console.log(' getPostById post', post);
 
     return JSON.parse(JSON.stringify(post));
   } catch (error) {
@@ -131,7 +130,7 @@ export const deletePost = async (postId: string) => {
     await connectToMongoDB();
     await Post.findByIdAndDelete(postId);
 
-    return { ok: true, code: 200 };
+    return { ok: true, status: 200 };
   } catch (error) {
     console.log('Error deleting post!', error);
   }
@@ -144,7 +143,7 @@ export const fetchPostsForHeatMap = async () => {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
 
-    const posts = await Post.aggregate([
+    const formatedPostDates = await Post.aggregate([
       {
         $group: {
           _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
@@ -160,7 +159,7 @@ export const fetchPostsForHeatMap = async () => {
       },
     ]);
 
-    return JSON.parse(JSON.stringify(posts));
+    return JSON.parse(JSON.stringify(formatedPostDates));
   } catch (error) {
     console.log('Error deleting post!', error);
   }
