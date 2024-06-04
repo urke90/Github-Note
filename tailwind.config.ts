@@ -47,7 +47,7 @@ const config = {
           900: 'var(--green-900)',
         },
         red: {
-          text: 'var(--red-text-error)',
+          regular: 'var(--red-text-error)',
           bg: 'var(--red-bg-error)',
         },
       },

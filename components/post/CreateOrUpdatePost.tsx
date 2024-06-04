@@ -3,80 +3,104 @@
 import CodeExampleTabs from '../shared/CodeExampleTabs';
 import { useToast } from '../ui/use-toast';
 
-import { Fragment } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { Form } from '@/components/ui/form';
-import { type IPostSchema, postSchema } from '@/lib/zod/post-schema';
-import RHFInput from '@/components/RHFInputs/RHFInput';
-import RHFSelect, {
-  SelectOptionWithIcon,
-} from '@/components/RHFInputs/RHFSelect';
-import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
 import RHFChecklist from '@/components/RHFInputs/RHFChecklist';
-import { SelectSeparator } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { POST_TYPES } from '@/constants/post';
-import { EPostType } from '@/types/post-types';
-import RHFLearningResources from '@/components/RHFInputs/RHFLearningResources';
-import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
 import RHFCreatableSelect, {
   ISelectOptions,
 } from '@/components/RHFInputs/RHFCreatableSelect';
-import { createNewPost } from '@/lib/actions/post-actions';
+import RHFInput from '@/components/RHFInputs/RHFInput';
+import RHFLearningResources from '@/components/RHFInputs/RHFLearningResources';
+import RHFSelect, {
+  SelectOptionWithIcon,
+} from '@/components/RHFInputs/RHFSelect';
+import RHFTextEditor from '@/components/RHFInputs/RHFTextEditor';
+import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
+import { SelectSeparator } from '@/components/ui/select';
+import { POST_TYPES } from '@/constants/post';
+import { createNewPost, updatePost } from '@/lib/actions/post-actions';
+import { postSchema, type IPostSchema } from '@/lib/zod/post-schema';
+import type { IPost } from '@/types/post';
+import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-/**
- * 1. Da li treba da dohvatam Usera u Wrapper Page-u da bude Server side i da samo prosledim ovoj komponenti CreatePost (kao sto sam radio sa Onboardingom) ===>
- * 2. create post action proverava tagove. AKo ne postoji kreira nov/e tagove , ako postoji onda ne mora 2 poziva
- *
- * 1.  Mora get poziv za tagove da se  populate dropdown ( Onda imam sve tagove ---> imaju objectIds )
- * 2.PRISM JS ZA SYNTAX HIGHLIGHTING ili react syntax hightligter ==> ovo za code exmple
- * 3. html-react-parser ===> koristimo za rich text editor
- *  ------ videti tinymce code plugin
- * 4.
- *
- *
- * 1. Home page ( napraviti post card)
- *  2. Post Details page
- */
-
-interface ICreatePostContainerProps {
+interface ICreateOrUpdatePostProps {
   tags: ISelectOptions[];
+  post?: IPost;
+  isEditPage?: boolean;
 }
 
-const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
+const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
+  tags,
+  post,
+  isEditPage,
+}) => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const postForm = useForm<IPostSchema>({
+  const {
+    _id,
+    title,
+    tags: existingTags,
+    description,
+    type,
+    codeExample,
+    checklist,
+    content,
+    learningResources,
+  } = post || {};
+
+  const modifiedTags =
+    existingTags?.map(({ title }) => ({ label: title, value: title })) || [];
+
+  const form = useForm<IPostSchema>({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      title: '',
-      type: EPostType.COMPONENT,
-      tags: [], // TODO: Finish when i add: React Select library
-      description: '',
-      codeExample: '',
-      checklist: [],
-      content: '',
-      learningResources: [],
+      title: title || '',
+      type: type || EPostType.COMPONENT,
+      tags: modifiedTags || [],
+      description: description || '',
+      codeExample: codeExample || '',
+      checklist: checklist || [],
+      content: content || '',
+      learningResources: learningResources || [],
     },
   });
-  const { handleSubmit, getValues, reset } = postForm;
+  const { handleSubmit, getValues, reset } = form;
 
   const onSubmit = async (data: IPostSchema) => {
+    toast({ variant: 'error', title: 'nesto' });
+
     try {
-      const response = await createNewPost(data);
-      console.log('response', response);
-      if (response?.ok === true && response?.code === 201) {
-        router.push(response.redirectRoute);
-        toast({ variant: 'success', title: 'Created Post successfully!' });
+      if (isEditPage) {
+        if (!_id) return;
+        const response = await updatePost(_id, data);
+        console.log('response update post', response);
+        if (response.ok && response.status === 200) {
+          router.push(response.redirectRoute);
+          toast({ variant: 'success', title: 'Post updated successfully!' });
+        }
+      } else {
+        const response = await createNewPost(data);
+        if (response?.ok === true && response?.code === 201) {
+          toast({ variant: 'success', title: 'Post created successfully' });
+          router.push(response.redirectRoute);
+        }
       }
     } catch (error) {
       console.log('Error creating new post', error);
+      if (error instanceof Error) {
+        toast({
+          variant: 'error',
+          title: `Something went wrong. Couldn't ${isEditPage ? 'update' : 'create'} post!`,
+        });
+      }
     }
     reset();
   };
@@ -85,9 +109,11 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
 
   return (
     <section className="mt-[30px] px-[30px]">
-      <h1 className="h1-bold mb-[30px]  lg:mb-8">Create Post</h1>
+      <h1 className="h1-bold mb-[30px]  lg:mb-8">
+        {isEditPage ? 'Edit' : 'Create'} Post
+      </h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
-      <Form {...postForm}>
+      <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-10">
           <div className="mb-7">
             <RHFInput
@@ -117,6 +143,7 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
               label="Tags"
               placeholder="Search tags"
               options={tags}
+              value={modifiedTags}
             />
           </div>
           <div className="mb-7">
@@ -139,11 +166,11 @@ const CreatePostContainer: React.FC<ICreatePostContainerProps> = ({ tags }) => {
           <div className="mb-16 gap-7">
             <RHFLearningResources />
           </div>
-          <Button type="submit">Create Post</Button>
+          <Button type="submit">{isEditPage ? 'Edit' : 'Create'} Post</Button>
         </form>
       </Form>
     </section>
   );
 };
 
-export default CreatePostContainer;
+export default CreateOrUpdatePost;

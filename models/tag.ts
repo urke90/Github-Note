@@ -7,10 +7,6 @@ export interface IModelTag {
   ownerId: Schema.Types.ObjectId;
 }
 
-export interface ITagWithId extends IModelTag {
-  _id: string;
-}
-
 const tagSchema = new Schema<IModelTag>(
   {
     title: { type: String, required: true },

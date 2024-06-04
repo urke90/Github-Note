@@ -71,7 +71,7 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
             ))
           ) : (
             <li
-              className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-500' : ''}`}
+              className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-regular' : ''}`}
             >
               {errors.learningGoals
                 ? errors.learningGoals?.message?.toString()

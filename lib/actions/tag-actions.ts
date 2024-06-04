@@ -3,7 +3,9 @@
 import { connectToMongoDB } from '../database/mongodb';
 import { ITagSchema } from '../zod/tag-schema';
 
-import Tag from '@/models/Tag';
+import Tag from '@/models/tag';
+
+// ----------------------------------------------------------------
 
 export const createTag = async ({ title, ownerId }: ITagSchema) => {
   try {

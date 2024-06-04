@@ -11,8 +11,8 @@ import {
 import CreatableSelect from 'react-select/creatable';
 // import makeAnimated from 'react-select/animated';
 
-import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
+import { useFormContext } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 
@@ -28,6 +28,7 @@ interface IRHFReactSelectProps {
   isMulti?: boolean;
   placeholder?: string;
   options: ISelectOptions[];
+  value?: ISelectOptions[];
 }
 
 const DropdownIndicator = () => {
@@ -50,15 +51,13 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
   isMulti = true,
   placeholder,
   options,
+  value,
 }) => {
   const { control } = useFormContext();
 
-  const blackPrimary = '#1D2032';
-  const blackSecondary = '#2E3757';
-  const whitePrimary = '#ADB3CC';
-
-  // delimiter
-  // inputValue
+  const black700 = '#1D2032';
+  const black600 = '#2E3757';
+  const white300 = '#ADB3CC';
 
   return (
     <FormField
@@ -74,17 +73,18 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
               onChange={(newValue) => {
                 field.onChange(newValue);
               }}
+              defaultValue={value}
               styles={{
                 indicatorsContainer: (base) => ({
                   ...base,
-                  color: whitePrimary,
+                  color: white300,
                   marginRight: '12px',
                   cursor: 'pointer',
                 }),
                 clearIndicator: (base) => {
                   return {
                     ...base,
-                    color: whitePrimary,
+                    color: white300,
                   };
                 },
                 indicatorSeparator: () => ({
@@ -92,19 +92,19 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
                 }),
                 placeholder: (base) => ({
                   ...base,
-                  color: whitePrimary,
+                  color: white300,
                   fontSize: '14px',
                 }),
                 input: (base) => ({
                   ...base,
-                  color: whitePrimary,
+                  color: white300,
                 }),
                 control: () => ({
                   display: 'flex',
                   cursor: 'text',
                   paddingTop: '4px',
                   paddingBottom: '4px',
-                  backgroundColor: blackPrimary,
+                  backgroundColor: black700,
                   '&:focus': {
                     border: 'none',
                     outline: 'none',
@@ -112,32 +112,30 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
                 }),
                 menu: (base) => ({
                   ...base,
-                  backgroundColor: blackPrimary,
+                  backgroundColor: black700,
                   marginTop: 4,
                 }),
                 option: (base, { data, options }) => {
                   const isLastOption = data === options[options.length - 1];
                   return {
                     ...base,
-                    backgroundColor: blackPrimary,
-                    borderBottom: isLastOption
-                      ? ''
-                      : `1px solid ${blackPrimary}`,
+                    backgroundColor: black700,
+                    borderBottom: isLastOption ? '' : `1px solid ${black700}`,
                     '&:active': {
-                      backgroundColor: blackSecondary,
+                      backgroundColor: black600,
                     },
                     '&:hover': {
-                      backgroundColor: blackSecondary,
+                      backgroundColor: black600,
                     },
                   };
                 },
                 multiValue: (base) => ({
                   ...base,
-                  backgroundColor: blackSecondary,
+                  backgroundColor: black600,
                 }),
                 multiValueLabel: (base) => ({
                   ...base,
-                  color: whitePrimary,
+                  color: white300,
                 }),
                 multiValueRemove: () => ({
                   paddingLeft: '4px',
@@ -151,7 +149,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage className="text-red-500" />
+          <FormMessage className="text-red-regular" />
         </FormItem>
       )}
     />

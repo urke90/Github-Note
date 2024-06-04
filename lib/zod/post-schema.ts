@@ -20,19 +20,20 @@ const tagSchema = z.object({
 });
 
 export const postSchema = z.object({
-  title: z.string().trim().min(2, 'Please enter the title of the post!'),
+  title: z.string().trim().min(3, 'Title must be at least characters long!'),
   type: z.enum([EPostType.COMPONENT, EPostType.KNOWLEDGE, EPostType.WORKFLOW]),
-  tags: z.array(tagSchema).nonempty('Please add at leats one tag!'),
+  tags: z.array(tagSchema).min(1, 'Please add at leats one tag!'),
   description: z
     .string()
     .trim()
-    .min(3, 'Please enter the description of the post'),
+    .min(10, 'Description must be at least 10 characters long!'),
   checklist: z.array(z.string()).optional(),
   codeExample: z.string().trim().optional(),
   content: z
     .string()
     .trim()
-    .min(3, 'Content must be at least 3 characters long!'),
+    .min(3, 'Content must be at least 3 characters long!')
+    .optional(),
   learningResources: z.array(learningResourcesSchema).optional(),
 });
 

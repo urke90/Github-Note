@@ -9,9 +9,9 @@ import { useForm } from 'react-hook-form';
 import RHFInput from '@/components/RHFInputs/RHFInput';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
-import { type ILoginFormData, loginFormSchema } from '@/lib/zod/user-schema';
 import { useToast } from '@/components/ui/use-toast';
+import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
+import { loginFormSchema, type ILoginFormData } from '@/lib/zod/user-schema';
 
 // ----------------------------------------------------------------
 
@@ -38,7 +38,7 @@ const Login = () => {
     } catch (error) {
       if (error instanceof Error) {
         toast({
-          variant: 'destructive',
+          variant: 'error',
           title: 'Invalid email or password!',
         });
 

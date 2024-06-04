@@ -1,19 +1,17 @@
 import { Suspense } from 'react';
 
 import { auth } from '@/auth';
+import CreateOrUpdatePost from '@/components/post/CreateOrUpdatePost';
 import { getTags } from '@/lib/actions/tag-actions';
-import type { ITagWithId } from '@/models/Tag';
-import CreatePostContainer from '@/components/containers/CreatePostContainer';
+import type { ITag } from '@/types/tag';
 
 // ----------------------------------------------------------------
 
-const CreatePost = async () => {
+const CreatePostPage = async () => {
   const session = await auth();
   if (!session?.user.id) return;
 
-  const tags: ITagWithId[] = await getTags(session.user.id);
-
-  if (!tags) return null;
+  const tags: ITag[] = (await getTags(session.user.id)) || [];
 
   const modifiedTags = tags.map((tag) => ({
     label: tag.title,
@@ -22,9 +20,9 @@ const CreatePost = async () => {
 
   return (
     <Suspense fallback="Loading...">
-      <CreatePostContainer tags={modifiedTags} />
+      <CreateOrUpdatePost tags={modifiedTags} />
     </Suspense>
   );
 };
 
-export default CreatePost;
+export default CreatePostPage;

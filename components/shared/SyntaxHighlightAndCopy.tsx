@@ -29,7 +29,7 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
       console.log('Copy to clipboard failed!', error);
       toast({
         title: 'Failed to copy to clipboard',
-        variant: 'destructive',
+        variant: 'error',
       });
     }
   };

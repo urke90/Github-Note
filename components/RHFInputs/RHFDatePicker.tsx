@@ -1,9 +1,11 @@
 'use client';
 
-import { useFormContext } from 'react-hook-form';
-import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   FormControl,
   FormDescription,
@@ -12,14 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 // ----------------------------------------------------------------
 
@@ -80,7 +80,7 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
               {description}
             </FormDescription>
           )}
-          <FormMessage className="text-red-500" />
+          <FormMessage className="text-red-regular" />
         </FormItem>
       )}
     />

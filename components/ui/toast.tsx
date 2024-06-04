@@ -1,9 +1,9 @@
 'use client';
 
-import * as React from 'react';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -31,7 +31,7 @@ const toastVariants = cva(
       variant: {
         default: 'text-foreground border',
         success: 'group bg-black-700',
-        destructive: 'destructive text-destructive-foreground group bg-red-bg',
+        error: 'group bg-red-bg opacity-80',
       },
     },
     defaultVariants: {
@@ -77,7 +77,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      'absolute right-2 top-2 rounded-md p-1 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none  group-hover:opacity-100',
+      'absolute right-2 top-2 rounded-md p-1 transition-opacity hover:text-foreground focus:opacity-100 group-[.destructive]:!text-white-100 focus:outline-none  group-hover:opacity-100',
       className
     )}
     toast-close=""
@@ -107,7 +107,7 @@ const ToastDescription = React.forwardRef<
   <ToastPrimitives.Description
     ref={ref}
     className={cn(
-      'text-sm opacity-90 group-[.destructive]:text-red-text group-[.success]:text-green-500',
+      'text-sm opacity-10 group-[.destructive]:text-red-regular group-[.success]:text-green-500',
       className
     )}
     {...props}
@@ -120,13 +120,13 @@ type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 export {
-  type ToastProps,
-  type ToastActionElement,
-  ToastProvider,
-  ToastViewport,
   Toast,
-  ToastTitle,
-  ToastDescription,
-  ToastClose,
   ToastAction,
+  ToastClose,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+  type ToastActionElement,
+  type ToastProps,
 };

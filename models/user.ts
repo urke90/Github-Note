@@ -1,4 +1,5 @@
-import { Schema, model, Document, Model, models } from 'mongoose';
+import { Document, Model, model, models, Schema } from 'mongoose';
+
 import { EOnboardingStep } from '@/types/onboarding-step';
 
 export interface ILearningGoals extends Document {
@@ -25,8 +26,6 @@ const LearningGoalsSchema = new Schema<ILearningGoals>({
   isChecked: { type: Boolean, required: true },
   goal: { type: String, required: true },
 });
-
-// objectId ----> wrapper oko ID da moze da se radi reference
 
 const UserSchema: Schema = new Schema<IUser>({
   fullName: {

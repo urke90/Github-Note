@@ -18,9 +18,11 @@ import {
   updateUser,
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
-import type { IUserOnboarding } from '@/lib/zod/onboarding-schema';
-import { onboardingSchema } from '@/lib/zod/onboarding-schema';
-import { IUser } from '@/models/User';
+import {
+  onboardingSchema,
+  type IUserOnboarding,
+} from '@/lib/zod/onboarding-schema';
+import { IUser } from '@/models/user';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------

@@ -1,18 +1,18 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
 import RHFInput from '@/components/RHFInputs/RHFInput';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { createNewUser } from '@/lib/actions/user-actions';
-import { type ISignUpFormData, signUpFormSchema } from '@/lib/zod/user-schema';
 import { useToast } from '@/components/ui/use-toast';
 import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
+import { createNewUser } from '@/lib/actions/user-actions';
+import { signUpFormSchema, type ISignUpFormData } from '@/lib/zod/user-schema';
 
 // ----------------------------------------------------------------
 
@@ -37,7 +37,7 @@ const Register = () => {
       if (!result.ok) {
         if (result.status === 409)
           return toast({
-            variant: 'destructive',
+            variant: 'error',
             title: 'Email already exists!',
           });
       }

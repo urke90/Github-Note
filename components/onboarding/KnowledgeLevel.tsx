@@ -14,7 +14,9 @@ import { EOnboardingStep } from '@/types/onboarding-step';
 
 interface IKnowledgeLevelProps {
   handleChangeStep: (
+    // eslint-disable-next-line no-unused-vars
     data: Partial<IUserOnboarding>,
+    // eslint-disable-next-line no-unused-vars
     newStep: EOnboardingStep
   ) => void;
 }
@@ -78,7 +80,7 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
             ))
           ) : (
             <li
-              className={`my-2 rounded  px-3 py-2 text-center ${errors.knowledgeLevel ? 'text-red-500' : ''}`}
+              className={`my-2 rounded  px-3 py-2 text-center ${errors.knowledgeLevel ? 'text-red-regular' : ''}`}
             >
               {errors.knowledgeLevel
                 ? errors.knowledgeLevel.message?.toString()

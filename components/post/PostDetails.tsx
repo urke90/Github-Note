@@ -19,7 +19,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { deletePost } from '@/lib/actions/post-actions';
-import type { IPost } from '@/types/Post';
+import type { IPost } from '@/types/post';
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
@@ -49,8 +49,6 @@ const parserOptions: HTMLReactParserOptions = {
       }
     }
 
-    // This will add blue text color and text-underline to the 'a' tag
-    // TODO: Check this with Mateo, since i am working with links which might be bolded/italic...etc
     if (domNode instanceof Element && domNode.name === 'a') {
       domNode.attribs.class = 'text-primary-500 underline';
       return domNode;
@@ -78,7 +76,6 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   const checklistTitle =
     type === EPostType.KNOWLEDGE ? 'Key Takeaways' : 'Task Checklist';
 
-  // ? Is this good example for asking about pure functions? SHould ID be passed to func args firs or directly into deletePost ????
   const handleDeletePost = async () => {
     try {
       const response = await deletePost(_id);
@@ -88,7 +85,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
       }
     } catch (error) {
       toast({
-        variant: 'destructive',
+        variant: 'error',
         title: "Something went wrong. Couldn't delete post! ",
       });
     }
@@ -99,7 +96,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
       <div className=" flex flex-col gap-5 border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
         <div className="lg:flex-between  flex gap-2.5 max-lg:flex-col">
           <h1 className="h1-bold line-clamp-2">{title}</h1>
-          <div className="flex-between lg:flex-center">
+          <div className="flex-between lg:flex-center gap-2.5">
             <PostItemBadge postType={type} />
             <ComponentMenu postId={_id} onDeletePost={handleDeletePost} />
           </div>
