@@ -1,7 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -60,7 +60,13 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
                     !field.value && 'text-muted-foreground'
                   )}
                 >
-                  <CalendarIcon className="size-4 opacity-50" />
+                  {/* <CalendarIcon className="size-4 opacity-50" /> */}
+                  <Image
+                    src="/assets/icons/icn-calendar.svg"
+                    alt="Calendar"
+                    width={16}
+                    height={16}
+                  />
                   {field.value ? (
                     format(field.value, 'PPP')
                   ) : (

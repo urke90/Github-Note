@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 import {
   CommandDialog,
@@ -13,13 +15,13 @@ import {
 } from '@/components/ui/command';
 
 const SearchCommandDialog = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setIsOpen((open) => !open);
       }
     };
 
@@ -28,11 +30,14 @@ const SearchCommandDialog = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex-between w-full rounded bg-black-700 px-2.5 py-1">
+    <div className="relative">
+      <Button
+        className="flex-between h-9 w-full rounded bg-black-700 px-2.5 text-white-300"
+        onClick={() => setIsOpen((open) => !open)}
+      >
         <div className="flex-center">
           <Image
-            src="/assets/images/Search.svg"
+            src="/assets/icons/search.svg"
             width={16}
             height={16}
             alt="Search"
@@ -40,15 +45,15 @@ const SearchCommandDialog = () => {
           />
           <p className="p4-medium">Search...</p>
         </div>
-        <kbd className="flex-center pointer-events-none select-none gap-1 text-[16px] ">
+        <kbd className="flex-center pointer-events-none select-none gap-1 text-[16px]">
           <CommandShortcut className="mt-0.5 text-[18px]">⌘</CommandShortcut>K
         </kbd>
-      </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      </Button>
+      <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandGroup>
-            <CommandItem className="text-white-300">
+            <CommandItem>
               <Image
                 src="/assets/images/Frame.svg"
                 width={16}
@@ -56,9 +61,9 @@ const SearchCommandDialog = () => {
                 alt="search text"
                 className="mr-3"
               />
-              <span className="text-white-300">Explore all posts</span>
+              Explore all posts
             </CommandItem>
-            <CommandItem className="text-white-300">
+            <CommandItem>
               <Image
                 src="/assets/images/icn-computer.svg"
                 width={16}
@@ -91,7 +96,7 @@ const SearchCommandDialog = () => {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-    </>
+    </div>
   );
 };
 

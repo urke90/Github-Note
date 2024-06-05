@@ -1,8 +1,8 @@
 import RHFInput from './RHFInput';
 
+import CloseIcon from '../icons/CloseIcon';
 import { Button } from '../ui/button';
 
-import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
@@ -65,7 +65,7 @@ const RHFChecklist: React.FC<IRHFChecklistProps> = ({ postType }) => {
                     className="pl-0"
                   />
                 </div>
-                <X
+                <CloseIcon
                   className="size-[20px] cursor-pointer text-white-500"
                   onClick={() => remove(index)}
                 />

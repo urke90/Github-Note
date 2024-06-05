@@ -1,8 +1,8 @@
 import RHFInput from './RHFInput';
 
+import CloseIcon from '../icons/CloseIcon';
 import { Button } from '../ui/button';
 
-import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useFieldArray } from 'react-hook-form';
 
@@ -29,7 +29,7 @@ const RHFLearningResources: React.FC = () => {
                 placeholder="Resource Link"
               />
               <div className="flex rounded bg-black-700 p-3.5">
-                <X
+                <CloseIcon
                   className="size-4 cursor-pointer"
                   onClick={() => remove(index)}
                 />
