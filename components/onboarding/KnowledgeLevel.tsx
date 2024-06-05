@@ -1,9 +1,9 @@
 'use client';
 
 import RHFInput from '../RHFInputs/RHFInput';
+import CloseIcon from '../icons/CloseIcon';
 import { Button } from '../ui/button';
 
-import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
@@ -72,7 +72,7 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
                     className="pl-0"
                   />
                 </div>
-                <X
+                <CloseIcon
                   className="cursor-pointer text-white-500"
                   onClick={() => remove(index)}
                 />
@@ -94,7 +94,12 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
           variant="secondary"
           className={`${fields.length === 0 ? 'mt-3' : ''} mb-6`}
         >
-          <Plus className="size-[16px] rounded bg-primary-500 text-black-600" />
+          <Image
+            src="/assets/icons/plus-primary-blue.svg"
+            width={14}
+            height={14}
+            alt="Add"
+          />
           Add knowledge checkmark
         </Button>
         <RHFInput

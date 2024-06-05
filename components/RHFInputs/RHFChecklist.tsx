@@ -86,7 +86,12 @@ const RHFChecklist: React.FC<IRHFChecklistProps> = ({ postType }) => {
         type="button"
         className="gap-2"
       >
-        <Image src="/assets/icons/plus.svg" width={16} height={16} alt="Add" />
+        <Image
+          src="/assets/icons/plus-primary-blue.svg"
+          width={16}
+          height={16}
+          alt="Add"
+        />
         <span className="text-xs text-white-100">Add checkmark</span>
       </Button>
     </div>

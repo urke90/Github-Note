@@ -2,9 +2,10 @@
 
 import RHFCheckbox from '../RHFInputs/RHFCheckbox';
 import RHFInput from '../RHFInputs/RHFInput';
+import CloseIcon from '../icons/CloseIcon';
 import { Button } from '../ui/button';
 
-import { Plus, X } from 'lucide-react';
+import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
@@ -63,7 +64,7 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
                     className="pl-0"
                   />
                 </div>
-                <X
+                <CloseIcon
                   className="cursor-pointer text-white-500"
                   onClick={() => remove(index)}
                 />
@@ -85,7 +86,12 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
           variant="secondary"
           className={`${fields.length === 0 ? 'mt-2' : ''}`}
         >
-          <Plus className="size-[16px] rounded bg-primary-500 text-black-600" />
+          <Image
+            src="/assets/icons/plus-primary-blue.svg"
+            alt="add"
+            width={14}
+            height={14}
+          />
           Add goal checkbox
         </Button>
       </div>

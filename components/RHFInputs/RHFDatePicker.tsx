@@ -2,10 +2,11 @@
 
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar, CalendarProps } from '@/components/ui/calendar';
 import {
   FormControl,
   FormDescription,
@@ -23,22 +24,24 @@ import { cn } from '@/lib/utils';
 
 // ----------------------------------------------------------------
 
-interface IRHFDatePickerProps {
+type IRHFDatePickerProps = CalendarProps & {
   name: string;
   label: string;
-  buttonVariant?: 'primary' | 'secondary';
   buttonText?: string;
   description?: string;
-}
+  disableFromDate?: Date;
+};
 
 const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
   name,
   label = '',
-  buttonVariant = 'secondary',
   buttonText = 'Select date & time',
   description = '',
+  disableFromDate = new Date(),
 }) => {
   const { control } = useFormContext();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <FormField
       control={control}
@@ -46,11 +49,12 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
       render={({ field }) => (
         <FormItem className="flex w-full flex-col items-start">
           {label && <FormLabel className="p3-medium">{label}</FormLabel>}
-          <Popover>
+          <Popover open={isOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  variant={buttonVariant}
+                  onClick={() => setIsOpen((prevOpen) => !prevOpen)}
+                  variant="secondary"
                   className={cn(
                     'bg-black-700 justify-start',
                     !field.value && 'text-muted-foreground'
@@ -68,9 +72,13 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
             <PopoverContent className="w-auto bg-black-900 p-0" align="start">
               <Calendar
                 mode="single"
+                showOutsideDays={false}
                 selected={field.value}
-                onSelect={field.onChange}
-                disabled={(date) => date < new Date()}
+                onSelect={(day) => {
+                  field.onChange(day);
+                  setIsOpen(false);
+                }}
+                disabled={(date) => date < disableFromDate}
                 initialFocus
               />
             </PopoverContent>

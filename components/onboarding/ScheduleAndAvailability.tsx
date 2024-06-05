@@ -4,9 +4,15 @@ import RHFCheckbox from '../RHFInputs/RHFCheckbox';
 import RHFDatePicker from '../RHFInputs/RHFDatePicker';
 import { Button } from '../ui/button';
 
+import { useFormContext, useWatch } from 'react-hook-form';
+
 // ----------------------------------------------------------------
 
 const ScheduleAndAvailability: React.FC = () => {
+  const { getValues } = useFormContext();
+  useWatch({ name: 'startDate' });
+  const startDate = getValues('startDate');
+
   return (
     <section>
       <RHFCheckbox
@@ -26,6 +32,7 @@ const ScheduleAndAvailability: React.FC = () => {
             name="endDate"
             label="End Date & Time"
             description="The time is in your local timezone"
+            disableFromDate={startDate}
           />
         </div>
       </div>

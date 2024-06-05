@@ -2,8 +2,8 @@ import RHFInput from './RHFInput';
 
 import { Button } from '../ui/button';
 
-import Image from 'next/image';
 import { X } from 'lucide-react';
+import Image from 'next/image';
 import { useFieldArray } from 'react-hook-form';
 
 // ----------------------------------------------------------------
@@ -49,7 +49,7 @@ const RHFLearningResources: React.FC = () => {
         onClick={() => append({ label: '', link: '' })}
       >
         <Image
-          src="/assets/icons/plus.svg"
+          src="/assets/icons/plus-primary-blue.svg"
           width={16}
           height={16}
           alt="New resource"

@@ -1,6 +1,7 @@
 import PostsList from './NavPostsList';
 import QuickLinks from './QuickLinks';
 
+import CloseIcon from '../icons/CloseIcon';
 import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
 import NavProfileInfo from '../shared/NavProfileInfo';
 
@@ -33,12 +34,7 @@ const Navbar: React.FC = () => {
             <NavProfileInfo />
           </div>
           <SheetClose>
-            <Image
-              src="/assets/icons/x.svg"
-              alt="close"
-              width={24}
-              height={24}
-            />
+            <CloseIcon width={24} height={24} />
           </SheetClose>
         </header>
         <div className="mb-6">
