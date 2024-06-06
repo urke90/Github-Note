@@ -63,11 +63,10 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
   const { handleSubmit, getValues, reset } = form;
 
   const onSubmit = async (data: IPostSchema) => {
-    toast({ variant: 'error', title: 'nesto' });
-
     try {
       if (isEditPage) {
         if (!post?._id) return;
+        console.log('EDIT');
         const response = await updatePost(post?._id, data);
 
         if (response.ok && response.status === 200) {
@@ -75,6 +74,7 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
           toast({ variant: 'success', title: 'Post updated successfully!' });
         }
       } else {
+        console.log('CREATE');
         const response = await createNewPost(data);
         if (response?.ok === true && response?.status === 201) {
           toast({ variant: 'success', title: 'Post created successfully' });

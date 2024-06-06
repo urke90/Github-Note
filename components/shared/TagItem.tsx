@@ -1,41 +1,59 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------
 
 interface ITagItemProps {
   title: string;
   isLink?: boolean;
+  isFilterItem?: boolean;
 }
+
 // TODO still have to figure out UI for selected tags. Will i highlight them with color, show some list or anything else. Left isActive
-const TagItem: React.FC<ITagItemProps> = ({ title, isLink = true }) => {
+const TagItem: React.FC<ITagItemProps> = ({
+  title,
+  isLink = true,
+  isFilterItem = false,
+}) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  let isActive = false;
+  const allTags = searchParams.getAll('tag');
+
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    setIsSelected(allTags.includes(title.toLowerCase()));
+  }, [allTags, title]);
 
   const handleUpdateTagParam = (tagName: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (params.has('tag', tagName)) {
-      isActive = false;
       params.delete('tag', tagName);
     } else {
-      isActive = true;
       params.append('tag', tagName);
     }
 
     return params.toString();
   };
 
-  console.log('isActive', isActive);
-
   return (
     <li
-      // className="p3-medium inline-block w-fit cursor-pointer rounded-[3px] bg-black-700 px-2 py-0.5 text-center"
-      className={`p3-medium inline-block w-fit cursor-pointer rounded-[3px] bg-black-700 px-2 py-0.5 text-center ${isActive ? 'text-green-500' : ''}`}
+      className={`p3-medium line-clamp-1 flex w-fit cursor-pointer gap-3 rounded-[3px] bg-black-700 px-2 py-0.5 text-center ${isFilterItem ? 'transition-transform hover:translate-x-1' : ''}`}
     >
+      {isSelected && isFilterItem && (
+        <Image
+          src="/assets/icons/check-fill-green.svg"
+          width={16}
+          height={16}
+          alt="Checked"
+        />
+      )}
+
       {isLink ? (
         <Link href={pathname + '?' + handleUpdateTagParam(title.toLowerCase())}>
           {title}

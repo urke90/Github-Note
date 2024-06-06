@@ -29,3 +29,9 @@ export interface IPostsResponse {
   hasNextPage: boolean;
   hasPrevPage: boolean;
 }
+
+export interface IRecentPost {
+  _id: string;
+  title: string;
+  type: EPostType;
+}

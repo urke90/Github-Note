@@ -4,6 +4,7 @@ import { connectToMongoDB } from '../database/mongodb';
 import { IPostSchema } from '../zod/post-schema';
 
 import { FilterQuery } from 'mongoose';
+import { revalidatePath } from 'next/cache';
 
 import { auth } from '@/auth';
 import Post from '@/models/post';
@@ -129,14 +130,14 @@ export const deletePost = async (postId: string) => {
   try {
     await connectToMongoDB();
     await Post.findByIdAndDelete(postId);
-
+    revalidatePath('/');
     return { ok: true, status: 200 };
   } catch (error) {
     console.log('Error deleting post!', error);
   }
 };
 
-export const fetchPostsForHeatMap = async () => {
+export const getHeatMapPostsData = async () => {
   try {
     await connectToMongoDB();
 
@@ -158,7 +159,7 @@ export const fetchPostsForHeatMap = async () => {
         },
       },
     ]);
-
+    revalidatePath('/');
     return JSON.parse(JSON.stringify(formatedPostDates));
   } catch (error) {
     console.log('Error deleting post!', error);
@@ -197,6 +198,8 @@ export const updatePost = async (postId: string, data: IPostSchema) => {
       tags: [...tags, ...createdTags],
     });
 
+    revalidatePath('/post/[id]', 'page');
+
     return {
       ok: true,
       status: 200,
@@ -205,5 +208,23 @@ export const updatePost = async (postId: string, data: IPostSchema) => {
   } catch (error) {
     console.log('Error updating post!', error);
     throw error;
+  }
+};
+
+export const getRecentPosts = async () => {
+  try {
+    await connectToMongoDB();
+    const session = await auth();
+    if (!session) throw new Error('User from session is not available!');
+
+    const posts = await Post.find({ ownerId: session.user.id })
+      .select(['_id', 'type', 'title'])
+      .limit(10)
+      .sort({ createdAt: 'desc' });
+
+    return JSON.parse(JSON.stringify(posts));
+  } catch (error) {
+    console.log('Error fetching recent posts!', error);
+    return null;
   }
 };

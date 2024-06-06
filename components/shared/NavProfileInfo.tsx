@@ -1,19 +1,20 @@
-import Image from 'next/image';
+'use client';
 
-import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
+import { CldImage } from 'next-cloudinary';
 
 // ----------------------------------------------------------------
 
-const NavProfileInfo: React.FC = async () => {
-  const session = await auth();
-  // console.log('session', session);
+const NavProfileInfo: React.FC = () => {
+  const { data: session } = useSession();
 
   return (
     <section className="flex gap-1.5">
-      <Image
+      <CldImage
         src={session?.user.image ?? ''}
         width={36}
         height={36}
+        crop="fill"
         alt="Profile Image"
         className="rounded-lg"
       />

@@ -4,7 +4,7 @@ import PostItem from '@/components/post/PostItem';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
 import { POST_TYPES } from '@/constants/post';
-import { fetchPostsForHeatMap, getAllPosts } from '@/lib/actions/post-actions';
+import { getAllPosts, getHeatMapPostsData } from '@/lib/actions/post-actions';
 import { IPostsResponse } from '@/types/post';
 import { EQueryPostType } from '@/types/post-types';
 import { parseSearchParams, parseTagsParams } from '@/utils/params';
@@ -44,7 +44,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   if (!response?.ok && response?.status !== 200) return;
 
   const heatMapPosts: { date: string; count: number }[] =
-    await fetchPostsForHeatMap();
+    await getHeatMapPostsData();
 
   const { posts, totalPages, hasNextPage, hasPrevPage } = response;
 

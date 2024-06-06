@@ -1,6 +1,8 @@
-import authConfig from '@/auth.config';
-import NextAuth from 'next-auth';
 import { createNewUser, getUserByEmail } from './lib/actions/user-actions';
+
+import NextAuth from 'next-auth';
+
+import authConfig from '@/auth.config';
 
 // ----------------------------------------------------------------
 

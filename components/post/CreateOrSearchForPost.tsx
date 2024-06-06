@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '../ui/button';
 import SearchCommandDialog from '../shared/SearchCommandDialog';
+import { Button } from '../ui/button';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const CreateOrSearchForPost: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <section>
+    <div>
       {pathname !== '/post/create' && (
         <Link href="/post/create">
           <Button variant="gradient" className="mb-4 text-white-100">
@@ -29,7 +29,7 @@ const CreateOrSearchForPost: React.FC = () => {
       )}
 
       <SearchCommandDialog />
-    </section>
+    </div>
   );
 };
 

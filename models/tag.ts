@@ -9,7 +9,7 @@ export interface IModelTag {
 
 const tagSchema = new Schema<IModelTag>(
   {
-    title: { type: String, required: true },
+    title: { type: String, required: true, unique: true },
     ownerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }

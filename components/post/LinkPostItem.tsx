@@ -1,15 +1,17 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-interface INavPostItemProps {
+interface ILinkPostItemProps {
+  id: string;
   type: EPostType;
-  postText: string;
+  title: string;
 }
 
-const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
+const LinkPostItem: React.FC<ILinkPostItemProps> = ({ type, title, id }) => {
   const getImageSrc = (postType: EPostType) => {
     switch (postType) {
       case EPostType.COMPONENT:
@@ -26,19 +28,16 @@ const NavPostItem: React.FC<INavPostItemProps> = ({ type, postText }) => {
   const imageSrc = getImageSrc(type);
 
   return (
-    <li className="mb-5 flex last:mb-0">
-      <Image
-        src={imageSrc}
-        width={16}
-        height={16}
-        alt={postText}
-        className="mr-3"
-      />
-      <span className="p3-medium transition-colors  hover:text-primary-500">
-        {postText}
-      </span>
+    <li>
+      <Link
+        href={'/post/' + id}
+        className="p3-medium line-clamp-1 flex cursor-pointer gap-3 transition hover:-translate-y-1 hover:text-primary-500"
+      >
+        <Image src={imageSrc} width={16} height={16} alt={title} />
+        {title}
+      </Link>
     </li>
   );
 };
 
-export default NavPostItem;
+export default LinkPostItem;

@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { auth } from '@/auth';
 import CreateOrUpdatePost from '@/components/post/CreateOrUpdatePost';
 import { getPostById } from '@/lib/actions/post-actions';
@@ -18,7 +16,9 @@ const EditPostPage: React.FC<IEditPostPageProps> = async ({ params }) => {
   const postId = params.id;
 
   const session = await auth();
-  if (!session?.user.id) return;
+  if (!session?.user.id) {
+    return <h2 className="h2-bold text-center">Something went wrong...</h2>;
+  }
 
   const tags: ITag[] = (await getTags(session.user.id)) || [];
 
@@ -29,11 +29,7 @@ const EditPostPage: React.FC<IEditPostPageProps> = async ({ params }) => {
     value: tag._id.toString(),
   }));
 
-  return (
-    <Suspense fallback="Loading...">
-      <CreateOrUpdatePost tags={modifiedTags} post={post} isEditPage />
-    </Suspense>
-  );
+  return <CreateOrUpdatePost tags={modifiedTags} post={post} />;
 };
 
 export default EditPostPage;
