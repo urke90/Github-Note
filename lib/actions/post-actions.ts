@@ -59,23 +59,23 @@ export const createNewPost = async (data: IPostSchema) => {
 };
 
 interface IGetAllPosts {
-  page: string;
-  postType: EQueryPostType;
-  tags: string[];
+  page?: number;
+  postType?: EQueryPostType;
+  tags?: string[];
+  itemsPerPage: number;
 }
 
-export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
-  const postsPerPage = 3;
-  const skip = (Number(page) - 1) * postsPerPage;
+export const getAllPosts = async ({
+  page = 1,
+  postType,
+  tags,
+  itemsPerPage,
+}: IGetAllPosts) => {
+  const skip = (Number(page) - 1) * itemsPerPage;
 
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
-
-    const tagsArray = tags.map((tag) => new RegExp(`^${tag}$`, 'i'));
-
-    const fetchedTags = await Tag.find({ title: { $in: tagsArray } });
-    const fetchedTagsIds = fetchedTags.map((tag) => tag._id);
 
     let query: FilterQuery<IPost> = {
       ownerId: session.user.id,
@@ -84,7 +84,12 @@ export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
     if (postType) {
       query = { ...query, type: postType.toUpperCase() as EPostType };
     }
-    if (tags?.length > 0) {
+
+    if (tags && tags?.length > 0) {
+      const tagsArray = tags?.map((tag) => new RegExp(`^${tag}$`, 'i'));
+      const fetchedTags = await Tag.find({ title: { $in: tagsArray } });
+      const fetchedTagsIds = fetchedTags.map((tag) => tag._id);
+
       query = { ...query, tags: { $in: fetchedTagsIds } };
     }
 
@@ -93,11 +98,11 @@ export const getAllPosts = async ({ page, postType, tags }: IGetAllPosts) => {
     const posts = await Post.find(query)
       .populate('tags')
       .skip(skip)
-      .limit(postsPerPage);
+      .limit(itemsPerPage);
 
     const postsCount = await Post.find(query).countDocuments({});
 
-    const totalPages = Math.ceil(postsCount / postsPerPage);
+    const totalPages = Math.ceil(postsCount / itemsPerPage);
     const hasNextPage = Number(page) < totalPages;
     const hasPrevPage = Number(page) > 1;
 

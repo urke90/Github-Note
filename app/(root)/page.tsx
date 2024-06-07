@@ -37,9 +37,10 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   if (!session) return null;
 
   const response: IPostsResponse | undefined = await getAllPosts({
-    page,
+    page: Number(page),
     postType,
     tags,
+    itemsPerPage: 3,
   });
   if (!response?.ok && response?.status !== 200) return;
 
