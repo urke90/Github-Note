@@ -16,6 +16,7 @@ export const getTags = async (ownerId: string) => {
     return JSON.parse(JSON.stringify(tags));
   } catch (error) {
     console.log('Error fetching tags', error);
+    return [];
   }
 };
 

@@ -44,7 +44,7 @@ const PostItemBadge: React.FC<IPostItemBadgeProps> = ({ postType }) => {
         postTypeQuery = EQueryPostType.KNOWLEDGE;
         break;
       case EPostType.WORKFLOW:
-        styles = 'text-primary-500  bg-[#9542FF1A]';
+        styles = 'text-primary-500 bg-[#9542FF1A]';
         imgUrl = '/assets/icons/icn-list-number.svg';
         label = 'WorkFlow';
         postTypeQuery = EQueryPostType.WORKFLOW;
