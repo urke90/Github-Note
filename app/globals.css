@@ -104,7 +104,6 @@
   body {
     height: 100%;
     min-height: 100vh;
-
     @apply bg-black-900 text-white-300;
   }
 
@@ -186,4 +185,16 @@
     @apply font-normal text-[10px] leading-[12.1px];
   }
   /* TYPOGRAPHY */
+
+  .loader {
+    @apply w-12 h-12 inline-block box-border animate-[rotation_1s_linear_infinite] rounded-[50%] border-r-4 border-r-transparent border-t-4 border-t-[#9542ff] border-solid after:content-[''] after:box-border after:absolute after:w-12 after:h-12 after:animate-[rotation_0.5s_linear_infinite_reverse] after:rounded-[50%] after:border-l-4 after:border-l-[#42ff77] after:border-b-4 after:border-b-transparent after:border-solid after:left-0 after:top-0;
+  }
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
