@@ -102,59 +102,50 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
       </h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-10">
-          <div className="mb-7">
-            <RHFInput
-              name="title"
-              placeholder="Enter your title of your post"
-              label="Title"
-            />
-          </div>
-          <div className="mb-7">
-            <RHFSelect name="type" label="Create Type">
-              {POST_TYPES.map(({ imgUrl, label, value }, index) => (
-                <Fragment key={value}>
-                  <SelectOptionWithIcon
-                    key={value}
-                    value={value}
-                    imgUrl={imgUrl}
-                    label={label}
-                  />
-                  {index !== POST_TYPES.length - 1 && <SelectSeparator />}
-                </Fragment>
-              ))}
-            </RHFSelect>
-          </div>
-          <div className="mb-7">
-            <RHFCreatableSelect
-              name="tags"
-              label="Tags"
-              placeholder="Search tags"
-              options={tags}
-              value={modifiedTags}
-            />
-          </div>
-          <div className="mb-7">
-            <RHFTextarea
-              name="description"
-              label="Description"
-              placeholder="Enter a short description"
-            />
-          </div>
-          <div className="mb-[70px]">
-            {postType !== EPostType.COMPONENT ? (
-              <RHFChecklist postType={postType} />
-            ) : (
-              <CodeExampleTabs />
-            )}
-          </div>
-          <div className="mb-7">
-            <RHFTextEditor name="content" />
-          </div>
-          <div className="mb-16 gap-7">
-            <RHFLearningResources />
-          </div>
-          <Button type="submit">{isEditPage ? 'Edit' : 'Create'} Post</Button>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-7 pb-10"
+        >
+          <RHFInput
+            name="title"
+            placeholder="Enter your title of your post"
+            label="Title"
+          />
+          <RHFSelect name="type" label="Create Type">
+            {POST_TYPES.map(({ imgUrl, label, value }, index) => (
+              <Fragment key={value}>
+                <SelectOptionWithIcon
+                  key={value}
+                  value={value}
+                  imgUrl={imgUrl}
+                  label={label}
+                />
+                {index !== POST_TYPES.length - 1 && <SelectSeparator />}
+              </Fragment>
+            ))}
+          </RHFSelect>
+          <RHFCreatableSelect
+            name="tags"
+            label="Tags"
+            placeholder="Search tags"
+            options={tags}
+            value={modifiedTags}
+          />
+          <RHFTextarea
+            name="description"
+            label="Description"
+            placeholder="Enter a short description"
+          />
+          {postType !== EPostType.COMPONENT ? (
+            <RHFChecklist postType={postType} />
+          ) : (
+            <CodeExampleTabs />
+          )}
+          <RHFTextEditor name="content" />
+          <RHFLearningResources />
+          <Button type="submit" className="mt-7">
+            {isEditPage ? 'Edit' : 'Create'} Post
+          </Button>
         </form>
       </Form>
     </section>
