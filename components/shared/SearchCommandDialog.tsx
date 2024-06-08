@@ -35,12 +35,13 @@ const generateItemImage = (type: EPostType) => {
 const SearchCommandDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setIsOpen((open) => !open);
+        setIsOpen((prevOpen) => !prevOpen);
       }
     };
 
@@ -50,19 +51,18 @@ const SearchCommandDialog = () => {
 
   useEffect(() => {
     const fetchAllPosts = async () => {
-      const response = await getAllPosts({ itemsPerPage: 5 });
-
-      if (response?.ok && response.status === 200) {
+      const response = await getAllPosts({
+        itemsPerPage: 5,
+        searchQuery: query,
+      });
+      console.log('response', response);
+      if (response?.ok && response?.status === 200) {
         setPosts(response.posts);
       }
     };
 
     fetchAllPosts();
-  }, []);
-
-  useEffect(() => {
-    console.log('posts', posts);
-  }, [posts]);
+  }, [query]);
 
   return (
     <div className="relative">
@@ -85,7 +85,10 @@ const SearchCommandDialog = () => {
         </kbd>
       </Button>
       <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput
+          placeholder="Type a command or search..."
+          onValueChange={setQuery}
+        />
         <CommandList>
           <CommandGroup>
             <Link

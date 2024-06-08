@@ -63,6 +63,7 @@ interface IGetAllPosts {
   postType?: EQueryPostType;
   tags?: string[];
   itemsPerPage: number;
+  searchQuery?: string;
 }
 
 export const getAllPosts = async ({
@@ -70,18 +71,21 @@ export const getAllPosts = async ({
   postType,
   tags,
   itemsPerPage,
+  searchQuery,
 }: IGetAllPosts) => {
   const skip = (Number(page) - 1) * itemsPerPage;
 
-  // console.log('PAGE U GET ALL POSTS', page);
-
   try {
     const session = await auth();
-    if (!session) throw new Error('User from session is not available!');
+    if (!session) throw new Error('User data not available!');
 
     let query: FilterQuery<IPost> = {
       ownerId: session.user.id,
     };
+
+    if (searchQuery && searchQuery?.trim() !== '') {
+      query = { ...query, title: { $regex: searchQuery, $options: 'i' } };
+    }
 
     if (postType) {
       query = { ...query, type: postType.toUpperCase() as EPostType };
