@@ -15,8 +15,8 @@ const CreateOrSearchForPost: React.FC = () => {
   return (
     <div>
       {pathname !== '/post/create' && (
-        <Link href="/post/create">
-          <Button variant="gradient" className="mb-4 text-white-100">
+        <Link href="/post/create" className="rounded-md text-white-100">
+          <Button variant="gradient" className="mb-4 rounded-md">
             <Image
               src="/assets/icons/plus-bg-white.svg"
               width={14}

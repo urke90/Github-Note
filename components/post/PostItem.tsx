@@ -23,12 +23,12 @@ const PostItem: React.FC<IPostItemProps> = ({ title, type, tags, id }) => {
 
   return (
     <li
-      className="max-h-[182px] cursor-pointer rounded-lg bg-black-800 px-9 py-6"
+      className="cursor-pointer rounded-lg bg-black-800 px-9 py-6"
       onClick={() => router.push('/post/' + id)}
     >
       <PostItemBadge postType={type} />
       <h1 className="h1-medium my-4 line-clamp-2 text-white-100">{title}</h1>
-      <ul className="flex gap-2.5">
+      <ul className="flex flex-wrap gap-2.5">
         {tags.length
           ? tags.map((tag) => (
               <TagItem key={tag.title} title={tag.title} isLink={false} />

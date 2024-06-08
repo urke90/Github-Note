@@ -88,23 +88,30 @@ const SearchCommandDialog = () => {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandGroup>
-            <CommandItem onSelect={() => setIsOpen(false)}>
-              <Image
-                src="/assets/images/Frame.svg"
-                width={16}
-                height={16}
-                alt="search text"
-              />
-              Explore all posts
-            </CommandItem>
+            <Link
+              href="/explore"
+              onClick={() => setIsOpen(false)}
+              className="flex cursor-pointer gap-3"
+            >
+              <CommandItem>
+                <Image
+                  src="/assets/images/Frame.svg"
+                  width={16}
+                  height={16}
+                  alt="search text"
+                />
+                Explore all posts
+              </CommandItem>
+            </Link>
             {posts.length > 0
               ? posts.map(({ _id, title, type }) => (
-                  <CommandItem key={_id} onClick={() => setIsOpen(false)}>
-                    <Link
-                      href={'/post/' + _id}
-                      onClick={() => setIsOpen(false)}
-                      className="flex cursor-pointer gap-3"
-                    >
+                  <Link
+                    key={_id}
+                    href={'/post/' + _id}
+                    onClick={() => setIsOpen(false)}
+                    className="flex cursor-pointer gap-3"
+                  >
+                    <CommandItem key={_id} onClick={() => setIsOpen(false)}>
                       <Image
                         src={generateItemImage(type)}
                         width={16}
@@ -112,8 +119,8 @@ const SearchCommandDialog = () => {
                         alt={title}
                       />
                       <p className="line-clamp-1">{title}</p>
-                    </Link>
-                  </CommandItem>
+                    </CommandItem>
+                  </Link>
                 ))
               : null}
           </CommandGroup>

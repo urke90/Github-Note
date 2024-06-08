@@ -42,7 +42,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
     tags,
     itemsPerPage: 3,
   });
-  if (!response?.ok && response?.status !== 200) return;
+  if (!response?.ok && response?.status !== 200) return null;
 
   const heatMapPosts: { date: string; count: number }[] =
     await getHeatMapPostsData();
@@ -50,7 +50,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   const { posts, totalPages, hasNextPage, hasPrevPage } = response;
 
   return (
-    <section className="px-[30px]">
+    <section className="px-5 lg:px-[30px]">
       <h1 className="h1-bold mb-2.5 mt-10">Hello {session.user.name},</h1>
       <p className="p1-regular mb-6.5">
         Time to jot down your latest learnings today!
@@ -60,11 +60,11 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
       </div>
       <div className="flex-between mb-5 gap-4">
         <h2 className="h2-bold">Recent Posts</h2>
-        <div className="flex flex-wrap gap-3.5">
+        <ul className="flex flex-wrap gap-3.5">
           {POST_TYPES.map(({ value }) => (
             <PostItemBadge key={value} postType={value} />
           ))}
-        </div>
+        </ul>
       </div>
       <ul className="mb-10 flex flex-col gap-5">
         {posts.length > 0 ? (

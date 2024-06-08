@@ -10,7 +10,7 @@ const ChecklistItem: React.FC<IChecklistItemProps> = ({ title }) => {
   return (
     <li className="flex gap-1.5">
       <Image
-        src="/assets/icons/icn-check-square-green.svg"
+        src="/assets/icons/check-square-green.svg"
         width={20}
         height={20}
         alt="Check"

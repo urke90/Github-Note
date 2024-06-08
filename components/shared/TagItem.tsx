@@ -55,7 +55,10 @@ const TagItem: React.FC<ITagItemProps> = ({
       )}
 
       {isLink ? (
-        <Link href={pathname + '?' + handleUpdateTagParam(title.toLowerCase())}>
+        <Link
+          href={pathname + '?' + handleUpdateTagParam(title.toLowerCase())}
+          className="line-clamp-1"
+        >
           {title}
         </Link>
       ) : (

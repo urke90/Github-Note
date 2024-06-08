@@ -73,6 +73,8 @@ export const getAllPosts = async ({
 }: IGetAllPosts) => {
   const skip = (Number(page) - 1) * itemsPerPage;
 
+  // console.log('PAGE U GET ALL POSTS', page);
+
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
