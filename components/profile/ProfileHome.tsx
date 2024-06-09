@@ -18,10 +18,9 @@ interface IProfileHomeProps {
 }
 
 const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
-  console.log('useru PROFILE HOME', user);
   return (
     <section className="py-10">
-      <div className="flex-between mb-8 px-5 lg:px-[30px]">
+      <div className="flex-between mb-8 flex-wrap gap-2.5 px-5 lg:px-[30px]">
         <div className="flex items-center gap-5">
           <ProfileImage avatarImg={user.avatarImg} />
           <div className="flex flex-col gap-2.5">
@@ -43,14 +42,14 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
                   height={14}
                   alt="Link"
                 />
-                Joined {format('2024-04-13T12:58:47.404+00:00', 'MMM YYYY')}
+                Joined {format('2024-04-13T12:58:47.404+00:00', 'MMM yyyy')}
               </li>
             </ul>
           </div>
         </div>
         <Link
           href="/profile/edit"
-          className="flex w-auto gap-2 rounded bg-black-700 px-3.5 py-3 text-primary-500"
+          className="flex min-w-min gap-2 rounded bg-black-700 px-3.5 py-3 text-primary-500"
         >
           <Image
             src="/assets/icons/icn-edit.svg"
