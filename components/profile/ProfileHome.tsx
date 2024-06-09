@@ -9,10 +9,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import type { IUser } from '@/types/user';
-import {
-  formatProjectRangeDate,
-  formatUserCreatedAtDate,
-} from '@/utils/format';
 
 // ----------------------------------------------------------------
 
@@ -47,8 +43,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
                   height={14}
                   alt="Link"
                 />
-                Joined{' '}
-                {formatUserCreatedAtDate('2024-04-13T12:58:47.404+00:00')}
+                Joined {format('2024-04-13T12:58:47.404+00:00', 'MMM YYYY')}
               </li>
             </ul>
           </div>
@@ -122,7 +117,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
                 Available{' '}
                 {user.startDate &&
                   `from ${format(user.startDate, 'MMM dd, yyyy')}`}{' '}
-                {user.endDate && `to ${formatProjectRangeDate(user.endDate)}`}
+                {user.endDate && `to ${format(user.endDate, 'MMM dd, yyyy')}`}
               </li>
             )}
           </ul>
