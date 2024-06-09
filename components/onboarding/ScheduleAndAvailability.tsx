@@ -12,9 +12,11 @@ const ScheduleAndAvailability: React.FC = () => {
   const { getValues } = useFormContext();
   useWatch({ name: 'startDate' });
   const startDate = getValues('startDate');
+  useWatch({ name: 'endDate' });
+  const endDate = getValues('endDate');
 
   return (
-    <section>
+    <article>
       <RHFCheckbox
         name="isAvailable"
         label="Are you available for a new project?"
@@ -25,6 +27,8 @@ const ScheduleAndAvailability: React.FC = () => {
             name="startDate"
             label="Start Date & Time"
             description="The time is in your local timezone"
+            className="flex-1"
+            disableDateFn={(date) => date > endDate || date < new Date()}
           />
         </div>
         <div className="flex-1">
@@ -32,12 +36,13 @@ const ScheduleAndAvailability: React.FC = () => {
             name="endDate"
             label="End Date & Time"
             description="The time is in your local timezone"
-            disableFromDate={startDate}
+            disableDateFn={(date) => date < startDate || date < new Date()}
+            className="flex-1"
           />
         </div>
       </div>
       <Button type="submit">Submit</Button>
-    </section>
+    </article>
   );
 };
 

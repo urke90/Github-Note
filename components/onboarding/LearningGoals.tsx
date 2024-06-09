@@ -41,7 +41,7 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <article className="flex flex-col gap-2">
       <p className="p3-medium">Learning goals</p>
       <ul className="mb-1.5 flex flex-col gap-2">
         {fields?.length > 0 ? (
@@ -79,7 +79,7 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
       <Button type="button" onClick={validateAndChangeStep}>
         Next
       </Button>
-    </div>
+    </article>
   );
 };
 

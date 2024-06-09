@@ -54,7 +54,7 @@ const BasicInformation: React.FC<IBasicInformationProps> = ({
   };
 
   return (
-    <section className="flex flex-col gap-6">
+    <article className="flex flex-col gap-6">
       <ProfileImageUpload existingAvatarImage={avatarImg} />
       <RHFInput label="Name" name="fullName" placeholder="Edit your Name" />
       <RHFInput
@@ -65,7 +65,7 @@ const BasicInformation: React.FC<IBasicInformationProps> = ({
       <Button type="button" onClick={validateAndChangeStep}>
         Next
       </Button>
-    </section>
+    </article>
   );
 };
 

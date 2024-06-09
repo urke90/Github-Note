@@ -29,7 +29,7 @@ type IRHFDatePickerProps = CalendarProps & {
   label: string;
   buttonText?: string;
   description?: string;
-  disableFromDate?: Date;
+  disableDateFn?: (date: Date) => boolean;
 };
 
 const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
@@ -37,7 +37,7 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
   label = '',
   buttonText = 'Select date & time',
   description = '',
-  disableFromDate = new Date(),
+  disableDateFn,
 }) => {
   const { control } = useFormContext();
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +84,7 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
                   field.onChange(day);
                   setIsOpen(false);
                 }}
-                disabled={(date) => date < disableFromDate}
+                disabled={disableDateFn}
                 initialFocus
               />
             </PopoverContent>
