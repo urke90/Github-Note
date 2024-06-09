@@ -1,11 +1,13 @@
+import type { HeatMapValue } from '@uiw/react-heat-map';
+
 import { auth } from '@/auth';
-import GithubHeatMap from '@/components/HeatMap';
 import PostItem from '@/components/post/PostItem';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
+import PostsHeatMap from '@/components/shared/PostsHeatMap';
 import { POST_TYPES } from '@/constants/post';
 import { getAllPosts, getHeatMapPostsData } from '@/lib/actions/post-actions';
-import { IPostsResponse } from '@/types/post';
+import type { IPostsResponse } from '@/types/post';
 import { EQueryPostType } from '@/types/post-types';
 import { parseSearchParams, parseTagsParams } from '@/utils/params';
 
@@ -44,8 +46,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   });
   if (!response?.ok && response?.status !== 200) return null;
 
-  const heatMapPosts: { date: string; count: number }[] =
-    await getHeatMapPostsData();
+  const heatMapPosts: HeatMapValue[] = await getHeatMapPostsData();
 
   const { posts, totalPages, hasNextPage, hasPrevPage } = response;
 
@@ -56,7 +57,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
         Time to jot down your latest learnings today!
       </p>
       <div className="mx-auto mb-9 max-w-[800]">
-        <GithubHeatMap value={heatMapPosts} />
+        <PostsHeatMap value={heatMapPosts} />
       </div>
       <div className="flex-between mb-5 gap-4">
         <h2 className="h2-bold">Recent Posts</h2>

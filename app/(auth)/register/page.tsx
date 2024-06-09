@@ -115,7 +115,7 @@ const Register = () => {
           onClick={() => signInGoogle()}
         >
           <Image
-            src="/assets/images/google.png"
+            src="/assets/images/google.svg"
             alt="Google"
             width={16}
             height={16}
@@ -128,7 +128,7 @@ const Register = () => {
           onClick={() => signInGithub()}
         >
           <Image
-            src="/assets/images/github.png"
+            src="/assets/images/github.svg"
             alt="Google"
             width={16}
             height={16}

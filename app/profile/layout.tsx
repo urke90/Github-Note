@@ -1,19 +1,14 @@
 import LeftSidebar from '@/components/layout/LeftSidebar';
 import RightSidebar from '@/components/layout/RightSidebar';
 import MobileNav from '@/components/navigation/MobileNav';
-import RecentTagsList from '@/components/shared/RecentTagsList';
-import { getRecentTags } from '@/lib/actions/tag-actions';
-import type { ITag } from '@/types/tag';
 
 // ----------------------------------------------------------------
 
-const Layout = async ({
-  children,
-}: Readonly<{
+interface ILayoutProps {
   children: React.ReactNode;
-}>) => {
-  const recentTags: ITag[] = await getRecentTags();
+}
 
+const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <div className="mx-auto flex h-full max-w-[1440px]">
       <LeftSidebar />
@@ -23,9 +18,7 @@ const Layout = async ({
         </div>
         {children}
       </div>
-      <RightSidebar>
-        <RecentTagsList tags={recentTags} />
-      </RightSidebar>
+      <RightSidebar>{/* <RecentTagsList  /> */}</RightSidebar>
     </div>
   );
 };

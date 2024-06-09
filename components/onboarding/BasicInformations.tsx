@@ -85,7 +85,7 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
             />
           ) : (
             <Image
-              src="/assets/images/image-upload-placeholder.svg"
+              src="/assets/icons/image-upload-placeholder.svg"
               alt="Upload Image"
               width={90}
               height={90}
@@ -106,7 +106,7 @@ const BasicInformations: React.FC<IBasicInformationsProps> = ({
             }}
           >
             <Image
-              src="/assets/images/icn-upload-cloud.png"
+              src="/assets/images/icn-upload-cloud.svg"
               alt="Upload Image Cloud"
               width={16}
               height={16}

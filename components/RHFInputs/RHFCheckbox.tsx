@@ -31,7 +31,7 @@ const RHFCheckbox: React.FC<IRHFCheckboxProps> = ({
       control={control}
       render={({ field }) => (
         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-          <FormControl className="border-2">
+          <FormControl>
             <Checkbox
               {...field}
               checked={field.value}
@@ -40,9 +40,7 @@ const RHFCheckbox: React.FC<IRHFCheckboxProps> = ({
             />
           </FormControl>
           <div className="space-y-1 leading-none">
-            {label && (
-              <FormLabel className={`text-white-100`}>{label}</FormLabel>
-            )}
+            {label && <FormLabel className="text-white-100">{label}</FormLabel>}
             {description && <FormDescription>{description}</FormDescription>}
           </div>
         </FormItem>

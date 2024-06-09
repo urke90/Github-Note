@@ -4,9 +4,9 @@ import ReactHeatMap, { type HeatMapProps } from '@uiw/react-heat-map';
 
 // ----------------------------------------------------------------
 
-interface IGithubHeatMapProps extends HeatMapProps {}
+interface IPostsHeatMapProps extends HeatMapProps {}
 
-const HeatMap: React.FC<IGithubHeatMapProps> = ({ value }) => {
+const PostsHeatMap: React.FC<IPostsHeatMapProps> = ({ value }) => {
   const todayDate = new Date();
 
   const sixMonthsAgo = todayDate.setMonth(todayDate.getMonth() - 6);
@@ -30,4 +30,4 @@ const HeatMap: React.FC<IGithubHeatMapProps> = ({ value }) => {
   );
 };
 
-export default HeatMap;
+export default PostsHeatMap;

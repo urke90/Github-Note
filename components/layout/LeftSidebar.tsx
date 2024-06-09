@@ -14,7 +14,7 @@ const LeftSidebar = async () => {
   const recentPosts: IRecentPost[] | null = await getRecentPosts();
 
   return (
-    <aside className="flex min-h-screen w-[290px] min-w-[290px] flex-col border-r-[1.5px] border-r-[#4448691A] bg-black-800 px-7 max-md:hidden">
+    <aside className="flex min-h-screen w-[290px] min-w-[290px] flex-col border-r-[1.5px] border-r-gray-border bg-black-800 px-7 max-md:hidden">
       <Link href="/">
         <Image
           src="/assets/images/Logo.svg"

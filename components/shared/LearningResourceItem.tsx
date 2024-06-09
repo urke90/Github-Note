@@ -14,7 +14,7 @@ const LearningResourceItem: React.FC<ILearningResourceItemProps> = ({
     <Link href={link} target="_blank">
       <li className="flex items-center gap-1.5 ">
         <Image
-          src="/assets/icons/check-square-green.svg"
+          src="/assets/icons/icn-check-square-green.svg"
           width={20}
           height={20}
           alt="Check"

@@ -174,6 +174,8 @@ export const getHeatMapPostsData = async () => {
     return JSON.parse(JSON.stringify(formatedPostDates));
   } catch (error) {
     console.log('Error deleting post!', error);
+
+    return [];
   }
 };
 

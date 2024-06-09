@@ -49,6 +49,9 @@ const config = {
           regular: 'var(--red-text-error)',
           bg: 'var(--red-bg-error)',
         },
+        gray: {
+          border: 'var(--gray-border)',
+        },
       },
 
       boxShadow: {

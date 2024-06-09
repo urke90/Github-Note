@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { Check } from 'lucide-react';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -13,7 +13,7 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'flex-center rounded-sm  peer h-4 w-4 shrink-0 border-white-500 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-400 data-[state=checked]:text-black-900 data-[state=checked]:border-green-400',
+      'flex-center border-2 rounded-sm peer h-4 w-4 shrink-0 border-white-500 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-400 data-[state=checked]:text-black-900 data-[state=checked]:border-green-400',
       className
     )}
     {...props}

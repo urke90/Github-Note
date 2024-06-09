@@ -58,7 +58,7 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
                 key={field.id}
                 className="flex-between my-2 rounded bg-black-700 px-3 py-1"
               >
-                <div className="flex flex-1 items-center ">
+                <div className="flex flex-1 items-center">
                   <Image
                     src="assets/images/icn-check-square.svg"
                     alt="Checked"
