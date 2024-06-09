@@ -15,7 +15,7 @@ const RHFLearningResources: React.FC = () => {
 
   return (
     <>
-      <p className="mb-7 text-sm uppercase text-white-500">Resources & Links</p>
+      <p className="text-sm uppercase text-white-500">Resources & Links</p>
       <ul>
         {fields.length > 0 ? (
           fields.map((field, index) => (

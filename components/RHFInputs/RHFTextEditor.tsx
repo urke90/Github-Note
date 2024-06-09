@@ -29,8 +29,8 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
   const { control } = useFormContext();
 
   return (
-    <>
-      <p className="mb-7 text-sm uppercase text-white-500">Content</p>
+    <div>
+      <p className="text-sm uppercase text-white-500">Content</p>
       <FormField
         control={control}
         name={name}
@@ -57,7 +57,7 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
           </FormItem>
         )}
       />
-    </>
+    </div>
   );
 };
 

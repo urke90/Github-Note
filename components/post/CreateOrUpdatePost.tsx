@@ -96,16 +96,13 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
   const postType = getValues('type');
 
   return (
-    <section className="mt-[30px] px-[30px]">
+    <section className="my-[30px] px-[30px]">
       <h1 className="h1-bold mb-[30px]  lg:mb-8">
         {isEditPage ? 'Edit' : 'Create'} Post
       </h1>
       <p className="mb-6 text-sm uppercase text-white-500">Basic information</p>
       <Form {...form}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-7 pb-10"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
           <RHFInput
             name="title"
             placeholder="Enter your title of your post"
@@ -143,9 +140,7 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
           )}
           <RHFTextEditor name="content" />
           <RHFLearningResources />
-          <Button type="submit" className="mt-7">
-            {isEditPage ? 'Edit' : 'Create'} Post
-          </Button>
+          <Button type="submit">{isEditPage ? 'Edit' : 'Create'} Post</Button>
         </form>
       </Form>
     </section>

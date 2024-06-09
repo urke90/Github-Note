@@ -157,6 +157,9 @@ export const getHeatMapPostsData = async () => {
 
     const formatedPostDates = await Post.aggregate([
       {
+        $match: { ownerId: session.user.id },
+      },
+      {
         $group: {
           _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
           count: { $sum: 1 },
