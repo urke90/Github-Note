@@ -65,6 +65,6 @@ export const userOnboardingSchema = userDataBaseSchema.extend({
   onboardingStep: z.number().min(1).max(5),
 });
 
-export type IUserOnboardingSchema = z.infer<typeof userOnboardingSchema>;
+export type IUserOnboarding = z.infer<typeof userOnboardingSchema>;
 
 // **************************************************** LOGIN AND ONBOARDING *******************************************************/

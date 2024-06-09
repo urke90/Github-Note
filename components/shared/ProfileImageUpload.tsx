@@ -1,10 +1,10 @@
 import { Label } from '../ui/label';
 
 import {
-  CldImage,
   CldUploadButton,
   CloudinaryUploadWidgetInfo,
   CloudinaryUploadWidgetResults,
+  getCldImageUrl,
 } from 'next-cloudinary';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -12,20 +12,29 @@ import { useFormContext } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 
-interface IUploadProfileImageProps {
+interface IProfileImageUploadProps {
   existingAvatarImage: string;
 }
 
-const UploadProfileImage: React.FC<IUploadProfileImageProps> = ({
+const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
   existingAvatarImage,
 }) => {
   const { setValue } = useFormContext();
   const [imagePreview, setImagePreview] = useState(existingAvatarImage);
+  console.log('imagePreview', imagePreview);
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
     if (!result?.info || typeof result?.info === 'string')
       throw new Error('Image not uploaded');
-    setImagePreview(result.info.secure_url);
+
+    const imageUrl = getCldImageUrl({
+      width: 90,
+      height: 90,
+      src: result.info.secure_url,
+      crop: 'fill',
+    });
+
+    setImagePreview(imageUrl);
     setValue(
       'avatarImg',
       (result.info as CloudinaryUploadWidgetInfo).secure_url
@@ -33,26 +42,15 @@ const UploadProfileImage: React.FC<IUploadProfileImageProps> = ({
   };
 
   return (
-    <div className="mb-6 flex flex-row items-center">
+    <div className="flex flex-row items-center gap-3.5">
       <div>
-        {imagePreview ? (
-          <CldImage
-            src={imagePreview}
-            alt="Upload Image"
-            width={90}
-            height={90}
-            crop="fill"
-            className="mr-3.5 rounded-[5px] "
-          />
-        ) : (
-          <Image
-            src="/assets/icons/image-upload-placeholder.svg"
-            alt="Upload Image"
-            width={90}
-            height={90}
-            className="mr-3.5 rounded-[5px] object-scale-down"
-          />
-        )}
+        <Image
+          src={imagePreview || '/assets/icons/image-upload-placeholder.svg'}
+          alt="Upload Image"
+          width={90}
+          height={90}
+          className="rounded"
+        />
       </div>
       <Label className="flex-center w-[200px] cursor-pointer gap-2 rounded-md bg-black-700 p-2">
         <CldUploadButton
@@ -78,4 +76,4 @@ const UploadProfileImage: React.FC<IUploadProfileImageProps> = ({
   );
 };
 
-export default UploadProfileImage;
+export default ProfileImageUpload;

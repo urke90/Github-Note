@@ -1,14 +1,12 @@
 'use client';
 
-import RHFCheckbox from '../RHFInputs/RHFCheckbox';
-import RHFInput from '../RHFInputs/RHFInput';
-import CloseIcon from '../icons/CloseIcon';
+import AddLearningGoalItem from '../shared/AddLearningGoalItem';
 import { Button } from '../ui/button';
 
 import Image from 'next/image';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { IUserOnboarding } from '@/lib/zod/onboarding-schema';
+import { IUserOnboarding } from '@/lib/zod/user-schema';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
@@ -46,29 +44,14 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
     <div>
       <p className="p3-medium">Learning goals</p>
       <div className="mb-6">
-        <ul>
+        <ul className="flex flex-col gap-2">
           {fields?.length > 0 ? (
             fields.map((field, index) => (
-              <li
+              <AddLearningGoalItem
                 key={field.id}
-                className="flex-between my-2 rounded  bg-black-700 px-3 py-1"
-              >
-                <div className="flex flex-1 items-center">
-                  <RHFCheckbox
-                    name={`learningGoals.${index}.isChecked`}
-                    className="mr-0 pr-0"
-                  />
-                  <RHFInput
-                    name={`learningGoals.${index}.goal`}
-                    placeholder="Enter a learning goal"
-                    className="pl-0"
-                  />
-                </div>
-                <CloseIcon
-                  className="cursor-pointer text-white-500"
-                  onClick={() => remove(index)}
-                />
-              </li>
+                index={index}
+                onRemove={remove}
+              />
             ))
           ) : (
             <li
@@ -84,7 +67,7 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
           type="button"
           onClick={() => append({ isChecked: false, goal: '' })}
           variant="secondary"
-          className={`${fields.length === 0 ? 'mt-2' : ''}`}
+          className="mt-2"
         >
           <Image
             src="/assets/icons/plus-primary-blue.svg"

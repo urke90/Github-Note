@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import BasicInformation from '@/components/onboarding/BasicInformations';
+import BasicInformation from '@/components/onboarding/BasicInformation';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import ScheduleAndAvailability from '@/components/onboarding/ScheduleAndAvailability';
@@ -20,7 +20,7 @@ import {
 } from '@/lib/actions/user-actions';
 import {
   userOnboardingSchema,
-  type IUserOnboardingSchema,
+  type IUserOnboarding,
 } from '@/lib/zod/user-schema';
 import { IUser } from '@/models/user';
 import { EOnboardingStep } from '@/types/onboarding-step';
@@ -66,7 +66,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     onboardingStep || EOnboardingStep.BASIC_INFORMATION
   );
 
-  const onboardingForm = useForm<IUserOnboardingSchema>({
+  const onboardingForm = useForm<IUserOnboarding>({
     resolver: zodResolver(userOnboardingSchema),
     defaultValues: {
       fullName: fullName || '',
@@ -83,7 +83,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   });
 
   const handleChangeStep = async (
-    data: Partial<IUserOnboardingSchema>,
+    data: Partial<IUserOnboarding>,
     newStep: EOnboardingStep
   ) => {
     if (!_id) return;
@@ -92,7 +92,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     setStep(newStep);
   };
 
-  const onSubmit: SubmitHandler<IUserOnboardingSchema> = async (data) => {
+  const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
     data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
 
     try {
