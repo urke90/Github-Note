@@ -16,7 +16,11 @@ const PostDetailsPage: React.FC<IPostDetailsPage> = async ({ params }) => {
   const post: IPost | undefined = await getPostById(id);
 
   if (!post)
-    return <h1 className="h1-bold text-center">Could not find post!</h1>;
+    return (
+      <h1 className="h1-bold px-6 py-10 text-center lg:px-[30]">
+        Could not find post!
+      </h1>
+    );
 
   return (
     <Suspense fallback="Loading...">

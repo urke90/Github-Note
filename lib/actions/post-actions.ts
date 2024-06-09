@@ -3,7 +3,7 @@
 import { connectToMongoDB } from '../database/mongodb';
 import { IPostSchema } from '../zod/post-schema';
 
-import { FilterQuery } from 'mongoose';
+import mongoose, { FilterQuery } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
 import { auth } from '@/auth';
@@ -157,7 +157,7 @@ export const getHeatMapPostsData = async () => {
 
     const formatedPostDates = await Post.aggregate([
       {
-        $match: { ownerId: session.user.id },
+        $match: { ownerId: new mongoose.Types.ObjectId(session.user.id) },
       },
       {
         $group: {

@@ -34,7 +34,7 @@ const ComponentMenu: React.FC<IComponentMenuProps> = ({
         <Link href={`/post/${postId}/edit`}>
           <DropdownMenuItem className="gap-2">
             <Image
-              src="/assets/icons/icn-edit.svg"
+              src="/assets/icons/icn-edit-white.svg"
               alt="Edit"
               width={14}
               height={14}

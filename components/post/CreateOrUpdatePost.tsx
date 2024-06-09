@@ -74,7 +74,6 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
           toast({ variant: 'success', title: 'Post updated successfully!' });
         }
       } else {
-        console.log('CREATE');
         const response = await createNewPost(data);
         if (response?.ok === true && response?.status === 201) {
           toast({ variant: 'success', title: 'Post created successfully' });

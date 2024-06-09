@@ -19,8 +19,16 @@ interface IProfileImageUploadProps {
 const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
   existingAvatarImage,
 }) => {
+  const transformedExistingAvatarImage = getCldImageUrl({
+    width: 90,
+    height: 90,
+    src: existingAvatarImage,
+    crop: 'fill',
+  });
   const { setValue } = useFormContext();
-  const [imagePreview, setImagePreview] = useState(existingAvatarImage);
+  const [imagePreview, setImagePreview] = useState(
+    transformedExistingAvatarImage
+  );
   console.log('imagePreview', imagePreview);
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {

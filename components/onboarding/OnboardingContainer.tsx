@@ -94,7 +94,6 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
 
   const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
     data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
-
     try {
       if (!_id) return;
       const response = await updateUser(_id, data);
@@ -107,6 +106,10 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
       }
     } catch (error) {
       console.log('Error in submit onboarding user info', error);
+      toast({
+        variant: 'error',
+        title: 'Something went wrong!',
+      });
     }
   };
 
