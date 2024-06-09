@@ -16,7 +16,7 @@ export interface IUser extends Document {
   learningGoals?: ILearningGoals[];
   knowledgeLevel?: string[];
   techStack: string;
-  projectAvailability: boolean;
+  isAvailable: boolean;
   startDate: Date | undefined;
   endDate: Date | undefined;
   onboardingStep: EOnboardingStep;
@@ -43,7 +43,7 @@ const UserSchema: Schema = new Schema<IUser>({
   learningGoals: [LearningGoalsSchema],
   knowledgeLevel: [String],
   techStack: String,
-  projectAvailability: Boolean,
+  isAvailable: Boolean,
   startDate: Date,
   endDate: Date,
   onboardingStep: Number,

@@ -19,9 +19,9 @@ import {
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
 import {
-  onboardingSchema,
-  type IUserOnboarding,
-} from '@/lib/zod/onboarding-schema';
+  userOnboardingSchema,
+  type IUserOnboardingSchema,
+} from '@/lib/zod/user-schema';
 import { IUser } from '@/models/user';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
@@ -57,7 +57,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     techStack,
     startDate,
     endDate,
-    projectAvailability,
+    isAvailable,
     onboardingStep,
     _id,
   } = user || {};
@@ -66,8 +66,8 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     onboardingStep || EOnboardingStep.BASIC_INFORMATION
   );
 
-  const onboardingForm = useForm<IUserOnboarding>({
-    resolver: zodResolver(onboardingSchema),
+  const onboardingForm = useForm<IUserOnboardingSchema>({
+    resolver: zodResolver(userOnboardingSchema),
     defaultValues: {
       fullName: fullName || '',
       portfolioUrl: portfolioUrl || '',
@@ -77,13 +77,13 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
       techStack: techStack || '',
       startDate: startDate || undefined,
       endDate: endDate || undefined,
-      projectAvailability: projectAvailability || false,
+      isAvailable: isAvailable || false,
       onboardingStep: onboardingStep || step,
     },
   });
 
   const handleChangeStep = async (
-    data: Partial<IUserOnboarding>,
+    data: Partial<IUserOnboardingSchema>,
     newStep: EOnboardingStep
   ) => {
     if (!_id) return;
@@ -92,7 +92,7 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     setStep(newStep);
   };
 
-  const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
+  const onSubmit: SubmitHandler<IUserOnboardingSchema> = async (data) => {
     data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
 
     try {

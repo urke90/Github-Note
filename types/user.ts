@@ -14,7 +14,7 @@ export interface IUser {
   learningGoals?: ILearningGoals[];
   knowledgeLevel?: string[];
   techStack: string;
-  projectAvailability: boolean;
+  isAvailable: boolean;
   startDate: string | undefined;
   endDate: string | undefined;
   onboardingStep: EOnboardingStep;

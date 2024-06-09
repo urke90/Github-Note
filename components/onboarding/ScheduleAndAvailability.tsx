@@ -16,7 +16,7 @@ const ScheduleAndAvailability: React.FC = () => {
   return (
     <section>
       <RHFCheckbox
-        name="projectAvailability"
+        name="isAvailable"
         label="Are you available for a new project?"
       />
       <div className="mb-6 mt-8 flex flex-wrap gap-6">

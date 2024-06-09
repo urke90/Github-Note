@@ -101,7 +101,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
                 height={18}
                 alt="Available"
               />
-              {user.projectAvailability
+              {user.isAvailable
                 ? 'Available for a new project'
                 : 'Not available for a new project'}
             </li>
