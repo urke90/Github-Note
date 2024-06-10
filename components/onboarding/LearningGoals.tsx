@@ -1,10 +1,9 @@
 'use client';
 
-import AddLearningGoalItem from '../shared/AddLearningGoalItem';
+import AddLearningGoal from '../shared/AddLearningGoal';
 import { Button } from '../ui/button';
 
-import Image from 'next/image';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import type { IUserOnboarding } from '@/lib/zod/user-schema';
 import { EOnboardingStep } from '@/types/onboarding-step';
@@ -21,12 +20,8 @@ interface ILearningGoalsProps {
 }
 
 const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
-  const {
-    trigger,
-    formState: { errors },
-    getValues,
-  } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ name: 'learningGoals' });
+  const { trigger, getValues } = useFormContext();
+
   const validateAndChangeStep = async () => {
     const validInputs = await trigger('learningGoals');
 
@@ -41,41 +36,8 @@ const LearningGoals: React.FC<ILearningGoalsProps> = ({ handleChangeStep }) => {
   };
 
   return (
-    <article className="flex flex-col gap-2">
-      <p className="p3-medium">Learning goals</p>
-      <ul className="mb-1.5 flex flex-col gap-2">
-        {fields?.length > 0 ? (
-          fields.map((field, index) => (
-            <AddLearningGoalItem
-              key={field.id}
-              index={index}
-              onRemove={remove}
-            />
-          ))
-        ) : (
-          <li
-            className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-regular' : ''}`}
-          >
-            {errors.learningGoals
-              ? errors.learningGoals?.message?.toString()
-              : 'Add your learning goals...'}
-          </li>
-        )}
-      </ul>
-      <Button
-        type="button"
-        onClick={() => append({ isChecked: false, goal: '' })}
-        variant="secondary"
-        className="mb-4"
-      >
-        <Image
-          src="/assets/icons/plus-primary-blue.svg"
-          alt="add"
-          width={14}
-          height={14}
-        />
-        Add goal checkbox
-      </Button>
+    <article className="flex flex-col gap-6">
+      <AddLearningGoal />
       <Button type="button" onClick={validateAndChangeStep}>
         Next
       </Button>

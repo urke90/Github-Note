@@ -1,11 +1,17 @@
 'use client';
 
+import RHFCheckbox from '../RHFInputs/RHFCheckbox';
+import RHFDatePicker from '../RHFInputs/RHFDatePicker';
+import RHFInput from '../RHFInputs/RHFInput';
+import AddKnowledgeLevel from '../shared/AddKnowledgeLevel';
+import AddLearningGoal from '../shared/AddLearningGoal';
+import ProfileImageUpload from '../shared/ProfileImageUpload';
 import { Form } from '../ui/form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { updateUserSchema } from '@/lib/zod/user-schema';
+import { IUpdateUserSchema, updateUserSchema } from '@/lib/zod/user-schema';
 import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
@@ -19,31 +25,90 @@ interface IProfileEditProps {
 const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
   console.log('user', user);
 
-  const form = useForm({
+  const form = useForm<IUpdateUserSchema>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       fullName: user.fullName || '',
       email: user.email || '',
       avatarImg: user?.avatarImg || '',
       portfolioUrl: user?.portfolioUrl || '',
-      learningGoals: user.learningGoals || '',
-      knowledgeLevel: user.knowledgeLevel || [],
-      techStack: user.techStack || '',
-      isAvailable: user.isAvailable || false,
-      startDate: user.startDate || undefined,
-      endDate: user.endDate || undefined,
-      createdAt: user.createdAt || '',
-      updatedAt: user.updatedAt || '',
+      learningGoals: user?.learningGoals || [],
+      knowledgeLevel: user?.knowledgeLevel || [],
+      techStack: user?.techStack || '',
+      isAvailable: user?.isAvailable || false,
+      startDate: user?.startDate || undefined,
+      endDate: user?.endDate || undefined,
     },
   });
+
+  const startDate = form.getValues('startDate');
+  const endDate = form.getValues('endDate');
+
+  // watch({ name: 'startDate' });
+  // const startDate = getValues('startDate');
+  // watch({ name: 'endDate' });
+  // const endDate = getValues('endDate');
 
   return (
     <section className="px-5 py-10 lg:px-[30px]">
       <h1 className="h1-bold mb-5">Edit Profile</h1>
       <p className="subtitle-small mb-6">Basic Information</p>
-
       <Form {...form}>
-        <form>This is form</form>
+        <form>
+          <ProfileImageUpload existingAvatarImage={user.avatarImg} />
+          <div className="mb-10 flex flex-col gap-[30px]">
+            <RHFInput
+              name="fullName"
+              label="Name"
+              placeholder="Enter your name..."
+            />
+            <RHFInput
+              name="email"
+              label="Email"
+              placeholder="Enter your email..."
+              disabled
+            />
+            <RHFInput
+              name="portfolio"
+              label="Porfolio"
+              placeholder="Enter link to your portfolio..."
+            />
+          </div>
+          <div className="flex flex-col gap-10">
+            <AddLearningGoal />
+            <AddKnowledgeLevel />
+            <div>
+              <RHFCheckbox
+                name="isAvailable"
+                label="Are you available for a new project?"
+              />
+              <div className="mb-6 mt-8 flex flex-wrap gap-6">
+                <div className="flex-1">
+                  <RHFDatePicker
+                    name="startDate"
+                    label="Start Date & Time"
+                    description="The time is in your local timezone"
+                    className="flex-1"
+                    disableDateFn={(date) =>
+                      (endDate && date > endDate) || date < new Date()
+                    }
+                  />
+                </div>
+                <div className="flex-1">
+                  <RHFDatePicker
+                    name="endDate"
+                    label="End Date & Time"
+                    description="The time is in your local timezone"
+                    disableDateFn={(date) =>
+                      (startDate && date < startDate) || date < new Date()
+                    }
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </Form>
     </section>
   );

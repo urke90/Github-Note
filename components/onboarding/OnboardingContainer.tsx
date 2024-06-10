@@ -114,21 +114,21 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   };
 
   return (
-    <article className="mt-[30px] px-5">
+    <div className="my-[30px] px-5 lg:px-[30px]">
       <div className="m-auto max-w-[600px]">
         <Image
           src="/assets/images/Logo.svg"
           alt="Logo"
           width={156}
           height={36}
-          className="m-auto my-16"
+          className="m-auto mb-16"
         />
         <div className="m-auto rounded-xl bg-black-800 px-5 py-8 sm:px-8">
           <div className="mb-6">
             <Stepper currentStep={step} />
           </div>
           <h2 className="h2-bold mb-6">{generateTitleBasedOnStep(step)}</h2>
-          <article>
+          <div>
             <Form {...onboardingForm}>
               <form onSubmit={onboardingForm.handleSubmit(onSubmit)}>
                 {step === EOnboardingStep.BASIC_INFORMATION && (
@@ -145,10 +145,10 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
                 )}
               </form>
             </Form>
-          </article>
+          </div>
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 

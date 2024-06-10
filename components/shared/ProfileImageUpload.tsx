@@ -13,11 +13,11 @@ import { useFormContext } from 'react-hook-form';
 // ----------------------------------------------------------------
 
 interface IProfileImageUploadProps {
-  existingAvatarImage: string;
+  existingAvatarImage?: string;
 }
 
 const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
-  existingAvatarImage,
+  existingAvatarImage = '',
 }) => {
   const transformedExistingAvatarImage = getCldImageUrl({
     width: 90,

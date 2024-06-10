@@ -15,8 +15,8 @@ export interface IUser {
   knowledgeLevel?: string[];
   techStack: string;
   isAvailable: boolean;
-  startDate: string | undefined;
-  endDate: string | undefined;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
   onboardingStep: EOnboardingStep;
   createdAt: string;
   updatedAt: string;

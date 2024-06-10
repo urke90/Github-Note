@@ -19,14 +19,8 @@ export const userDataBaseSchema = z.object({
     .min(1, 'Please add your expertise level!'),
   techStack: z.string().trim(),
   isAvailable: z.boolean().optional(),
-  startDate: z
-    .date({ required_error: 'Plase enter start date!' })
-    .min(new Date())
-    .optional(),
-  endDate: z
-    .date({ required_error: 'Please enter end date!' })
-    .min(new Date())
-    .optional(),
+  startDate: z.date({ required_error: 'Plase enter start date!' }).optional(),
+  endDate: z.date({ required_error: 'Please enter end date!' }).optional(),
 });
 
 export const updateUserSchema = userDataBaseSchema.extend({

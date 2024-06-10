@@ -15,6 +15,11 @@ const EditProfilePage: React.FC<IEditProfilePageProps> = async (props) => {
 
   if (!user) throw new Error('User data not available');
 
+  console.log('YUSER USER USER START DATE', user.startDate);
+  console.log('YUSER USER USER START DATE TYPEOF', typeof user.startDate);
+  console.log('YUSER USER USER created At', user.createdAt);
+  console.log('YUSER USER USER crreated at typeof', typeof user.createdAt);
+
   return <ProfileEdit user={user} />;
 };
 
