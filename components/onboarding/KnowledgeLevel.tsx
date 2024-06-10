@@ -1,6 +1,7 @@
 'use client';
 
 // import AddKnowledgeLevelItem from '../shared/AddKnowledgeLevel';
+import RHFCreatableSelect from '../RHFInputs/RHFCreatableSelect';
 import AddKnowledgeLevel from '../shared/AddKnowledgeLevel';
 import { Button } from '../ui/button';
 
@@ -8,7 +9,6 @@ import { useFormContext } from 'react-hook-form';
 
 import type { IUserOnboarding } from '@/lib/zod/user-schema';
 import { EOnboardingStep } from '@/types/onboarding-step';
-import RHFInput from '../RHFInputs/RHFInput';
 
 // ----------------------------------------------------------------
 
@@ -27,15 +27,19 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
   const { trigger, getValues } = useFormContext();
 
   const validateAndChangeStep = async () => {
-    const validInputs = await trigger('knowledgeLevel');
+    const validInputs = await trigger(['knowledgeLevel', 'techStack']);
 
     if (!validInputs) return;
 
-    const knowledgeLevel = getValues('knowledgeLevel');
+    const [knowledgeLevel, techStack] = getValues([
+      'knowledgeLevel',
+      'techStack',
+    ]);
 
     handleChangeStep(
       {
         knowledgeLevel,
+        techStack,
         onboardingStep: EOnboardingStep.SCHEDULE_AND_AVAILABILITY,
       },
       EOnboardingStep.SCHEDULE_AND_AVAILABILITY
@@ -45,7 +49,7 @@ const KnowledgeLevel: React.FC<IKnowledgeLevelProps> = ({
   return (
     <article className="flex flex-col gap-2">
       <AddKnowledgeLevel />
-      <RHFInput
+      <RHFCreatableSelect
         name="techStack"
         label="Tech Stack"
         placeholder="Please add your Tech Stack..."

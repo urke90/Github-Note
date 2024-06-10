@@ -42,7 +42,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
                   height={14}
                   alt="Link"
                 />
-                Joined {format('2024-04-13T12:58:47.404+00:00', 'MMM yyyy')}
+                Joined {format(user.createdAt, 'MMM yyyy')}
               </li>
             </ul>
           </div>

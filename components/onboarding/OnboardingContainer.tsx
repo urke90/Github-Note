@@ -15,15 +15,15 @@ import ScheduleAndAvailability from '@/components/onboarding/ScheduleAndAvailabi
 import Stepper from '@/components/shared/Stepper';
 import { Form } from '@/components/ui/form';
 import {
-  updateUser,
+  updateUserOnboarding,
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
 import {
   userOnboardingSchema,
   type IUserOnboarding,
 } from '@/lib/zod/user-schema';
-import { IUser } from '@/models/user';
 import { EOnboardingStep } from '@/types/onboarding-step';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
@@ -48,55 +48,48 @@ interface IOnboardingContainer {
 
 const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
   const { toast } = useToast();
-  const {
-    fullName,
-    portfolioUrl,
-    avatarImg,
-    learningGoals,
-    knowledgeLevel,
-    techStack,
-    startDate,
-    endDate,
-    isAvailable,
-    onboardingStep,
-    _id,
-  } = user || {};
   const router = useRouter();
   const [step, setStep] = useState<EOnboardingStep>(
-    onboardingStep || EOnboardingStep.BASIC_INFORMATION
+    user?.onboardingStep || EOnboardingStep.BASIC_INFORMATION
   );
 
-  const onboardingForm = useForm<IUserOnboarding>({
+  const form = useForm<IUserOnboarding>({
     resolver: zodResolver(userOnboardingSchema),
     defaultValues: {
-      fullName: fullName || '',
-      portfolioUrl: portfolioUrl || '',
-      avatarImg: avatarImg || '',
-      learningGoals: learningGoals || [],
-      knowledgeLevel: knowledgeLevel || [],
-      techStack: techStack || '',
-      startDate: startDate || undefined,
-      endDate: endDate || undefined,
-      isAvailable: isAvailable || false,
-      onboardingStep: onboardingStep || step,
+      fullName: user?.fullName || '',
+      portfolioUrl: user?.portfolioUrl || '',
+      avatarImg: user?.avatarImg || '',
+      learningGoals: user?.learningGoals || [],
+      knowledgeLevel: user?.knowledgeLevel || [],
+      techStack:
+        user?.techStack?.map((item) => ({ label: item, value: item })) || [],
+      startDate: user?.startDate ? new Date(user?.startDate) : undefined,
+      endDate: user?.endDate ? new Date(user?.endDate) : undefined,
+      isAvailable: user?.isAvailable || false,
+      onboardingStep: user?.onboardingStep || step,
     },
   });
+
+  const {
+    formState: { errors },
+  } = form;
+
+  console.log('ERRORS IN FORM STATE', errors);
 
   const handleChangeStep = async (
     data: Partial<IUserOnboarding>,
     newStep: EOnboardingStep
   ) => {
-    if (!_id) return;
-
-    await updateUserOnboardingStep(user._id.toString(), data);
+    console.log('data u handle change step', data);
+    await updateUserOnboardingStep(data);
     setStep(newStep);
   };
 
   const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
     data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
+
     try {
-      if (!_id) return;
-      const response = await updateUser(_id, data);
+      const response = await updateUserOnboarding(data);
       if (response?.ok && response?.status === 200) {
         toast({
           variant: 'success',
@@ -106,10 +99,12 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
       }
     } catch (error) {
       console.log('Error in submit onboarding user info', error);
-      toast({
-        variant: 'error',
-        title: 'Something went wrong!',
-      });
+      if (error instanceof Error) {
+        toast({
+          variant: 'error',
+          title: error.message,
+        });
+      }
     }
   };
 
@@ -129,8 +124,8 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
           </div>
           <h2 className="h2-bold mb-6">{generateTitleBasedOnStep(step)}</h2>
           <div>
-            <Form {...onboardingForm}>
-              <form onSubmit={onboardingForm.handleSubmit(onSubmit)}>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
                 {step === EOnboardingStep.BASIC_INFORMATION && (
                   <BasicInformation handleChangeStep={handleChangeStep} />
                 )}

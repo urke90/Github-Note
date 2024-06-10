@@ -1,16 +1,18 @@
-'use client';
-
-import { useSession } from 'next-auth/react';
 import { getCldImageUrl } from 'next-cloudinary';
 import Image from 'next/image';
 
+import { auth } from '@/auth';
+import { CLOUDINARY_URL } from '@/types/cloudinary';
+
 // ----------------------------------------------------------------
 
-const NavProfileInfo: React.FC = () => {
-  const { data: session } = useSession();
-
-  let imageUrl = '';
-  if (session?.user.image !== '') {
+const NavProfileInfo: React.FC = async () => {
+  const session = await auth();
+  let imageUrl = session?.user.image;
+  if (
+    session?.user.image !== '' &&
+    session?.user.image?.startsWith(CLOUDINARY_URL)
+  ) {
     imageUrl = getCldImageUrl({
       width: 36,
       height: 36,
@@ -20,7 +22,7 @@ const NavProfileInfo: React.FC = () => {
   }
 
   return (
-    <section className="flex gap-1.5">
+    <div className="flex gap-1.5">
       <Image
         src={imageUrl || '/assets/icons/image-upload-placeholder.svg'}
         width={36}
@@ -32,7 +34,7 @@ const NavProfileInfo: React.FC = () => {
         <p className="p3-medium text-white-100">{session?.user.name}</p>
         <p className="p4-regular">{session?.user.email}</p>
       </div>
-    </section>
+    </div>
   );
 };
 

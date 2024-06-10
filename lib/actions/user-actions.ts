@@ -1,13 +1,14 @@
 'use server';
 
 import { connectToMongoDB } from '../database/mongodb';
-import type { IUserOnboarding } from '../zod/onboarding-schema';
+import type { IUpdateUserData, IUserOnboarding } from '../zod/user-schema';
 
 import { genSalt, hash } from 'bcryptjs';
 import { MongoError } from 'mongodb';
 
-import type { IUser } from '@/models/user';
+import { auth } from '@/auth';
 import User from '@/models/user';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
@@ -74,16 +75,22 @@ export const createNewUser = async ({
 };
 
 export const updateUserOnboardingStep = async (
-  id: string,
   data: Partial<IUserOnboarding>
 ) => {
   try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
     await connectToMongoDB();
 
-    const user = await User.findOneAndUpdate<IUser>(
-      { _id: id },
-      { $set: data }
-    ).lean();
+    const modifiedTechStack = data.techStack?.map((item) => item.value);
+
+    const user = await User.findByIdAndUpdate(session.user.id, {
+      $set: {
+        ...data,
+        techStack: modifiedTechStack,
+      },
+    }).lean();
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
@@ -96,18 +103,50 @@ export const updateUserOnboardingStep = async (
         error instanceof MongoError
       );
     }
+    throw new Error('Something went wrong during updating onboarding step.');
   }
 };
 
-export const updateUser = async (userId: string, data: IUserOnboarding) => {
+export const updateUserOnboarding = async (data: IUserOnboarding) => {
   try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
+    const modifiedTechStack = data.techStack.map((item) => item.value);
+
     await connectToMongoDB();
-    await User.findByIdAndUpdate({ _id: userId }, data, {
-      new: true,
-    });
+    await User.findByIdAndUpdate(
+      session.user.id,
+      {
+        ...data,
+        techStack: modifiedTechStack,
+      },
+      {
+        new: true,
+      }
+    );
 
     return { ok: true, status: 200 };
   } catch (error) {
-    console.log('ERROR WHILE UPDATING ONBOARDING USER', error);
+    console.log('Error updating user onboarding', error);
+    throw new Error('Something went wrong during onboarding.');
+  }
+};
+
+export const updateUser = async (data: IUpdateUserData) => {
+  try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+    await connectToMongoDB();
+
+    const modifiedTechStack = data.techStack.map((item) => item.value);
+
+    await User.findByIdAndUpdate(session.user.id, {
+      ...data,
+      techStack: modifiedTechStack,
+    });
+  } catch (error) {
+    console.log('Error updating user', error);
+    throw new Error("Something went wrong, couldn't update user");
   }
 };

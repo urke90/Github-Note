@@ -8,11 +8,9 @@ import {
   FormMessage,
 } from '../ui/form';
 
-import CreatableSelect from 'react-select/creatable';
-// import makeAnimated from 'react-select/animated';
-
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
+import CreatableSelect from 'react-select/creatable';
 
 // ----------------------------------------------------------------
 
@@ -27,7 +25,7 @@ interface IRHFReactSelectProps {
   description?: string;
   isMulti?: boolean;
   placeholder?: string;
-  options: ISelectOptions[];
+  options?: ISelectOptions[];
   value?: ISelectOptions[];
 }
 
@@ -37,7 +35,7 @@ const DropdownIndicator = () => {
       src="/assets/icons/icn-chevron-down.svg"
       width={16}
       height={16}
-      alt="Chevron down"
+      alt="Arrow down"
     />
   );
 };
@@ -69,7 +67,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
           <FormControl>
             <CreatableSelect
               {...field}
-              noOptionsMessage={() => 'No tags available!'}
+              noOptionsMessage={() => 'There are no options available'}
               onChange={(newValue) => {
                 field.onChange(newValue);
               }}
@@ -114,6 +112,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
                   ...base,
                   backgroundColor: black700,
                   marginTop: 4,
+                  display: options && options?.length > 0 ? 'block' : 'none',
                 }),
                 option: (base, { data, options }) => {
                   const isLastOption = data === options[options.length - 1];

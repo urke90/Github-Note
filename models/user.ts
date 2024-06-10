@@ -7,7 +7,7 @@ export interface ILearningGoals extends Document {
   goal: string;
 }
 
-export interface IUser extends Document {
+interface IUser extends Document {
   fullName: string;
   email: string;
   password: string;
@@ -42,7 +42,7 @@ const UserSchema: Schema = new Schema<IUser>({
   portfolioUrl: String,
   learningGoals: [LearningGoalsSchema],
   knowledgeLevel: [String],
-  techStack: String,
+  techStack: [String],
   isAvailable: Boolean,
   startDate: Date,
   endDate: Date,

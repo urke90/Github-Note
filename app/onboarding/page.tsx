@@ -2,8 +2,9 @@ import { Suspense } from 'react';
 
 import { auth } from '@/auth';
 import OnboardingContainer from '@/components/onboarding/OnboardingContainer';
+import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { getUserById } from '@/lib/actions/user-actions';
-import type { IUser } from '@/models/user';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
@@ -18,7 +19,7 @@ const Onboarding = async () => {
   }
 
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<LoadingSpinner asLayout />}>
       <OnboardingContainer user={user} />
     </Suspense>
   );

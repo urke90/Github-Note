@@ -10,6 +10,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { CLOUDINARY_URL } from '@/types/cloudinary';
+
 // ----------------------------------------------------------------
 
 interface IProfileImageUploadProps {
@@ -19,17 +21,19 @@ interface IProfileImageUploadProps {
 const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
   existingAvatarImage = '',
 }) => {
-  const transformedExistingAvatarImage = getCldImageUrl({
-    width: 90,
-    height: 90,
-    src: existingAvatarImage,
-    crop: 'fill',
-  });
+  let transformedAvatarImage = existingAvatarImage;
+
+  if (existingAvatarImage.startsWith(CLOUDINARY_URL)) {
+    transformedAvatarImage = getCldImageUrl({
+      width: 90,
+      height: 90,
+      src: existingAvatarImage,
+      crop: 'fill',
+    });
+  }
+
   const { setValue } = useFormContext();
-  const [imagePreview, setImagePreview] = useState(
-    transformedExistingAvatarImage
-  );
-  console.log('imagePreview', imagePreview);
+  const [imagePreview, setImagePreview] = useState(transformedAvatarImage);
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
     if (!result?.info || typeof result?.info === 'string')

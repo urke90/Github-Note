@@ -13,10 +13,10 @@ export interface IUser {
   portfolioUrl: string;
   learningGoals?: ILearningGoals[];
   knowledgeLevel?: string[];
-  techStack: string;
+  techStack: string[];
   isAvailable: boolean;
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  startDate: string | undefined;
+  endDate: string | undefined;
   onboardingStep: EOnboardingStep;
   createdAt: string;
   updatedAt: string;

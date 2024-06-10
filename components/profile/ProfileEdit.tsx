@@ -11,7 +11,7 @@ import { Form } from '../ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { IUpdateUserSchema, updateUserSchema } from '@/lib/zod/user-schema';
+import { IUpdateUserData, updateUserSchema } from '@/lib/zod/user-schema';
 import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
@@ -23,9 +23,9 @@ interface IProfileEditProps {
 // ----------------------------------------------------------------
 
 const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
-  console.log('user', user);
+  console.log('user TECH STACK', user.techStack);
 
-  const form = useForm<IUpdateUserSchema>({
+  const form = useForm<IUpdateUserData>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       fullName: user.fullName || '',
@@ -34,20 +34,20 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
       portfolioUrl: user?.portfolioUrl || '',
       learningGoals: user?.learningGoals || [],
       knowledgeLevel: user?.knowledgeLevel || [],
-      techStack: user?.techStack || '',
+      techStack:
+        user?.techStack.map((item) => ({ label: item, value: item })) || [],
       isAvailable: user?.isAvailable || false,
-      startDate: user?.startDate || undefined,
-      endDate: user?.endDate || undefined,
+      startDate: user?.startDate ? new Date(user.startDate) : undefined,
+      endDate: user?.endDate ? new Date(user.endDate) : undefined,
     },
   });
 
   const startDate = form.getValues('startDate');
   const endDate = form.getValues('endDate');
 
-  // watch({ name: 'startDate' });
-  // const startDate = getValues('startDate');
-  // watch({ name: 'endDate' });
-  // const endDate = getValues('endDate');
+  // const onSubmit: SubmitHandler<IUpdateUserData> = (data) => {
+
+  // };
 
   return (
     <section className="px-5 py-10 lg:px-[30px]">
@@ -77,6 +77,7 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
           <div className="flex flex-col gap-10">
             <AddLearningGoal />
             <AddKnowledgeLevel />
+            {/* <RHFCreatableSelect name="techStack" label="Tech Stack" /> */}
             <div>
               <RHFCheckbox
                 name="isAvailable"
