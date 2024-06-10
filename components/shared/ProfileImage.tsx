@@ -1,6 +1,6 @@
 'use client';
 
-import { CldImage } from 'next-cloudinary';
+import { getCldImageUrl } from 'next-cloudinary';
 import Image from 'next/image';
 
 // ----------------------------------------------------------------
@@ -10,27 +10,23 @@ interface IProfileImageProps {
 }
 
 const ProfileImage: React.FC<IProfileImageProps> = ({ avatarImg }) => {
+  let imageUrl = '';
+  if (avatarImg) {
+    imageUrl = getCldImageUrl({
+      width: 90,
+      height: 90,
+      src: avatarImg,
+      crop: 'fill',
+    });
+  }
   return (
-    <>
-      {avatarImg ? (
-        <CldImage
-          crop="fill"
-          src={avatarImg}
-          width={90}
-          height={90}
-          alt="Avatart"
-          className="shrink-0 rounded-[5px]"
-        />
-      ) : (
-        <Image
-          src="/assets/icons/image-upload-placeholder.svg"
-          width={90}
-          height={90}
-          alt="Avatart"
-          className="shrink-0 rounded-[5px]"
-        />
-      )}
-    </>
+    <Image
+      src={imageUrl || '/assets/icons/image-upload-placeholder.svg'}
+      width={90}
+      height={90}
+      alt="Avatart"
+      className="shrink-0 rounded-[5px]"
+    />
   );
 };
 

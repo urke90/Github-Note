@@ -1,20 +1,30 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { CldImage } from 'next-cloudinary';
+import { getCldImageUrl } from 'next-cloudinary';
+import Image from 'next/image';
 
 // ----------------------------------------------------------------
 
 const NavProfileInfo: React.FC = () => {
   const { data: session } = useSession();
 
+  let imageUrl = '';
+  if (session?.user.image !== '') {
+    imageUrl = getCldImageUrl({
+      width: 36,
+      height: 36,
+      src: session?.user.image || '',
+      crop: 'fill',
+    });
+  }
+
   return (
     <section className="flex gap-1.5">
-      <CldImage
-        src={session?.user.image ?? ''}
+      <Image
+        src={imageUrl || '/assets/icons/image-upload-placeholder.svg'}
         width={36}
         height={36}
-        crop="fill"
         alt="Profile Image"
         className="rounded-lg"
       />
