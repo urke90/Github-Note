@@ -3,15 +3,17 @@
 import { getCldImageUrl } from 'next-cloudinary';
 import Image from 'next/image';
 
+import { CLOUDINARY_URL } from '@/constants/cloudinary';
+
 // ----------------------------------------------------------------
 
 interface IProfileImageProps {
-  avatarImg?: string;
+  avatarImg: string;
 }
 
 const ProfileImage: React.FC<IProfileImageProps> = ({ avatarImg }) => {
-  let imageUrl = '';
-  if (avatarImg) {
+  let imageUrl = avatarImg;
+  if (avatarImg?.startsWith(CLOUDINARY_URL)) {
     imageUrl = getCldImageUrl({
       width: 90,
       height: 90,

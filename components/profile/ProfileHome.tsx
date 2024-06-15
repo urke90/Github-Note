@@ -18,13 +18,14 @@ interface IProfileHomeProps {
 }
 
 const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
+  // console.log('user avatar', user.avatarImg);
   return (
     <section className="py-10">
       <div className="flex-between mb-8 flex-wrap gap-2.5 px-5 lg:px-[30px]">
         <div className="flex items-center gap-5">
           <ProfileImage avatarImg={user.avatarImg} />
           <div className="flex flex-col gap-2.5">
-            <h2 className="h2-bold">Uros BIjelic</h2>
+            <h2 className="h2-bold">{user.fullName}</h2>
             <ul className="flex flex-wrap gap-[18px]">
               <li className="flex cursor-pointer gap-1 text-primary-500">
                 <Image

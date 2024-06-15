@@ -9,7 +9,7 @@ export interface IUser {
   fullName: string;
   email: string;
   password: string;
-  avatarImg?: string;
+  avatarImg: string;
   portfolioUrl: string;
   learningGoals?: ILearningGoals[];
   knowledgeLevel?: string[];

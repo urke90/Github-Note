@@ -5,6 +5,7 @@ import type { IUpdateUserData, IUserOnboarding } from '../zod/user-schema';
 
 import { genSalt, hash } from 'bcryptjs';
 import { MongoError } from 'mongodb';
+import { revalidatePath } from 'next/cache';
 
 import { auth } from '@/auth';
 import User from '@/models/user';
@@ -145,6 +146,9 @@ export const updateUser = async (data: IUpdateUserData) => {
       ...data,
       techStack: modifiedTechStack,
     });
+    revalidatePath('/profile');
+
+    return { ok: true, status: 200 };
   } catch (error) {
     console.log('Error updating user', error);
     throw new Error("Something went wrong, couldn't update user");

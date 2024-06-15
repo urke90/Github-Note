@@ -1,16 +1,21 @@
 'use client';
 
 import RHFCheckbox from '../RHFInputs/RHFCheckbox';
+import RHFCreatableSelect from '../RHFInputs/RHFCreatableSelect';
 import RHFDatePicker from '../RHFInputs/RHFDatePicker';
 import RHFInput from '../RHFInputs/RHFInput';
 import AddKnowledgeLevel from '../shared/AddKnowledgeLevel';
 import AddLearningGoal from '../shared/AddLearningGoal';
 import ProfileImageUpload from '../shared/ProfileImageUpload';
+import { Button } from '../ui/button';
 import { Form } from '../ui/form';
+import { useToast } from '../ui/use-toast';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
+import { updateUser } from '@/lib/actions/user-actions';
 import { IUpdateUserData, updateUserSchema } from '@/lib/zod/user-schema';
 import type { IUser } from '@/types/user';
 
@@ -23,7 +28,8 @@ interface IProfileEditProps {
 // ----------------------------------------------------------------
 
 const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
-  console.log('user TECH STACK', user.techStack);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<IUpdateUserData>({
     resolver: zodResolver(updateUserSchema),
@@ -45,16 +51,28 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
   const startDate = form.getValues('startDate');
   const endDate = form.getValues('endDate');
 
-  // const onSubmit: SubmitHandler<IUpdateUserData> = (data) => {
+  const onSubmit = async (data: IUpdateUserData) => {
+    try {
+      const response = await updateUser(data);
 
-  // };
+      if (response.ok && response.status === 200) {
+        toast({ variant: 'success', title: 'User updated successfully!' });
+        router.push('/profile');
+      }
+    } catch (error) {
+      console.log('Error updating user data!', error);
+      if (error instanceof Error) {
+        toast({ variant: 'error', title: error.message });
+      }
+    }
+  };
 
   return (
     <section className="px-5 py-10 lg:px-[30px]">
       <h1 className="h1-bold mb-5">Edit Profile</h1>
       <p className="subtitle-small mb-6">Basic Information</p>
       <Form {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <ProfileImageUpload existingAvatarImage={user.avatarImg} />
           <div className="mb-10 flex flex-col gap-[30px]">
             <RHFInput
@@ -70,14 +88,14 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
             />
             <RHFInput
               name="portfolio"
-              label="Porfolio"
+              label="Portfolio"
               placeholder="Enter link to your portfolio..."
             />
           </div>
-          <div className="flex flex-col gap-10">
+          <div className="mb-10 flex flex-col gap-10">
             <AddLearningGoal />
             <AddKnowledgeLevel />
-            {/* <RHFCreatableSelect name="techStack" label="Tech Stack" /> */}
+            <RHFCreatableSelect name="techStack" label="Tech Stack" />
             <div>
               <RHFCheckbox
                 name="isAvailable"
@@ -109,6 +127,7 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
               </div>
             </div>
           </div>
+          <Button type="submit">Upadate Profile</Button>
         </form>
       </Form>
     </section>

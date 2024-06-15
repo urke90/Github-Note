@@ -15,8 +15,6 @@ const ProfilePage: React.FC = async () => {
   const user: IUser = await getUserById(session.user.id);
   if (!user) throw new Error('User not found!');
 
-  // console.log('USER', user?.createdAt);
-
   const heatmapData: HeatMapValue[] = await getHeatMapPostsData();
 
   return <ProfileHome user={user} heatMapData={heatmapData} />;

@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { CLOUDINARY_URL } from '@/types/cloudinary';
+import { CLOUDINARY_URL } from '@/constants/cloudinary';
 
 // ----------------------------------------------------------------
 

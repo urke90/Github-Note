@@ -1,8 +1,9 @@
 import { getCldImageUrl } from 'next-cloudinary';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { auth } from '@/auth';
-import { CLOUDINARY_URL } from '@/types/cloudinary';
+import { CLOUDINARY_URL } from '@/constants/cloudinary';
 
 // ----------------------------------------------------------------
 
@@ -22,7 +23,7 @@ const NavProfileInfo: React.FC = async () => {
   }
 
   return (
-    <div className="flex gap-1.5">
+    <Link href="/profile" className="flex gap-1.5">
       <Image
         src={imageUrl || '/assets/icons/image-upload-placeholder.svg'}
         width={36}
@@ -34,7 +35,7 @@ const NavProfileInfo: React.FC = async () => {
         <p className="p3-medium text-white-100">{session?.user.name}</p>
         <p className="p4-regular">{session?.user.email}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -28,7 +28,7 @@ const Login = () => {
 
   const onSubmit = async (data: ILoginFormData) => {
     const { email, password } = data;
-    // console.log('datatata', data);
+
     try {
       await signIn('credentials', {
         email,

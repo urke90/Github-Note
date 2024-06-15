@@ -11,7 +11,7 @@ interface IUser extends Document {
   fullName: string;
   email: string;
   password: string;
-  avatarImg?: string;
+  avatarImg: string;
   portfolioUrl: string;
   learningGoals?: ILearningGoals[];
   knowledgeLevel?: string[];
@@ -27,27 +27,30 @@ const LearningGoalsSchema = new Schema<ILearningGoals>({
   goal: { type: String, required: true },
 });
 
-const UserSchema: Schema = new Schema<IUser>({
-  fullName: {
-    type: String,
-    required: [true, 'Please enter a full name!'],
+const UserSchema: Schema = new Schema<IUser>(
+  {
+    fullName: {
+      type: String,
+      required: [true, 'Please enter a full name!'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide a valid email address!'],
+      unique: true,
+    },
+    password: String,
+    avatarImg: String,
+    portfolioUrl: String,
+    learningGoals: [LearningGoalsSchema],
+    knowledgeLevel: [String],
+    techStack: [String],
+    isAvailable: Boolean,
+    startDate: Date,
+    endDate: Date,
+    onboardingStep: Number,
   },
-  email: {
-    type: String,
-    required: [true, 'Please provide a valid email address!'],
-    unique: true,
-  },
-  password: String,
-  avatarImg: String,
-  portfolioUrl: String,
-  learningGoals: [LearningGoalsSchema],
-  knowledgeLevel: [String],
-  techStack: [String],
-  isAvailable: Boolean,
-  startDate: Date,
-  endDate: Date,
-  onboardingStep: Number,
-});
+  { timestamps: true }
+);
 
 const User: Model<IUser> = models?.User || model<IUser>('User', UserSchema);
 
