@@ -18,7 +18,7 @@ interface IProfileHomeProps {
 }
 
 const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
-  // console.log('user avatar', user.avatarImg);
+  console.log('user', user);
   return (
     <section className="py-10">
       <div className="flex-between mb-8 flex-wrap gap-2.5 px-5 lg:px-[30px]">
@@ -63,7 +63,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
       </div>
       <div className="flex flex-col gap-9">
         <div className="flex flex-col gap-3.5 px-5 lg:px-[30px]">
-          <p className="p1-bold">Contribution Grid</p>
+          <p className="p1-bold text-white-100">Contribution Grid</p>
           <PostsHeatMap value={heatMapData} />
         </div>
         <div className="page-section">

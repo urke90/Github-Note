@@ -60,7 +60,7 @@ const BasicInformation: React.FC<IBasicInformationProps> = ({
       <RHFInput
         label="Portfolio"
         name="portfolioUrl"
-        placeholder="Edit portfolio link"
+        placeholder="Portfolio link"
       />
       <Button type="button" onClick={validateAndChangeStep}>
         Next

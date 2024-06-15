@@ -20,4 +20,16 @@ export interface IUser {
   onboardingStep: EOnboardingStep;
   createdAt: string;
   updatedAt: string;
+  githubName?: string;
+  githubLink?: string;
+  linkedinName?: string;
+  linkedinLink?: string;
+  twitterName?: string;
+  twitterLink?: string;
+  instagramName?: string;
+  instagramLink?: string;
+  facebookName?: string;
+  facebookLink?: string;
+  dribbbleName?: string;
+  dribbbleLink?: string;
 }

@@ -70,10 +70,12 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
   return (
     <section className="px-5 py-10 lg:px-[30px]">
       <h1 className="h1-bold mb-5">Edit Profile</h1>
-      <p className="subtitle-small mb-6">Basic Information</p>
+      <p className="subtitle-small mb-6 uppercase">Basic Information</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ProfileImageUpload existingAvatarImage={user.avatarImg} />
+          <div className="mb-6">
+            <ProfileImageUpload existingAvatarImage={user.avatarImg} />
+          </div>
           <div className="mb-10 flex flex-col gap-[30px]">
             <RHFInput
               name="fullName"

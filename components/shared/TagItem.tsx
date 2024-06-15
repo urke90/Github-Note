@@ -13,7 +13,6 @@ interface ITagItemProps {
   isFilterItem?: boolean;
 }
 
-// TODO still have to figure out UI for selected tags. Will i highlight them with color, show some list or anything else. Left isActive
 const TagItem: React.FC<ITagItemProps> = ({
   title,
   isLink = true,

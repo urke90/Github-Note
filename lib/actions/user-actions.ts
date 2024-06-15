@@ -1,7 +1,11 @@
 'use server';
 
 import { connectToMongoDB } from '../database/mongodb';
-import type { IUpdateUserData, IUserOnboarding } from '../zod/user-schema';
+import type {
+  ISocialMediaLinks,
+  IUpdateUserData,
+  IUserOnboarding,
+} from '../zod/user-schema';
 
 import { genSalt, hash } from 'bcryptjs';
 import { MongoError } from 'mongodb';
@@ -151,6 +155,24 @@ export const updateUser = async (data: IUpdateUserData) => {
     return { ok: true, status: 200 };
   } catch (error) {
     console.log('Error updating user', error);
+    throw new Error("Something went wrong, couldn't update user");
+  }
+};
+
+export const updateUserSocialMediaLinks = async (data: ISocialMediaLinks) => {
+  try {
+    await connectToMongoDB();
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
+    const updatedUser = await User.findByIdAndUpdate(session.user.id, data);
+    if (!updatedUser) throw new Error('User not updated!');
+
+    revalidatePath('/profile');
+    revalidatePath('/profile/edit');
+
+    return { ok: true, status: 200 };
+  } catch (error) {
     throw new Error("Something went wrong, couldn't update user");
   }
 };

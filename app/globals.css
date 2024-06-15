@@ -61,7 +61,7 @@
     /* --input: 214.3 31.8% 91.4%; */
     /* --ring: 222.2 84% 4.9%; */
 
-    --radius: 0.5rem;
+    /* --radius: 0.5rem; */
 
     /* --background: 0 0% 100%; */
     /* --foreground: 222.2 84% 4.9%; */
@@ -159,7 +159,7 @@
     @apply font-bold text-lg;
   }
   .p2-bold {
-    @apply font-bold text-base;
+    @apply font-bold text-base text-white-100;
   }
   .p3-bold {
     @apply font-bold text-sm text-white-100;
@@ -196,6 +196,16 @@
 
   .page-section {
     @apply flex flex-col gap-3.5 border-t border-t-gray-border px-5 py-6 lg:px-[30px];
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 @keyframes rotation {

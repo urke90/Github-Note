@@ -20,6 +20,18 @@ interface IUser extends Document {
   startDate: Date | undefined;
   endDate: Date | undefined;
   onboardingStep: EOnboardingStep;
+  githubName?: string;
+  githubLink?: string;
+  linkedinName?: string;
+  linkedinLink?: string;
+  twitterName?: string;
+  twitterLink?: string;
+  instagramName?: string;
+  instagramLink?: string;
+  facebookName?: string;
+  facebookLink?: string;
+  dribbbleName?: string;
+  dribbbleLink?: string;
 }
 
 const LearningGoalsSchema = new Schema<ILearningGoals>({
@@ -48,6 +60,18 @@ const UserSchema: Schema = new Schema<IUser>(
     startDate: Date,
     endDate: Date,
     onboardingStep: Number,
+    githubLink: String,
+    githubName: String,
+    linkedinLink: String,
+    linkedinName: String,
+    twitterLink: String,
+    twitterName: String,
+    instagramLink: String,
+    instagramName: String,
+    facebookLink: String,
+    facebookName: String,
+    dribbbleLink: String,
+    dribbbleName: String,
   },
   { timestamps: true }
 );
