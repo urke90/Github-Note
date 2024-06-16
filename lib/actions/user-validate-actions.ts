@@ -1,7 +1,9 @@
-import { compareSync } from 'bcryptjs';
-import User from '@/models/User';
 import { connectToMongoDB } from '../database/mongodb';
 import { loginFormSchema } from '../zod/user-schema';
+
+import { compareSync } from 'bcryptjs';
+
+import User from '@/models/user';
 
 // ----------------------------------------------------------------
 

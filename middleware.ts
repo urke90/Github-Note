@@ -1,18 +1,16 @@
 import NextAuth from 'next-auth';
-import AUTH_CONFIG from '@/auth.config';
+import { NextResponse } from 'next/server';
 
+import AUTH_CONFIG from '@/auth.config';
 import {
   AUTH_ROUTES,
   HOME_ROUTE,
-  ONBOARDING_ROUTE,
   LOGIN_ROUTE,
+  ONBOARDING_ROUTE,
 } from '@/routes';
-import { NextResponse } from 'next/server';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
-
-const { FINISHED_ONBOARDING } = EOnboardingStep;
 
 export const { auth } = NextAuth(AUTH_CONFIG);
 
@@ -35,7 +33,7 @@ export default auth(async (req) => {
     const resultJson = await result.json();
 
     const isOnboardingFinished =
-      resultJson.user?.onboardingStep === FINISHED_ONBOARDING;
+      resultJson.user?.onboardingStep === EOnboardingStep.FINISHED_ONBOARDING;
 
     if (!isOnboardingFinished && !isOnboardingRoute) {
       return NextResponse.redirect(new URL(ONBOARDING_ROUTE, req.nextUrl));

@@ -21,7 +21,6 @@ const config = {
       colors: {
         // custom
         primary: {
-          // gradient: 'var(--primary-gradient)',
           500: 'var(--primary-500)',
           800: 'var(--primary-800)',
           900: 'var(--primary-900)',
@@ -46,6 +45,13 @@ const config = {
           500: 'var(--green-500)',
           900: 'var(--green-900)',
         },
+        red: {
+          primary: 'var(--red-text-error)',
+          bg: 'var(--red-bg-error)',
+        },
+        gray: {
+          border: 'var(--gray-border)',
+        },
       },
 
       boxShadow: {
@@ -56,9 +62,6 @@ const config = {
           'box-shadow: 0px 0px 0px 1px #1212121A, 0px 1px 1px 0px #1212121A',
         'tw-stepper-btn': '0px 0px 0px 4px #2E3757',
       },
-      // fontFamily: {
-      //   inter: ['Inter',] // Dodao sam Inter font kroz app layout tsx
-      // },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -80,7 +83,7 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;
 
 export default config;

@@ -11,8 +11,6 @@ declare module 'next-auth' {
       id: string;
       /** Current step of user onboarding process. If value is 5 then onboarding is finished */
       onboardingStep: number;
-      /** Fetched image from DB */
-      avatarImg: string;
     } & DefaultSession['user'];
   }
 }

@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import { Button } from '../ui/button';
+
+import Image from 'next/image';
 
 interface IRelatedPostsProps {}
 
@@ -19,7 +20,7 @@ const RelatedPosts = (props: IRelatedPostsProps) => {
       </ul>
       <Button variant="secondary" className="gap-2">
         <Image
-          src="/assets/icons/Plus-primary-blue.svg"
+          src="/assets/icons/plus-primary-blue.svg"
           width={14}
           height={14}
           alt="Plus"

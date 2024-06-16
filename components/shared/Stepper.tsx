@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { EOnboardingStep } from '@/types/onboarding-step';
+
+import { cn } from '@/lib/utils';
 
 // ----------------------------------------------------------------
 
@@ -35,6 +35,7 @@ interface IStepperProps {
 }
 
 const Stepper: React.FC<IStepperProps> = ({ currentStep }) => {
+  if (currentStep > 4) return null;
   const completedLineWidth = Math.round(((currentStep - 1) / 3) * 100);
 
   return (
@@ -61,7 +62,11 @@ const Stepper: React.FC<IStepperProps> = ({ currentStep }) => {
   );
 };
 
-const Step = ({ currentStyle }: { currentStyle: IStepperStyleDetails }) => {
+interface IStep {
+  currentStyle: IStepperStyleDetails;
+}
+
+const Step: React.FC<IStep> = ({ currentStyle }) => {
   return (
     <div
       className={cn(

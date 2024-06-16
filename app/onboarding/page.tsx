@@ -1,26 +1,20 @@
 import { auth } from '@/auth';
-import { getUserById } from '@/lib/actions/user-actions';
 import OnboardingContainer from '@/components/onboarding/OnboardingContainer';
-import { Suspense } from 'react';
-import type { IUser } from '@/models/User';
+import { getUserById } from '@/lib/actions/user-actions';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
-const Onboarding = async () => {
+const OnboardingPage = async () => {
   const session = await auth();
-  if (!session?.user.id) return null;
+  if (!session?.user.id)
+    throw new Error('User data is not available at this moment!');
 
   const user: IUser | null = await getUserById(session.user.id);
 
-  if (!user) {
-    return null;
-  }
+  if (!user) throw new Error('User data is not available at this moment!');
 
-  return (
-    <Suspense fallback="Loading...">
-      <OnboardingContainer user={user} />
-    </Suspense>
-  );
+  return <OnboardingContainer user={user} />;
 };
 
-export default Onboarding;
+export default OnboardingPage;
