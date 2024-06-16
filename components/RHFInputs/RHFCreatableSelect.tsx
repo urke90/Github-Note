@@ -148,7 +148,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage className="text-red-regular" />
+          <FormMessage className="text-red-primary" />
         </FormItem>
       )}
     />

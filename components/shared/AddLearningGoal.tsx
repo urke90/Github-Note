@@ -28,7 +28,7 @@ const AddLearningGoal = () => {
           ))
         ) : (
           <li
-            className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-regular' : ''}`}
+            className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-primary' : ''}`}
           >
             {errors.learningGoals
               ? errors.learningGoals?.message?.toString()

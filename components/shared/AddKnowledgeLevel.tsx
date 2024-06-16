@@ -27,7 +27,7 @@ const AddKnowledgeLevel = () => {
           ))
         ) : (
           <li
-            className={`my-2 rounded px-3 text-center ${errors.knowledgeLevel ? 'text-red-regular' : ''}`}
+            className={`my-2 rounded px-3 text-center ${errors.knowledgeLevel ? 'text-red-primary' : ''}`}
           >
             {errors.knowledgeLevel
               ? errors.knowledgeLevel.message?.toString()

@@ -36,7 +36,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
 
   const session = await auth();
 
-  if (!session) return null;
+  if (!session) throw new Error('User data is not available!');
 
   const response: IPostsResponse | undefined = await getAllPosts({
     page: Number(page),
@@ -44,7 +44,8 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
     tags,
     itemsPerPage: 3,
   });
-  if (!response?.ok && response?.status !== 200) return null;
+  if (!response?.ok && response?.status !== 200)
+    throw new Error('Posts not available at the moment!');
 
   const heatMapPosts: HeatMapValue[] = await getHeatMapPostsData();
 

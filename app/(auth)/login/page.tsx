@@ -37,13 +37,17 @@ const Login = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast({
+        console.log('Error LOGIN PAGE', error);
+        return toast({
           variant: 'error',
           title: 'Invalid email or password!',
         });
-
-        console.log('Error LOGIN PAGE', error);
       }
+
+      toast({
+        variant: 'error',
+        title: 'Something went wrong! Please try again.',
+      });
     }
   };
 

@@ -49,13 +49,6 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
             </ul>
           </div>
         </div>
-        <Image
-          src="/assets/icons/tech-stack/redux.svg"
-          width={68}
-          height={68}
-          alt="svg"
-          // className="border"
-        />
         <Link
           href="/profile/edit"
           className="flex min-w-min gap-2 rounded bg-black-700 px-3.5 py-3 text-primary-500"

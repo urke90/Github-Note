@@ -1,28 +1,20 @@
-import { Suspense } from 'react';
-
 import { auth } from '@/auth';
 import OnboardingContainer from '@/components/onboarding/OnboardingContainer';
-import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { getUserById } from '@/lib/actions/user-actions';
 import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
-const Onboarding = async () => {
+const OnboardingPage = async () => {
   const session = await auth();
-  if (!session?.user.id) return null;
+  if (!session?.user.id)
+    throw new Error('User data is not available at this moment!');
 
   const user: IUser | null = await getUserById(session.user.id);
 
-  if (!user) {
-    return null;
-  }
+  if (!user) throw new Error('User data is not available at this moment!');
 
-  return (
-    <Suspense fallback={<LoadingSpinner asLayout />}>
-      <OnboardingContainer user={user} />
-    </Suspense>
-  );
+  return <OnboardingContainer user={user} />;
 };
 
-export default Onboarding;
+export default OnboardingPage;

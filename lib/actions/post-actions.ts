@@ -54,7 +54,7 @@ export const createNewPost = async (data: IPostSchema) => {
     };
   } catch (error) {
     console.log('Error creating new post!', error);
-    throw error;
+    throw new Error('Error creating new post!');
   }
 };
 
@@ -122,6 +122,7 @@ export const getAllPosts = async ({
     };
   } catch (error) {
     console.log('Error fetching posts!', error);
+    throw new Error("Something went wrong. Couldn't show posts! ");
   }
 };
 

@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { auth } from '@/auth';
 import CreateOrUpdatePost from '@/components/post/CreateOrUpdatePost';
 import { getTags } from '@/lib/actions/tag-actions';
@@ -18,11 +16,7 @@ const CreatePostPage = async () => {
     value: tag._id.toString(),
   }));
 
-  return (
-    <Suspense fallback="Loading...">
-      <CreateOrUpdatePost tags={modifiedTags} />
-    </Suspense>
-  );
+  return <CreateOrUpdatePost tags={modifiedTags} />;
 };
 
 export default CreatePostPage;

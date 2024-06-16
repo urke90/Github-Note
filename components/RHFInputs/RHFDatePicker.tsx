@@ -94,7 +94,7 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
               {description}
             </FormDescription>
           )}
-          <FormMessage className="text-red-regular" />
+          <FormMessage className="text-red-primary" />
         </FormItem>
       )}
     />

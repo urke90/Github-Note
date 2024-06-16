@@ -16,10 +16,8 @@ const PostDetailsPage: React.FC<IPostDetailsPage> = async ({ params }) => {
   const post: IPost | undefined = await getPostById(id);
 
   if (!post)
-    return (
-      <h1 className="h1-bold px-6 py-10 text-center lg:px-[30]">
-        Could not find post!
-      </h1>
+    throw new Error(
+      "Something went wrong. Can't whow Post details at the moment!"
     );
 
   return (

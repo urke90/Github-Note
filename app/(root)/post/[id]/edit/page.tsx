@@ -16,13 +16,19 @@ const EditPostPage: React.FC<IEditPostPageProps> = async ({ params }) => {
   const postId = params.id;
 
   const session = await auth();
-  if (!session?.user.id) {
-    return <h2 className="h2-bold text-center">Something went wrong...</h2>;
-  }
+  if (!session)
+    throw new Error(
+      'Something went wrong. User data is not available at this moment!'
+    );
 
   const tags: ITag[] = (await getTags(session.user.id)) || [];
 
   const post: IPost | undefined = await getPostById(postId);
+
+  if (!post || !tags)
+    throw new Error(
+      'Something went wrong. Post details are not available at this moment!'
+    );
 
   const modifiedTags = tags.map((tag) => ({
     label: tag.title,
