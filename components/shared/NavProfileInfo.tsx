@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { auth } from '@/auth';
-import { CLOUDINARY_URL } from '@/constants/cloudinary';
+import { CLOUDINARY_URL } from '@/constants';
 
 // ----------------------------------------------------------------
 

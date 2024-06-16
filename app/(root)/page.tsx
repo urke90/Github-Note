@@ -5,7 +5,7 @@ import PostItem from '@/components/post/PostItem';
 import PostItemBadge from '@/components/post/PostItemBadge';
 import Pagination from '@/components/shared/Pagination';
 import PostsHeatMap from '@/components/shared/PostsHeatMap';
-import { POST_TYPES } from '@/constants/post';
+import { POST_TYPES } from '@/constants';
 import { getAllPosts, getHeatMapPostsData } from '@/lib/actions/post-actions';
 import type { IPostsResponse } from '@/types/post';
 import { EQueryPostType } from '@/types/post-types';

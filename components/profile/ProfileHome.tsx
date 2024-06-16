@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { AVAILABLE_TECH_STACK_ICONS } from '@/constants';
 import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
@@ -48,6 +49,13 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
             </ul>
           </div>
         </div>
+        <Image
+          src="/assets/icons/tech-stack/redux.svg"
+          width={68}
+          height={68}
+          alt="svg"
+          // className="border"
+        />
         <Link
           href="/profile/edit"
           className="flex min-w-min gap-2 rounded bg-black-700 px-3.5 py-3 text-primary-500"
@@ -81,7 +89,33 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
               : null}
           </ul>
         </div>
-        <div className="page-section">TECH STACK </div>
+        <div className="page-section">
+          <ul className="flex flex-wrap gap-3.5">
+            {user.techStack.map((icon) => {
+              const shortIconName = icon.includes('.')
+                ? icon.split('.')[0].toLowerCase()
+                : icon.toLowerCase();
+
+              console.log('shortIconName', shortIconName);
+              if (AVAILABLE_TECH_STACK_ICONS.includes(shortIconName)) {
+                return (
+                  <div key={icon} className="relative size-[32px]">
+                    <Image
+                      src={`/assets/icons/tech-stack/${shortIconName}.svg`}
+                      fill
+                      alt={icon}
+                    />
+                  </div>
+                );
+              }
+              return (
+                <p key={icon} className="p3-regular">
+                  {icon}
+                </p>
+              );
+            })}
+          </ul>
+        </div>
         <div className="page-section">
           <p className="p1-bold">Knowledge level</p>
           <ul className="flex flex-col gap-2">

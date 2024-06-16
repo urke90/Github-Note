@@ -22,7 +22,7 @@ import RHFTextarea from '@/components/RHFInputs/RHFTextarea';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { SelectSeparator } from '@/components/ui/select';
-import { POST_TYPES } from '@/constants/post';
+import { POST_TYPES } from '@/constants';
 import { createNewPost, updatePost } from '@/lib/actions/post-actions';
 import { postSchema, type IPostSchema } from '@/lib/zod/post-schema';
 import type { IPost } from '@/types/post';

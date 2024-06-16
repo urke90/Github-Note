@@ -3,7 +3,7 @@
 import { getCldImageUrl } from 'next-cloudinary';
 import Image from 'next/image';
 
-import { CLOUDINARY_URL } from '@/constants/cloudinary';
+import { CLOUDINARY_URL } from '@/constants';
 
 // ----------------------------------------------------------------
 

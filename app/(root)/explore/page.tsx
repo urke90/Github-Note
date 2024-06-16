@@ -2,7 +2,7 @@
 
 import ExplorePostsList from '@/components/post/ExplorePostsList';
 import PostItemBadge from '@/components/post/PostItemBadge';
-import { POST_TYPES } from '@/constants/post';
+import { POST_TYPES } from '@/constants';
 import { getAllPosts } from '@/lib/actions/post-actions';
 import { IPostsResponse } from '@/types/post';
 import { parseSearchParams } from '@/utils/params';
