@@ -37,7 +37,7 @@ const Login = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        console.log('Error LOGIN PAGE', error);
+        console.log('Error on user login', error);
         return toast({
           variant: 'error',
           title: 'Invalid email or password!',

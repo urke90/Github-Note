@@ -19,7 +19,6 @@ interface IProfileHomeProps {
 }
 
 const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
-  console.log('user', user);
   return (
     <section className="py-10">
       <div className="flex-between mb-8 flex-wrap gap-2.5 px-5 lg:px-[30px]">
@@ -88,8 +87,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
               const shortIconName = icon.includes('.')
                 ? icon.split('.')[0].toLowerCase()
                 : icon.toLowerCase();
-
-              console.log('shortIconName', shortIconName);
+              console.log('SHORT ICON NAME', shortIconName);
               if (AVAILABLE_TECH_STACK_ICONS.includes(shortIconName)) {
                 return (
                   <div key={icon} className="relative size-[32px]">

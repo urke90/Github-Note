@@ -20,31 +20,24 @@ export const getTags = async (ownerId: string) => {
   }
 };
 
-/**
- * 1. treba da predjem sve Post-ove, i tagove,
- * 2. da nadjem tagove,
- * 3. da prebbrojim tagove
- * 4. da uzmem ID-s od nadjenih tagove
- */
-
 // export const getPopularTags = async () => {
 //   try {
 //     const session = await auth();
 //     if (!session) return;
 
-//     // const popularTags = await Post.aggregate([
-//     //   // { $match: { ownerId: session.user.id } },
-//     //   { $unwind: '$tags' },
-//     //   // { $count: 'tags' },
-//     //   { $group: { _id: '$tags', totalCount: { $sum: 1 } } },
-//     // ]);
+//     const popularTags = await Post.aggregate([
+//       // { $match: { ownerId: session.user.id } },
+//       { $unwind: '$tags' },
+//       // { $count: 'tags' },
+//       { $group: { _id: '$tags', totalCount: { $sum: 1 } } },
+//     ]);
 
-//     // const popularTags = await Post.aggregate()
-//     //   .project({
-//     //     _id: 0,
-//     //     tags: 1,
-//     //   })
-//     //   .group({ _id: '$tags', totalCount: { $sum: 1 } });
+//     const popularTags = await Post.aggregate()
+//       .project({
+//         _id: 0,
+//         tags: 1,
+//       })
+//       .group({ _id: '$tags', totalCount: { $sum: 1 } });
 
 //     const popularTags = await Post.find().select('tags').group();
 

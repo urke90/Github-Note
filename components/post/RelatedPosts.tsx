@@ -2,13 +2,13 @@ import { Button } from '../ui/button';
 
 import Image from 'next/image';
 
-interface IRelatedPostsProps {}
+// ----------------------------------------------------------------
 
 /**
  * TODO  Check later if list item have onClick handler and what would the flow be????
  */
 
-const RelatedPosts = (props: IRelatedPostsProps) => {
+const RelatedPosts = () => {
   return (
     <div>
       <p className="p2-bold mb-4 text-white-100">Related Posts</p>

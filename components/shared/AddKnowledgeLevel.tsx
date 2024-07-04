@@ -57,6 +57,7 @@ export default AddKnowledgeLevel;
 
 interface IAddKnowledgeLevelItemProps {
   index: number;
+  // eslint-disable-next-line no-unused-vars
   onRemove: (index: number) => void;
 }
 

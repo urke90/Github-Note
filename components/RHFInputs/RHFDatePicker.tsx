@@ -29,6 +29,7 @@ type IRHFDatePickerProps = CalendarProps & {
   label: string;
   buttonText?: string;
   description?: string;
+  // eslint-disable-next-line no-unused-vars
   disableDateFn?: (date: Date) => boolean;
 };
 

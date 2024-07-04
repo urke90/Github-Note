@@ -138,7 +138,7 @@ export const updateUserOnboarding = async (data: IUserOnboarding) => {
   }
 };
 
-export const updateUser = async (data: IUpdateUserData) => {
+export const updateUserProfileInfo = async (data: IUpdateUserData) => {
   try {
     const session = await auth();
     if (!session) throw new Error('Session not available');

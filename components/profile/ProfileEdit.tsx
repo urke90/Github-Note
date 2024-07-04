@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-import { updateUser } from '@/lib/actions/user-actions';
+import { updateUserProfileInfo } from '@/lib/actions/user-actions';
 import { IUpdateUserData, updateUserSchema } from '@/lib/zod/user-schema';
 import type { IUser } from '@/types/user';
 
@@ -52,8 +52,9 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
   const endDate = form.getValues('endDate');
 
   const onSubmit = async (data: IUpdateUserData) => {
+    console.log('DATA', data);
     try {
-      const response = await updateUser(data);
+      const response = await updateUserProfileInfo(data);
 
       if (response.ok && response.status === 200) {
         toast({ variant: 'success', title: 'User updated successfully!' });
