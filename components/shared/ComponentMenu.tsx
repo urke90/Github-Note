@@ -40,7 +40,7 @@ const ComponentMenu: React.FC<IComponentMenuProps> = ({
               height={14}
             />
             <DropdownMenuLabel className="text-sm text-white-100">
-              Upadete Post
+              Upadete post
             </DropdownMenuLabel>
           </DropdownMenuItem>
         </Link>

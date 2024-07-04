@@ -40,7 +40,9 @@ const DropdownIndicator = () => {
   );
 };
 
-// const animatedComponents = makeAnimated();
+const black700 = '#1D2032';
+const black600 = '#2E3757';
+const white300 = '#ADB3CC';
 
 const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
   name,
@@ -53,10 +55,6 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
 }) => {
   const { control } = useFormContext();
 
-  const black700 = '#1D2032';
-  const black600 = '#2E3757';
-  const white300 = '#ADB3CC';
-
   return (
     <FormField
       name={name}
@@ -68,9 +66,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
             <CreatableSelect
               {...field}
               noOptionsMessage={() => 'There are no options available'}
-              onChange={(newValue) => {
-                field.onChange(newValue);
-              }}
+              onChange={field.onChange}
               defaultValue={value}
               styles={{
                 indicatorsContainer: (base) => ({

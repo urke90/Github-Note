@@ -24,7 +24,7 @@ const ExplorePage: React.FC<IExplorePageProps> = async ({ searchParams }) => {
     itemsPerPage: 10,
   });
 
-  if (!response?.ok && response?.status !== 200) {
+  if (response?.status !== 200) {
     return (
       <h2 className="h2-bold px-[30px] py-10 text-center">
         Something went wrong, couldn&apos;t show posts!

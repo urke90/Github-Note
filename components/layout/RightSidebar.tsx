@@ -18,22 +18,3 @@ const RightSidebar: React.FC<IRightSidebarProps> = ({ children }) => {
 };
 
 export default RightSidebar;
-
-// // DEV TODAY
-
-// // SORT AND FILTE
-// /**
-//  * 1. po crreate at
-//  * 2. popular - grupa sa najvise komentara u poslednjh 24 h
-//  * 3. joined groups -> grupe u kojima sam member
-//  */
-
-// // TOP RANKED
-// /**
-//  * Grupe sa najvise postova
-//  */
-
-// // ACTIVE
-// /**
-//  * Grupe sa najvise memebera
-//  */

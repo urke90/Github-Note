@@ -10,6 +10,7 @@ const CreatePostPage = async () => {
   if (!session?.user.id) return;
 
   const tags: ITag[] = (await getTags(session.user.id)) || [];
+  if (!tags) throw new Error('Something went wrong, Tags are not available!');
 
   const modifiedTags = tags.map((tag) => ({
     label: tag.title,

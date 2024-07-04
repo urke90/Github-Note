@@ -1,16 +1,15 @@
 import RHFTextarea from '../RHFInputs/RHFTextarea';
-import RHFCodeExample from '../RHFInputs/RHFCodeExample';
 
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-type Props = {};
+// ----------------------------------------------------------------
 
-const CodeExampleTabs = (props: Props) => {
+const CodeExampleTabs: React.FC = () => {
   const { getValues, trigger } = useFormContext();
 
   const code = getValues('codeExample');
@@ -42,7 +41,6 @@ const CodeExampleTabs = (props: Props) => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="code">
-        {/* <RHFTextarea name="codeExample" className="min-h-[200px]" /> */}
         <RHFTextarea name="codeExample" />
       </TabsContent>
       <TabsContent value="preview">

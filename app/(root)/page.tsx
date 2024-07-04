@@ -13,12 +13,7 @@ import { parseSearchParams, parseTagsParams } from '@/utils/params';
 
 // ----------------------------------------------------------------
 
-/**
- * pogledati tiny mce custom plugin za Warning code message
- * react calendar heatmap ===> pratimo broj commitova pushova na / HOME
- */
-
-interface IHomeProps {
+interface IHomePageProps {
   searchParams: {
     page: string | string[] | undefined;
     postType: string | string[] | undefined;
@@ -26,7 +21,7 @@ interface IHomeProps {
   };
 }
 
-const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
+const HomePage: React.FC<IHomePageProps> = async ({ searchParams }) => {
   const page = parseSearchParams(searchParams.page, '1');
   const postType = parseSearchParams(
     searchParams.postType,
@@ -36,15 +31,13 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
 
   const session = await auth();
 
-  if (!session) throw new Error('User data is not available!');
-
   const response: IPostsResponse | undefined = await getAllPosts({
     page: Number(page),
     postType,
     tags,
     itemsPerPage: 3,
   });
-  if (!response?.ok && response?.status !== 200)
+  if (response?.status !== 200)
     throw new Error('Posts not available at the moment!');
 
   const heatMapPosts: HeatMapValue[] = await getHeatMapPostsData();
@@ -53,7 +46,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
 
   return (
     <section className="px-5 lg:px-[30px]">
-      <h1 className="h1-bold mb-2.5 mt-10">Hello {session.user.name},</h1>
+      <h1 className="h1-bold mb-2.5 mt-10">Hello {session?.user.name},</h1>
       <p className="p1-regular mb-[30px]">
         Time to jot down your latest learnings today!
       </p>
@@ -88,7 +81,7 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
       {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
-          currentPage={page}
+          currentPage={Number(page)}
           hasNextPage={hasNextPage}
           hasPrevPage={hasPrevPage}
         />
@@ -97,4 +90,4 @@ const Home: React.FC<IHomeProps> = async ({ searchParams }) => {
   );
 };
 
-export default Home;
+export default HomePage;

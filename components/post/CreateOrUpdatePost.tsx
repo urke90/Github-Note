@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { SelectSeparator } from '@/components/ui/select';
 import { POST_TYPES } from '@/constants';
-import { createNewPost, updatePost } from '@/lib/actions/post-actions';
+import { createPost, updatePost } from '@/lib/actions/post-actions';
 import { postSchema, type IPostSchema } from '@/lib/zod/post-schema';
 import type { IPost } from '@/types/post';
 import { EPostType } from '@/types/post-types';
@@ -66,15 +66,24 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
     try {
       if (isEditPage) {
         if (!post?._id) return;
-        console.log('EDIT');
         const response = await updatePost(post?._id, data);
 
-        if (response.ok && response.status === 200) {
-          router.push(response.redirectRoute);
+        if (response.status === 200) {
+          router.push(response.redirectRoute!);
           toast({ variant: 'success', title: 'Post updated successfully!' });
+        } else if (response.status === 404) {
+          toast({
+            variant: 'error',
+            title: response.message,
+          });
+        } else if (response.status === 403) {
+          toast({
+            variant: 'error',
+            title: response.message,
+          });
         }
       } else {
-        const response = await createNewPost(data);
+        const response = await createPost(data);
         if (response?.ok === true && response?.status === 201) {
           toast({ variant: 'success', title: 'Post created successfully' });
           router.push(response.redirectRoute);
@@ -93,6 +102,19 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
   };
 
   const postType = getValues('type');
+
+  const checklistNoContentMessage =
+    postType === EPostType.KNOWLEDGE
+      ? 'Start adding what you have learned...'
+      : 'Add steps to follow...';
+
+  const checklistPlaceholder =
+    postType === EPostType.KNOWLEDGE
+      ? 'Enter what you learned'
+      : 'Enter new step';
+
+  const checklistTitle =
+    postType === EPostType.KNOWLEDGE ? 'What you learned' : 'Steps to follow';
 
   return (
     <section className="my-[30px] px-[30px]">
@@ -133,7 +155,11 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
             placeholder="Enter a short description"
           />
           {postType !== EPostType.COMPONENT ? (
-            <RHFChecklist postType={postType} />
+            <RHFChecklist
+              noContentMessage={checklistNoContentMessage}
+              title={checklistTitle}
+              placeholder={checklistPlaceholder}
+            />
           ) : (
             <CodeExampleTabs />
           )}

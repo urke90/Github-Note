@@ -70,17 +70,10 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     },
   });
 
-  const {
-    formState: { errors },
-  } = form;
-
-  console.log('ERRORS IN FORM STATE', errors);
-
   const handleChangeStep = async (
     data: Partial<IUserOnboarding>,
     newStep: EOnboardingStep
   ) => {
-    console.log('data u handle change step', data);
     await updateUserOnboardingStep(data);
     setStep(newStep);
   };
@@ -123,24 +116,22 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
             <Stepper currentStep={step} />
           </div>
           <h2 className="h2-bold mb-6">{generateTitleBasedOnStep(step)}</h2>
-          <div>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                {step === EOnboardingStep.BASIC_INFORMATION && (
-                  <BasicInformation handleChangeStep={handleChangeStep} />
-                )}
-                {step === EOnboardingStep.LEARNING_GOALS && (
-                  <LearningGoals handleChangeStep={handleChangeStep} />
-                )}
-                {step === EOnboardingStep.KNOWLEDGE_LEVEL && (
-                  <KnowledgeLevel handleChangeStep={handleChangeStep} />
-                )}
-                {step === EOnboardingStep.SCHEDULE_AND_AVAILABILITY && (
-                  <ScheduleAndAvailability />
-                )}
-              </form>
-            </Form>
-          </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              {step === EOnboardingStep.BASIC_INFORMATION && (
+                <BasicInformation handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.LEARNING_GOALS && (
+                <LearningGoals handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.KNOWLEDGE_LEVEL && (
+                <KnowledgeLevel handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.SCHEDULE_AND_AVAILABILITY && (
+                <ScheduleAndAvailability />
+              )}
+            </form>
+          </Form>
         </div>
       </div>
     </div>

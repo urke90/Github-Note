@@ -11,17 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-// import Prism from 'prismjs';
-// import 'prismjs/components/prism-javascript';
-// import 'prismjs/components/prism-css';
-// import 'prismjs/components/prism-jsx';
 import './RHFTextEditor.css';
 
 // ----------------------------------------------------------------
 
 interface IRHFCodeExampleProps extends IAllProps {
   name: string;
-  isEdit?: boolean;
   label?: string;
   description?: string;
 }
@@ -30,7 +25,6 @@ const RHFCodeExample: React.FC<IRHFCodeExampleProps> = ({
   name,
   description,
   label,
-  isEdit = true,
 }) => {
   const { control } = useFormContext();
 
@@ -43,10 +37,6 @@ const RHFCodeExample: React.FC<IRHFCodeExampleProps> = ({
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
             <Editor
-              // onEditorChange={(value, editor) => {
-              //   field.onChange(value);
-              // }}
-              //   initialValue={initialValue}
               onEditorChange={field.onChange}
               apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
               init={{
@@ -55,7 +45,6 @@ const RHFCodeExample: React.FC<IRHFCodeExampleProps> = ({
                 statusbar: false,
                 plugins: ['codesample', 'code'],
                 toolbar: 'codesample code',
-                // content_style: 'body { font-size:14px; color: #ADB3CC; }',
                 content_style:
                   'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                 codesample_global_prismjs: true,

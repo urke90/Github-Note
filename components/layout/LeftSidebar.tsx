@@ -1,6 +1,7 @@
 import QuickLinks from '../navigation/QuickLinks';
 import CreateOrSearchForPost from '../post/CreateOrSearchForPost';
 import LinkPostItem from '../post/LinkPostItem';
+import NavProfileInfo from '../shared/NavProfileInfo';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,6 +26,9 @@ const LeftSidebar = async () => {
         />
       </Link>
       <div className="flex flex-col gap-6">
+        <div className="xl:hidden">
+          <NavProfileInfo />
+        </div>
         <CreateOrSearchForPost />
         {recentPosts && recentPosts?.length > 0 ? (
           <div className="flex flex-col gap-5 border-y-[0.68px] border-white-500 py-6">

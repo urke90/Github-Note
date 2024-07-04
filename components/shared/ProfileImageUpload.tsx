@@ -1,4 +1,5 @@
 import { Label } from '../ui/label';
+import { useToast } from '../ui/use-toast';
 
 import {
   CldUploadButton,
@@ -21,6 +22,7 @@ interface IProfileImageUploadProps {
 const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
   existingAvatarImage = '',
 }) => {
+  const { toast } = useToast();
   let transformedAvatarImage = existingAvatarImage;
 
   if (existingAvatarImage.startsWith(CLOUDINARY_URL)) {
@@ -37,7 +39,10 @@ const ProfileImageUpload: React.FC<IProfileImageUploadProps> = ({
 
   const onSuccessUpload = (result: CloudinaryUploadWidgetResults) => {
     if (!result?.info || typeof result?.info === 'string')
-      throw new Error('Image not uploaded');
+      return toast({
+        variant: 'error',
+        description: 'Something went wrong. Image not uploaded.',
+      });
 
     const imageUrl = getCldImageUrl({
       width: 90,

@@ -56,18 +56,6 @@ export default auth(async (req) => {
   return NextResponse.next();
 });
 
-/**
- * Match all request paths except for the ones starting with:
- * - api (API routes)
- * - _next/static (static files)
- * - _next/image (image optimization files)
- * - favicon.ico (favicon file)
- */
 export const config = {
-  // next.js docs
-  // matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico).*)'],
-  // clerc docs mathcer
-  // ? This is matcher from Clerc, maybe this regex is better structured!?!?
-  // matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
   matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico).*)'],
 };

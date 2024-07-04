@@ -12,9 +12,11 @@ import {
 
 interface IPaginationProps {
   totalPages: number;
-  currentPage: string;
+  currentPage: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
+  // nextPageNum: number
+  // prevPageNum: number
 }
 
 const Pagination: React.FC<IPaginationProps> = ({
@@ -26,15 +28,10 @@ const Pagination: React.FC<IPaginationProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const updatePageParam = (isNextPage: boolean) => {
-    const currentPageNumber = Number(currentPage);
-    const prevPageNumber = (currentPageNumber - 1).toString();
-    const nextPageNumber = (currentPageNumber + 1).toString();
+  const updatePageParam = (pageNum: number) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    isNextPage
-      ? params.set('page', nextPageNumber)
-      : params.set('page', prevPageNumber);
+    params.set('page', pageNum.toString());
 
     return params.toString();
   };
@@ -45,7 +42,7 @@ const Pagination: React.FC<IPaginationProps> = ({
         {hasPrevPage && (
           <PaginationItem>
             <PaginationPrevious
-              href={pathname + '?' + updatePageParam(false)}
+              href={pathname + '?' + updatePageParam(currentPage - 1)}
               className="bg-black-700"
             />
           </PaginationItem>
@@ -56,7 +53,7 @@ const Pagination: React.FC<IPaginationProps> = ({
         {hasNextPage && (
           <PaginationItem>
             <PaginationNext
-              href={pathname + '?' + updatePageParam(true)}
+              href={pathname + '?' + updatePageParam(currentPage + 1)}
               className="bg-black-700"
             />
           </PaginationItem>

@@ -33,7 +33,6 @@ const Register = () => {
   const onSubmit = async (data: ISignUpFormData) => {
     try {
       const response = await createNewUser(data);
-      console.log('result', response);
       if (!response.ok) {
         if (response.status === 409)
           return toast({

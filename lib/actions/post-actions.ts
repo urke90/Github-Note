@@ -14,7 +14,7 @@ import { EPostType, EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
-export const createNewPost = async (data: IPostSchema) => {
+export const createPost = async (data: IPostSchema) => {
   try {
     const session = await auth();
     if (!session) throw new Error('User from session is not available!');
@@ -36,17 +36,18 @@ export const createNewPost = async (data: IPostSchema) => {
 
     const createdTags =
       newTags.length > 0
-        ? (await Tag.insertMany(newTags)).map((t) => t._id.toString())
+        ? (await Tag.insertMany(newTags, { lean: true })).map((t) =>
+            t._id.toString()
+          )
         : [];
-
-    tags.concat(createdTags);
 
     const newPost = await Post.create({
       ...data,
-      tags,
+      tags: [...tags, ...createdTags],
       ownerId: session.user.id,
     });
 
+    revalidatePath('/');
     return {
       ok: true,
       status: 201,
@@ -55,6 +56,60 @@ export const createNewPost = async (data: IPostSchema) => {
   } catch (error) {
     console.log('Error creating new post!', error);
     throw new Error('Error creating new post!');
+  }
+};
+
+export const updatePost = async (postId: string, data: IPostSchema) => {
+  try {
+    const session = await auth();
+    if (!session) throw new Error('User from session is not available!');
+
+    await connectToMongoDB();
+
+    const post = await Post.findById(postId);
+    if (!post) return { ok: false, status: 404, message: 'Post not found!' };
+    if (post.ownerId.toString() !== session.user.id)
+      return {
+        ok: false,
+        status: 403,
+        message: 'You are not allowed to update the post!',
+      };
+
+    const newTags = [];
+    const tags: string[] = [];
+    for (let i = 0; i < data.tags.length; i++) {
+      const tag = data.tags[i];
+
+      if (tag.value === tag.label) {
+        newTags.push({ title: tag.label, ownerId: session.user.id });
+        continue;
+      }
+
+      tags.push(tag.value);
+    }
+
+    const createdTags =
+      newTags.length > 0
+        ? (await Tag.insertMany(newTags, { lean: true })).map((t) =>
+            t._id.toString()
+          )
+        : [];
+
+    await Post.findByIdAndUpdate(postId, {
+      ...data,
+      tags: [...tags, ...createdTags],
+    });
+
+    revalidatePath('/post/[id]', 'page');
+
+    return {
+      ok: true,
+      status: 200,
+      redirectRoute: '/post/' + postId,
+    };
+  } catch (error) {
+    console.log('Error updating post!', error);
+    throw new Error('Error updating post!');
   }
 };
 
@@ -79,6 +134,8 @@ export const getAllPosts = async ({
     const session = await auth();
     if (!session) throw new Error('User data not available!');
 
+    await connectToMongoDB();
+
     let query: FilterQuery<IPost> = {
       ownerId: session.user.id,
     };
@@ -98,8 +155,6 @@ export const getAllPosts = async ({
 
       query = { ...query, tags: { $in: fetchedTagsIds } };
     }
-
-    await connectToMongoDB();
 
     const posts = await Post.find(query)
       .populate('tags')
@@ -141,11 +196,25 @@ export const getPostById = async (postId: string) => {
 export const deletePost = async (postId: string) => {
   try {
     await connectToMongoDB();
-    await Post.findByIdAndDelete(postId);
+    const session = await auth();
+
+    const post = await Post.findById(postId);
+    if (!post) return { ok: false, status: 404, message: 'Post not found!' };
+    if (post.ownerId.toString() !== session?.user.id) {
+      return {
+        ok: false,
+        status: 403,
+        message: 'You are not allowed to delete the post!',
+      };
+    }
+
+    post?.deleteOne({ id: postId });
+
     revalidatePath('/');
     return { ok: true, status: 200 };
   } catch (error) {
     console.log('Error deleting post!', error);
+    throw new Error('Something went wrong. Post not deleted.');
   }
 };
 
@@ -180,51 +249,6 @@ export const getHeatMapPostsData = async () => {
     console.log('Error deleting post!', error);
 
     return [];
-  }
-};
-
-export const updatePost = async (postId: string, data: IPostSchema) => {
-  try {
-    const session = await auth();
-    if (!session) throw new Error('User from session is not available!');
-
-    await connectToMongoDB();
-
-    const newTags = [];
-    const tags: string[] = [];
-    for (let i = 0; i < data.tags.length; i++) {
-      const tag = data.tags[i];
-
-      if (tag.value === tag.label) {
-        newTags.push({ title: tag.label, ownerId: session.user.id });
-        continue;
-      }
-
-      tags.push(tag.value);
-    }
-
-    const createdTags =
-      newTags.length > 0
-        ? (await Tag.insertMany(newTags)).map((t) => t._id.toString())
-        : [];
-
-    tags.concat(createdTags);
-
-    await Post.findByIdAndUpdate(postId, {
-      ...data,
-      tags: [...tags, ...createdTags],
-    });
-
-    revalidatePath('/post/[id]', 'page');
-
-    return {
-      ok: true,
-      status: 200,
-      redirectRoute: '/post/' + postId,
-    };
-  } catch (error) {
-    console.log('Error updating post!', error);
-    throw error;
   }
 };
 

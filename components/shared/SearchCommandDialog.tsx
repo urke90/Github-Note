@@ -55,14 +55,14 @@ const SearchCommandDialog = () => {
         itemsPerPage: 5,
         searchQuery: query,
       });
-      console.log('response', response);
+
       if (response?.ok && response?.status === 200) {
         setPosts(response.posts);
       }
     };
 
     fetchAllPosts();
-  }, [query]);
+  }, [query, isOpen]);
 
   return (
     <div className="relative">
