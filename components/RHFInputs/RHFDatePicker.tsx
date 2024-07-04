@@ -1,8 +1,12 @@
 'use client';
 
-import { useFormContext } from 'react-hook-form';
-import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
+import { Calendar, CalendarProps } from '@/components/ui/calendar';
 import {
   FormControl,
   FormDescription,
@@ -11,33 +15,34 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 // ----------------------------------------------------------------
 
-interface IRHFDatePickerProps {
+type IRHFDatePickerProps = CalendarProps & {
   name: string;
   label: string;
-  buttonVariant?: 'primary' | 'secondary';
   buttonText?: string;
   description?: string;
-}
+  // eslint-disable-next-line no-unused-vars
+  disableDateFn?: (date: Date) => boolean;
+};
 
 const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
   name,
   label = '',
-  buttonVariant = 'secondary',
   buttonText = 'Select date & time',
   description = '',
+  disableDateFn,
 }) => {
   const { control } = useFormContext();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <FormField
       control={control}
@@ -45,17 +50,24 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
       render={({ field }) => (
         <FormItem className="flex w-full flex-col items-start">
           {label && <FormLabel className="p3-medium">{label}</FormLabel>}
-          <Popover>
+          <Popover open={isOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  variant={buttonVariant}
+                  onClick={() => setIsOpen((prevOpen) => !prevOpen)}
+                  variant="secondary"
                   className={cn(
                     'bg-black-700 justify-start',
                     !field.value && 'text-muted-foreground'
                   )}
                 >
-                  <CalendarIcon className="size-4 opacity-50" />
+                  {/* <CalendarIcon className="size-4 opacity-50" /> */}
+                  <Image
+                    src="/assets/icons/icn-calendar.svg"
+                    alt="Calendar"
+                    width={16}
+                    height={16}
+                  />
                   {field.value ? (
                     format(field.value, 'PPP')
                   ) : (
@@ -67,9 +79,13 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
             <PopoverContent className="w-auto bg-black-900 p-0" align="start">
               <Calendar
                 mode="single"
+                showOutsideDays={false}
                 selected={field.value}
-                onSelect={field.onChange}
-                disabled={(date) => date < new Date()}
+                onSelect={(day) => {
+                  field.onChange(day);
+                  setIsOpen(false);
+                }}
+                disabled={disableDateFn}
                 initialFocus
               />
             </PopoverContent>
@@ -79,7 +95,7 @@ const RHFDatePicker: React.FC<IRHFDatePickerProps> = ({
               {description}
             </FormDescription>
           )}
-          <FormMessage className="text-red-500" />
+          <FormMessage className="text-red-primary" />
         </FormItem>
       )}
     />

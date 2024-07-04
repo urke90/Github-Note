@@ -1,32 +1,35 @@
-import Image from 'next/image';
-import { Button } from '../ui/button';
+'use client';
+
 import SearchCommandDialog from '../shared/SearchCommandDialog';
+import { Button } from '../ui/button';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // ----------------------------------------------------------------
 
-interface ICreateOrSearchPostProps {
-  showCreatePostButton?: boolean;
-}
+const CreateOrSearchForPost: React.FC = () => {
+  const pathname = usePathname();
 
-const CreateOrSearchForPost: React.FC<ICreateOrSearchPostProps> = ({
-  showCreatePostButton = true,
-}) => {
   return (
-    <section>
-      {showCreatePostButton && (
-        <Button variant="gradient" className="mb-4 text-white-100">
-          <Image
-            src="/assets/images/Plus.svg"
-            width={14}
-            height={14}
-            alt="Add"
-          />
-          <p className="p4-medium !text-white-100">Create Post</p>
-        </Button>
+    <div>
+      {pathname !== '/post/create' && (
+        <Link href="/post/create" className="rounded-md text-white-100">
+          <Button variant="gradient" className="mb-4 rounded-[6px]">
+            <Image
+              src="/assets/icons/plus-bg-white.svg"
+              width={14}
+              height={14}
+              alt="Add"
+            />
+            <p className="p4-medium !text-white-100">Create Post</p>
+          </Button>
+        </Link>
       )}
 
       <SearchCommandDialog />
-    </section>
+    </div>
   );
 };
 

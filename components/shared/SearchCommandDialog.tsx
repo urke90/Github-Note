@@ -1,8 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
 import {
   CommandDialog,
   CommandGroup,
@@ -11,15 +14,34 @@ import {
   CommandList,
   CommandShortcut,
 } from '@/components/ui/command';
+import { getAllPosts } from '@/lib/actions/post-actions';
+import { IPost } from '@/types/post';
+import { EPostType } from '@/types/post-types';
+
+// ----------------------------------------------------------------
+
+const generateItemImage = (type: EPostType) => {
+  const BASE_IMG_PATH = '/assets/icons/';
+
+  if (type === EPostType.COMPONENT) {
+    return BASE_IMG_PATH + 'icn-computer.svg';
+  } else if (type === EPostType.KNOWLEDGE) {
+    return BASE_IMG_PATH + 'icn-message-circle.svg';
+  } else {
+    return BASE_IMG_PATH + 'icn-list-number.svg';
+  }
+};
 
 const SearchCommandDialog = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setIsOpen((prevOpen) => !prevOpen);
       }
     };
 
@@ -27,12 +49,30 @@ const SearchCommandDialog = () => {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      const response = await getAllPosts({
+        itemsPerPage: 5,
+        searchQuery: query,
+      });
+
+      if (response?.ok && response?.status === 200) {
+        setPosts(response.posts);
+      }
+    };
+
+    fetchAllPosts();
+  }, [query, isOpen]);
+
   return (
-    <>
-      <div className="flex-between w-full rounded bg-black-700 px-2.5 py-1">
+    <div className="relative">
+      <Button
+        className="flex-between h-9 w-full rounded bg-black-700 px-2.5 text-white-300"
+        onClick={() => setIsOpen((open) => !open)}
+      >
         <div className="flex-center">
           <Image
-            src="/assets/images/Search.svg"
+            src="/assets/icons/search.svg"
             width={16}
             height={16}
             alt="Search"
@@ -40,58 +80,56 @@ const SearchCommandDialog = () => {
           />
           <p className="p4-medium">Search...</p>
         </div>
-        <kbd className="flex-center pointer-events-none select-none gap-1 text-[16px] ">
+        <kbd className="flex-center pointer-events-none select-none gap-1 text-[16px]">
           <CommandShortcut className="mt-0.5 text-[18px]">⌘</CommandShortcut>K
         </kbd>
-      </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+      </Button>
+      <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
+        <CommandInput
+          placeholder="Type a command or search..."
+          onValueChange={setQuery}
+        />
         <CommandList>
           <CommandGroup>
-            <CommandItem className="text-white-300">
-              <Image
-                src="/assets/images/Frame.svg"
-                width={16}
-                height={16}
-                alt="search text"
-                className="mr-3"
-              />
-              <span className="text-white-300">Explore all posts</span>
-            </CommandItem>
-            <CommandItem className="text-white-300">
-              <Image
-                src="/assets/images/icn-computer.svg"
-                width={16}
-                height={16}
-                alt="search text"
-                className="mr-3"
-              />
-              User Authentication
-            </CommandItem>
-            <CommandItem>
-              <Image
-                src="/assets/images/icn-message-circle.svg"
-                width={16}
-                height={16}
-                alt="search text"
-                className="mr-3"
-              />
-              Toggle class names with Clsx
-            </CommandItem>
-            <CommandItem>
-              <Image
-                src="/assets/images/icn-list-number.svg"
-                width={16}
-                height={16}
-                alt="search text"
-                className="mr-3"
-              />
-              User Authentication
-            </CommandItem>
+            <Link
+              href="/explore"
+              onClick={() => setIsOpen(false)}
+              className="flex cursor-pointer gap-3"
+            >
+              <CommandItem>
+                <Image
+                  src="/assets/images/Frame.svg"
+                  width={16}
+                  height={16}
+                  alt="search text"
+                />
+                Explore all posts
+              </CommandItem>
+            </Link>
+            {posts.length > 0
+              ? posts.map(({ _id, title, type }) => (
+                  <Link
+                    key={_id}
+                    href={'/post/' + _id}
+                    onClick={() => setIsOpen(false)}
+                    className="flex cursor-pointer gap-3"
+                  >
+                    <CommandItem key={_id} onClick={() => setIsOpen(false)}>
+                      <Image
+                        src={generateItemImage(type)}
+                        width={16}
+                        height={16}
+                        alt={title}
+                      />
+                      <p className="line-clamp-1">{title}</p>
+                    </CommandItem>
+                  </Link>
+                ))
+              : null}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-    </>
+    </div>
   );
 };
 

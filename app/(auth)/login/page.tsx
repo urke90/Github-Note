@@ -4,17 +4,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+
 // components shadcn
 import RHFInput from '@/components/RHFInputs/RHFInput';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { useToast } from '@/components/ui/use-toast';
 import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 import { loginFormSchema, type ILoginFormData } from '@/lib/zod/user-schema';
-import { toast } from 'react-toastify';
 
 // ----------------------------------------------------------------
 
 const Login = () => {
+  const { toast } = useToast();
   const loginForm = useForm<ILoginFormData>({
     mode: 'onChange',
     resolver: zodResolver(loginFormSchema),
@@ -26,7 +28,7 @@ const Login = () => {
 
   const onSubmit = async (data: ILoginFormData) => {
     const { email, password } = data;
-    // console.log('datatata', data);
+
     try {
       await signIn('credentials', {
         email,
@@ -35,12 +37,17 @@ const Login = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast.error('Invalid email or password!', {
-          // bodyClassName: 'bg-red-500',
+        console.log('Error on user login', error);
+        return toast({
+          variant: 'error',
+          title: 'Invalid email or password!',
         });
       }
 
-      console.log('Error LOGIN PAGE', error);
+      toast({
+        variant: 'error',
+        title: 'Something went wrong! Please try again.',
+      });
     }
   };
 
@@ -100,7 +107,7 @@ const Login = () => {
           onClick={() => signInGoogle()}
         >
           <Image
-            src="/assets/images/google.png"
+            src="/assets/images/google.svg"
             alt="Google"
             width={16}
             height={16}
@@ -113,7 +120,7 @@ const Login = () => {
           onClick={() => signInGithub()}
         >
           <Image
-            src="/assets/images/github.png"
+            src="/assets/images/github.svg"
             alt="Google"
             width={16}
             height={16}

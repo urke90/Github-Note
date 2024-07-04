@@ -1,23 +1,23 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-// components
+
 import RHFInput from '@/components/RHFInputs/RHFInput';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { useToast } from '@/components/ui/use-toast';
+import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 import { createNewUser } from '@/lib/actions/user-actions';
 import { signUpFormSchema, type ISignUpFormData } from '@/lib/zod/user-schema';
-import Image from 'next/image';
-import Link from 'next/link';
-import { toast } from 'react-toastify';
-// models
-import { signIn, signInGithub, signInGoogle } from '@/lib/actions/auth';
 
 // ----------------------------------------------------------------
 
 const Register = () => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const registerForm = useForm<ISignUpFormData>({
@@ -32,10 +32,13 @@ const Register = () => {
 
   const onSubmit = async (data: ISignUpFormData) => {
     try {
-      const result = await createNewUser(data);
-      console.log('result', result);
-      if (!result.ok) {
-        if (result.status === 409) return toast.error('Email already exists!');
+      const response = await createNewUser(data);
+      if (!response.ok) {
+        if (response.status === 409)
+          return toast({
+            variant: 'error',
+            title: 'Email already exists!',
+          });
       }
 
       await signIn('credentials', {
@@ -111,7 +114,7 @@ const Register = () => {
           onClick={() => signInGoogle()}
         >
           <Image
-            src="/assets/images/google.png"
+            src="/assets/images/google.svg"
             alt="Google"
             width={16}
             height={16}
@@ -124,7 +127,7 @@ const Register = () => {
           onClick={() => signInGithub()}
         >
           <Image
-            src="/assets/images/github.png"
+            src="/assets/images/github.svg"
             alt="Google"
             width={16}
             height={16}

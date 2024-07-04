@@ -1,19 +1,28 @@
 'use server';
 
-import User from '@/models/User';
-import { genSalt, hash } from 'bcryptjs';
-
-import { MongoError } from 'mongodb';
 import { connectToMongoDB } from '../database/mongodb';
-import type { IUser } from '@/models/User';
-import type { IUserOnboarding } from '../zod/onboarding-schema';
+import type {
+  ISocialMediaLinks,
+  IUpdateUserData,
+  IUserOnboarding,
+} from '../zod/user-schema';
+
+import { genSalt, hash } from 'bcryptjs';
+import { MongoError } from 'mongodb';
+import { revalidatePath } from 'next/cache';
+
+import { auth } from '@/auth';
+import User from '@/models/user';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
 export const getUserById = async (userId: string) => {
   try {
     await connectToMongoDB();
+
     const user = await User.findById<IUser>(userId);
+
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     console.log('Error getting user from MongoDB', error);
@@ -36,10 +45,12 @@ export const createNewUser = async ({
   fullName,
   email,
   password,
+  avatarImg,
 }: {
   fullName: string;
   email: string;
   password: string;
+  avatarImg?: string;
 }) => {
   try {
     await connectToMongoDB();
@@ -51,6 +62,7 @@ export const createNewUser = async ({
       fullName,
       email,
       password: hashedPassword,
+      avatarImg,
     });
 
     await newUser.save();
@@ -68,16 +80,22 @@ export const createNewUser = async ({
 };
 
 export const updateUserOnboardingStep = async (
-  id: string,
   data: Partial<IUserOnboarding>
 ) => {
   try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
     await connectToMongoDB();
 
-    const user = await User.findOneAndUpdate<IUser>(
-      { _id: id },
-      { $set: data }
-    ).lean();
+    const modifiedTechStack = data.techStack?.map((item) => item.value);
+
+    const user = await User.findByIdAndUpdate(session.user.id, {
+      $set: {
+        ...data,
+        techStack: modifiedTechStack,
+      },
+    }).lean();
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
@@ -90,18 +108,71 @@ export const updateUserOnboardingStep = async (
         error instanceof MongoError
       );
     }
+    throw new Error('Something went wrong during updating onboarding step.');
   }
 };
 
-export const updateUser = async (userId: string, data: IUserOnboarding) => {
+export const updateUserOnboarding = async (data: IUserOnboarding) => {
   try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
+    const modifiedTechStack = data.techStack.map((item) => item.value);
+
     await connectToMongoDB();
-    await User.findByIdAndUpdate({ _id: userId }, data, {
-      new: true,
-    });
+    await User.findByIdAndUpdate(
+      session.user.id,
+      {
+        ...data,
+        techStack: modifiedTechStack,
+      },
+      {
+        new: true,
+      }
+    );
 
     return { ok: true, status: 200 };
   } catch (error) {
-    console.log('ERROR WHILE UPDATING ONBOARDING USER', error);
+    console.log('Error updating user onboarding', error);
+    throw new Error('Something went wrong during onboarding.');
+  }
+};
+
+export const updateUserProfileInfo = async (data: IUpdateUserData) => {
+  try {
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+    await connectToMongoDB();
+
+    const modifiedTechStack = data.techStack.map((item) => item.value);
+
+    await User.findByIdAndUpdate(session.user.id, {
+      ...data,
+      techStack: modifiedTechStack,
+    });
+    revalidatePath('/profile');
+
+    return { ok: true, status: 200 };
+  } catch (error) {
+    console.log('Error updating user', error);
+    throw new Error("Something went wrong, couldn't update user");
+  }
+};
+
+export const updateUserSocialMediaLinks = async (data: ISocialMediaLinks) => {
+  try {
+    await connectToMongoDB();
+    const session = await auth();
+    if (!session) throw new Error('Session not available');
+
+    const updatedUser = await User.findByIdAndUpdate(session.user.id, data);
+    if (!updatedUser) throw new Error('User not updated!');
+
+    revalidatePath('/profile');
+    revalidatePath('/profile/edit');
+
+    return { ok: true, status: 200 };
+  } catch (error) {
+    throw new Error("Something went wrong, couldn't update user");
   }
 };

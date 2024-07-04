@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'react-toastify/dist/ReactToastify.css';
-
 @layer base {
   :root {
     /* PRIMARY */
@@ -37,18 +35,15 @@
     --green-900: #42ff771a;
     /* GREEN */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* RED */
+    --red-text-error: #e79f9f;
+    --red-bg-error: #ff4c3f;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* RED */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
+    /* BORDER */
+    --gray-border: #4448691a;
+    /* BORDER */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
@@ -64,40 +59,12 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
 }
 
 @layer base {
   body {
+    height: 100%;
+    min-height: 100vh;
     @apply bg-black-900 text-white-300;
   }
 
@@ -132,72 +99,77 @@
   }
   /* COLORS */
 
-  /* HEADINGS */
+  /* TYPOGRAPHY */
   .h1-bold {
-    @apply font-bold text-[32px] leading-[40px];
+    @apply font-bold text-[32px] leading-[40px] text-white-100;
   }
-
   .h2-bold {
     @apply font-bold text-2xl text-white-100;
   }
-
   .h1-medium {
     @apply font-medium text-xl;
   }
-
   .h2-medium {
     @apply font-medium text-base;
   }
-  /* HEADINGS */
-
-  /* PARAGRAPHS BOLD */
   .p1-bold {
     @apply font-bold text-lg;
   }
-
   .p2-bold {
-    @apply font-bold text-base;
+    @apply font-bold text-base text-white-100;
   }
   .p3-bold {
     @apply font-bold text-sm text-white-100;
   }
-  /* PARAGRAPHS BOLD */
-
-  /* PARAGRAPHS MEDIUM */
   .p1-medium {
     @apply font-medium text-lg;
   }
-
   .p3-medium {
     @apply font-medium text-sm;
   }
-
   .p4-medium {
     @apply font-medium text-xs text-white-500;
   }
-  /* PARAGRAPHS MEDIUM */
-
-  /* PARAGRAPHS REGULAR */
   .p1-regular {
     @apply font-normal text-lg;
   }
-
   .p2-regular {
     @apply font-normal text-base;
   }
-
   .p3-regular {
     @apply font-normal text-sm text-white-300;
   }
-
   .p4-regular {
     @apply font-normal text-xs;
   }
-  /* PARAGRAPHS REGULAR */
-
-  /* SUBTITLE SMALL */
   .subtitle-small {
     @apply font-normal text-[10px] leading-[12.1px];
   }
-  /* SUBTITLE SMALL */
+  /* TYPOGRAPHY */
+
+  .loader {
+    @apply w-12 h-12 inline-block box-border animate-[rotation_1s_linear_infinite] rounded-[50%] border-r-4 border-r-transparent border-t-4 border-t-[#9542ff] border-solid after:content-[''] after:box-border after:absolute after:w-12 after:h-12 after:animate-[rotation_0.5s_linear_infinite_reverse] after:rounded-[50%] after:border-l-4 after:border-l-[#42ff77] after:border-b-4 after:border-b-transparent after:border-solid after:left-0 after:top-0;
+  }
+
+  .page-section {
+    @apply flex flex-col gap-3.5 border-t border-t-gray-border px-5 py-6 lg:px-[30px];
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

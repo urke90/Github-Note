@@ -1,4 +1,3 @@
-import { useFormContext } from 'react-hook-form';
 import {
   FormDescription,
   FormField,
@@ -7,6 +6,8 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input, InputProps } from '../ui/input';
+
+import { useFormContext } from 'react-hook-form';
 
 // ----------------------------------------------------------------
 
@@ -34,7 +35,7 @@ const RHFInput: React.FC<IRHFInputProps> = ({
           {label && <FormLabel>{label}</FormLabel>}
           <Input type={type} {...field} {...rest} />
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage className="text-red-500" />
+          <FormMessage className="text-red-primary" />
         </FormItem>
       )}
     />

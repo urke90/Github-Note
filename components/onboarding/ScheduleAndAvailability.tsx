@@ -4,13 +4,21 @@ import RHFCheckbox from '../RHFInputs/RHFCheckbox';
 import RHFDatePicker from '../RHFInputs/RHFDatePicker';
 import { Button } from '../ui/button';
 
+import { useFormContext, useWatch } from 'react-hook-form';
+
 // ----------------------------------------------------------------
 
 const ScheduleAndAvailability: React.FC = () => {
+  const { getValues } = useFormContext();
+  useWatch({ name: 'startDate' });
+  const startDate = getValues('startDate');
+  useWatch({ name: 'endDate' });
+  const endDate = getValues('endDate');
+
   return (
-    <section>
+    <article>
       <RHFCheckbox
-        name="projectAvailability"
+        name="isAvailable"
         label="Are you available for a new project?"
       />
       <div className="mb-6 mt-8 flex flex-wrap gap-6">
@@ -19,6 +27,8 @@ const ScheduleAndAvailability: React.FC = () => {
             name="startDate"
             label="Start Date & Time"
             description="The time is in your local timezone"
+            className="flex-1"
+            disableDateFn={(date) => date > endDate || date < new Date()}
           />
         </div>
         <div className="flex-1">
@@ -26,11 +36,13 @@ const ScheduleAndAvailability: React.FC = () => {
             name="endDate"
             label="End Date & Time"
             description="The time is in your local timezone"
+            disableDateFn={(date) => date < startDate || date < new Date()}
+            className="flex-1"
           />
         </div>
       </div>
       <Button type="submit">Submit</Button>
-    </section>
+    </article>
   );
 };
 

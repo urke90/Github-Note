@@ -1,47 +1,41 @@
 'use client';
 
-import BasicInformation from '@/components/onboarding/BasicInformations';
+import { useToast } from '../ui/use-toast';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import BasicInformation from '@/components/onboarding/BasicInformation';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import ScheduleAndAvailability from '@/components/onboarding/ScheduleAndAvailability';
 import Stepper from '@/components/shared/Stepper';
 import { Form } from '@/components/ui/form';
 import {
-  updateUser,
+  updateUserOnboarding,
   updateUserOnboardingStep,
 } from '@/lib/actions/user-actions';
 import {
-  onboardingSchema,
+  userOnboardingSchema,
   type IUserOnboarding,
-} from '@/lib/zod/onboarding-schema';
-import { IUser } from '@/models/User';
+} from '@/lib/zod/user-schema';
 import { EOnboardingStep } from '@/types/onboarding-step';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
-const {
-  BASIC_INFORMATION,
-  KNOWLEDGE_LEVEL,
-  LEARNING_GOALS,
-  SCHEDULE_AND_AVAILABILITY,
-  FINISHED_ONBOARDING,
-} = EOnboardingStep;
-
 const generateTitleBasedOnStep = (step: EOnboardingStep) => {
   switch (step) {
-    case BASIC_INFORMATION:
+    case EOnboardingStep.BASIC_INFORMATION:
       return 'Basic Information';
-    case LEARNING_GOALS:
+    case EOnboardingStep.LEARNING_GOALS:
       return 'Add your learning goals';
-    case KNOWLEDGE_LEVEL:
+    case EOnboardingStep.KNOWLEDGE_LEVEL:
       return 'Add your knowledge level';
-    case SCHEDULE_AND_AVAILABILITY:
+    case EOnboardingStep.SCHEDULE_AND_AVAILABILITY:
       return 'Schedule & availability';
     default:
       return 'Basic Information';
@@ -53,37 +47,26 @@ interface IOnboardingContainer {
 }
 
 const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
-  const {
-    fullName,
-    portfolioUrl,
-    avatarImg,
-    learningGoals,
-    knowledgeLevel,
-    techStack,
-    startDate,
-    endDate,
-    projectAvailability,
-    onboardingStep,
-    _id,
-  } = user || {};
+  const { toast } = useToast();
   const router = useRouter();
   const [step, setStep] = useState<EOnboardingStep>(
-    onboardingStep || BASIC_INFORMATION
+    user?.onboardingStep || EOnboardingStep.BASIC_INFORMATION
   );
 
-  const onboardingForm = useForm<IUserOnboarding>({
-    resolver: zodResolver(onboardingSchema),
+  const form = useForm<IUserOnboarding>({
+    resolver: zodResolver(userOnboardingSchema),
     defaultValues: {
-      fullName: fullName || '',
-      portfolioUrl: portfolioUrl || '',
-      avatarImg: avatarImg || '',
-      learningGoals: learningGoals || [],
-      knowledgeLevel: knowledgeLevel || [],
-      techStack: techStack || '',
-      startDate: startDate || undefined,
-      endDate: endDate || undefined,
-      projectAvailability: projectAvailability || false,
-      onboardingStep: onboardingStep || step,
+      fullName: user?.fullName || '',
+      portfolioUrl: user?.portfolioUrl || '',
+      avatarImg: user?.avatarImg || '',
+      learningGoals: user?.learningGoals || [],
+      knowledgeLevel: user?.knowledgeLevel || [],
+      techStack:
+        user?.techStack?.map((item) => ({ label: item, value: item })) || [],
+      startDate: user?.startDate ? new Date(user?.startDate) : undefined,
+      endDate: user?.endDate ? new Date(user?.endDate) : undefined,
+      isAvailable: user?.isAvailable || false,
+      onboardingStep: user?.onboardingStep || step,
     },
   });
 
@@ -91,63 +74,67 @@ const OnboardingContainer: React.FC<IOnboardingContainer> = ({ user }) => {
     data: Partial<IUserOnboarding>,
     newStep: EOnboardingStep
   ) => {
-    if (!_id) return;
-
-    await updateUserOnboardingStep(user._id.toString(), data);
+    await updateUserOnboardingStep(data);
     setStep(newStep);
   };
 
   const onSubmit: SubmitHandler<IUserOnboarding> = async (data) => {
-    data.onboardingStep = FINISHED_ONBOARDING;
+    data.onboardingStep = EOnboardingStep.FINISHED_ONBOARDING;
 
     try {
-      if (!_id) return;
-      const response = await updateUser(_id, data);
+      const response = await updateUserOnboarding(data);
       if (response?.ok && response?.status === 200) {
-        toast.success('Onboarding finished successfully!');
+        toast({
+          variant: 'success',
+          title: 'Onboarding finished successfully!',
+        });
         router.push('/');
       }
     } catch (error) {
       console.log('Error in submit onboarding user info', error);
+      if (error instanceof Error) {
+        toast({
+          variant: 'error',
+          title: error.message,
+        });
+      }
     }
   };
 
   return (
-    <section className=" px-5">
+    <div className="my-[30px] px-5 lg:px-[30px]">
       <div className="m-auto max-w-[600px]">
         <Image
           src="/assets/images/Logo.svg"
           alt="Logo"
           width={156}
           height={36}
-          className="m-auto my-16"
+          className="m-auto mb-16"
         />
         <div className="m-auto rounded-xl bg-black-800 px-5 py-8 sm:px-8">
           <div className="mb-6">
             <Stepper currentStep={step} />
           </div>
           <h2 className="h2-bold mb-6">{generateTitleBasedOnStep(step)}</h2>
-          <article>
-            <Form {...onboardingForm}>
-              <form onSubmit={onboardingForm.handleSubmit(onSubmit)}>
-                {step === BASIC_INFORMATION && (
-                  <BasicInformation handleChangeStep={handleChangeStep} />
-                )}
-                {step === LEARNING_GOALS && (
-                  <LearningGoals handleChangeStep={handleChangeStep} />
-                )}
-                {step === KNOWLEDGE_LEVEL && (
-                  <KnowledgeLevel handleChangeStep={handleChangeStep} />
-                )}
-                {step === SCHEDULE_AND_AVAILABILITY && (
-                  <ScheduleAndAvailability />
-                )}
-              </form>
-            </Form>
-          </article>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              {step === EOnboardingStep.BASIC_INFORMATION && (
+                <BasicInformation handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.LEARNING_GOALS && (
+                <LearningGoals handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.KNOWLEDGE_LEVEL && (
+                <KnowledgeLevel handleChangeStep={handleChangeStep} />
+              )}
+              {step === EOnboardingStep.SCHEDULE_AND_AVAILABILITY && (
+                <ScheduleAndAvailability />
+              )}
+            </form>
+          </Form>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

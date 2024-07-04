@@ -9,10 +9,34 @@
     "React": true
   },
   "rules": {
+    "@next/next/no-async-client-component": "off",
     "no-unused-vars": [
       "warn",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
     ],
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "ignoreMemberSort": true
+      }
+    ],
+    "import/order": [
+      1,
+      {
+        "newlines-between": "always",
+        "groups": [
+          ["builtin"],
+          "sibling",
+          "parent",
+          "external",
+          "internal",
+          "index"
+        ]
+      }
+    ]
   }
 }
