@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { updateUserProfileInfo } from '@/lib/actions/user-actions';
-import { IUpdateUserData, updateUserSchema } from '@/lib/zod/user-schema';
+import { type IUpdateUserData, updateUserSchema } from '@/lib/zod/user-schema';
 import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------

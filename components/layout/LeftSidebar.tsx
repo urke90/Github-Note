@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { getRecentPosts } from '@/lib/actions/post-actions';
-import { IRecentPost } from '@/types/post';
+import type { IRecentPost } from '@/types/post';
 
 // ----------------------------------------------------------------
 

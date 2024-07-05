@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 
+// ----------------------------------------------------------------
+
 interface IErrorProps {
   error: Error & { digest?: string };
   reset: () => void;

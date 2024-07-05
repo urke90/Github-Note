@@ -16,17 +16,14 @@ import { parseSearchParams, parseTagsParams } from '@/utils/params';
 interface IHomePageProps {
   searchParams: {
     page: string | string[] | undefined;
-    postType: string | string[] | undefined;
+    type: string | string[] | undefined;
     tag: string | string[] | undefined;
   };
 }
 
 const HomePage: React.FC<IHomePageProps> = async ({ searchParams }) => {
   const page = parseSearchParams(searchParams.page, '1');
-  const postType = parseSearchParams(
-    searchParams.postType,
-    ''
-  ) as EQueryPostType;
+  const postType = parseSearchParams(searchParams.type, '') as EQueryPostType;
   const tags = parseTagsParams(searchParams.tag);
 
   const session = await auth();
@@ -42,7 +39,7 @@ const HomePage: React.FC<IHomePageProps> = async ({ searchParams }) => {
 
   const heatMapPosts: HeatMapValue[] = await getHeatMapPostsData();
 
-  const { posts, totalPages, hasNextPage, hasPrevPage } = response;
+  const { posts, totalPages, hasNextPage } = response;
 
   return (
     <section className="px-5 lg:px-[30px]">
@@ -83,7 +80,7 @@ const HomePage: React.FC<IHomePageProps> = async ({ searchParams }) => {
           totalPages={totalPages}
           currentPage={Number(page)}
           hasNextPage={hasNextPage}
-          hasPrevPage={hasPrevPage}
+          hasPrevPage={Number(page) !== 1}
         />
       )}
     </section>

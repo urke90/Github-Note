@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { getAllPosts } from '@/lib/actions/post-actions';
 import type { IPost } from '@/types/post';
+import { EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
 
@@ -9,12 +10,14 @@ interface IUseFetchPosts {
   initialPosts: IPost[];
   initHasNextPage: boolean;
   currentPage: number;
+  postType: EQueryPostType;
 }
 
 export const useFetchPosts = ({
   initialPosts,
   initHasNextPage,
   currentPage,
+  postType,
 }: IUseFetchPosts) => {
   const [page, setPage] = useState(currentPage);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,9 +27,16 @@ export const useFetchPosts = ({
   });
 
   useEffect(() => {
+    setPostsData({
+      posts: initialPosts,
+      hasNextPage: initHasNextPage,
+    });
+  }, [initialPosts, initHasNextPage]);
+
+  useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
-      const response = await getAllPosts({ page, itemsPerPage: 10 });
+      const response = await getAllPosts({ page, itemsPerPage: 10, postType });
       if (response?.ok && response.status === 200) {
         setPostsData((prevDate) => ({
           hasNextPage: response.hasNextPage,
@@ -37,7 +47,7 @@ export const useFetchPosts = ({
     };
 
     if (page !== 1) fetchPosts();
-  }, [page]);
+  }, [page, postType]);
 
   return {
     posts: postsData.posts,

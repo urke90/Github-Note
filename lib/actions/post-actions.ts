@@ -9,7 +9,7 @@ import { revalidatePath } from 'next/cache';
 import { auth } from '@/auth';
 import Post from '@/models/post';
 import Tag from '@/models/tag';
-import { IPost } from '@/types/post';
+import type { IPost } from '@/types/post';
 import { EPostType, EQueryPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
@@ -128,7 +128,7 @@ export const getAllPosts = async ({
   itemsPerPage,
   searchQuery,
 }: IGetAllPosts) => {
-  const skip = (Number(page) - 1) * itemsPerPage;
+  const skip = (page - 1) * itemsPerPage;
 
   try {
     const session = await auth();
@@ -145,6 +145,7 @@ export const getAllPosts = async ({
     }
 
     if (postType) {
+      console.log('aaaaaa', postType);
       query = { ...query, type: postType.toUpperCase() as EPostType };
     }
 
@@ -164,8 +165,7 @@ export const getAllPosts = async ({
     const postsCount = await Post.find(query).countDocuments({});
 
     const totalPages = Math.ceil(postsCount / itemsPerPage);
-    const hasNextPage = Number(page) < totalPages;
-    const hasPrevPage = Number(page) > 1;
+    const hasNextPage = page < totalPages;
 
     return {
       ok: true,
@@ -173,7 +173,6 @@ export const getAllPosts = async ({
       posts: JSON.parse(JSON.stringify(posts)),
       totalPages,
       hasNextPage,
-      hasPrevPage,
     };
   } catch (error) {
     console.log('Error fetching posts!', error);

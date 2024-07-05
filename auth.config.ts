@@ -1,8 +1,9 @@
+import { validateUserOnLogin } from './lib/actions/user-validate-actions';
+
 import { type NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { validateUserOnLogin } from './lib/actions/user-validate-actions';
 
 // ----------------------------------------------------------------
 

@@ -5,7 +5,7 @@ import { useToast } from '../ui/use-toast';
 
 import Image from 'next/image';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { atomOneDarkReasonable } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 // ----------------------------------------------------------------
 
@@ -48,9 +48,11 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
         />
       </Button>
       <SyntaxHighlighter
-        customStyle={{ backgroundColor: '#131625' }}
+        customStyle={{ backgroundColor: '#131625', borderRadius: '6px' }}
         language="typescript"
-        style={monokai}
+        style={atomOneDarkReasonable}
+        showLineNumbers
+        wrapLongLines
       >
         {code}
       </SyntaxHighlighter>

@@ -10,13 +10,13 @@ import {
   Pagination as ShadCNPagination,
 } from '@/components/ui/pagination';
 
+// ----------------------------------------------------------------
+
 interface IPaginationProps {
   totalPages: number;
   currentPage: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
-  // nextPageNum: number
-  // prevPageNum: number
 }
 
 const Pagination: React.FC<IPaginationProps> = ({
@@ -39,25 +39,25 @@ const Pagination: React.FC<IPaginationProps> = ({
   return (
     <ShadCNPagination className="mb-10">
       <PaginationContent>
-        {hasPrevPage && (
-          <PaginationItem>
-            <PaginationPrevious
-              href={pathname + '?' + updatePageParam(currentPage - 1)}
-              className="bg-black-700"
-            />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={`${!hasPrevPage ? 'pointer-events-none cursor-not-allowed opacity-30' : ''}`}
+        >
+          <PaginationPrevious
+            href={pathname + '?' + updatePageParam(currentPage - 1)}
+            className="bg-black-700"
+          />
+        </PaginationItem>
         <PaginationItem className="px-8 py-2">
           {currentPage}/{totalPages}
         </PaginationItem>
-        {hasNextPage && (
-          <PaginationItem>
-            <PaginationNext
-              href={pathname + '?' + updatePageParam(currentPage + 1)}
-              className="bg-black-700"
-            />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={`${!hasNextPage ? 'pointer-events-none cursor-not-allowed opacity-30' : ''}`}
+        >
+          <PaginationNext
+            href={pathname + '?' + updatePageParam(currentPage + 1)}
+            className="bg-black-700"
+          />
+        </PaginationItem>
       </PaginationContent>
     </ShadCNPagination>
   );

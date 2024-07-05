@@ -15,7 +15,7 @@ import {
   CommandShortcut,
 } from '@/components/ui/command';
 import { getAllPosts } from '@/lib/actions/post-actions';
-import { IPost } from '@/types/post';
+import type { IPost } from '@/types/post';
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------

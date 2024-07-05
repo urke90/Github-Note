@@ -3,7 +3,7 @@ import RHFTextarea from '../RHFInputs/RHFTextarea';
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { atomOneDarkReasonable } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -44,7 +44,12 @@ const CodeExampleTabs: React.FC = () => {
         <RHFTextarea name="codeExample" />
       </TabsContent>
       <TabsContent value="preview">
-        <SyntaxHighlighter language="javascript" style={monokai}>
+        <SyntaxHighlighter
+          language="javascript"
+          style={atomOneDarkReasonable}
+          wrapLongLines
+          showLineNumbers
+        >
           {code}
         </SyntaxHighlighter>
       </TabsContent>

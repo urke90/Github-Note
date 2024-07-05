@@ -5,6 +5,8 @@ import {
   SessionProviderProps,
 } from 'next-auth/react';
 
+// ----------------------------------------------------------------
+
 interface IProviderProps extends SessionProviderProps {
   children: React.ReactNode;
 }

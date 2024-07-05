@@ -1,9 +1,12 @@
 import { EOnboardingStep } from './onboarding-step';
 
-import { ILearningGoals } from '@/models/user';
-
 // ----------------------------------------------------------------
 
+interface ILearningGoals {
+  _id: string;
+  isChecked: boolean;
+  goal: string;
+}
 export interface IUser {
   _id: string;
   fullName: string;

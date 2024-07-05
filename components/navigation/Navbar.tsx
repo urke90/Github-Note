@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { getRecentPosts } from '@/lib/actions/post-actions';
-import { IRecentPost } from '@/types/post';
+import type { IRecentPost } from '@/types/post';
 
 // ----------------------------------------------------------------
 

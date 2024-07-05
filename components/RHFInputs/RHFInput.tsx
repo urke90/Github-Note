@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { Input, InputProps } from '../ui/input';
+import { Input, type InputProps } from '../ui/input';
 
 import { useFormContext } from 'react-hook-form';
 

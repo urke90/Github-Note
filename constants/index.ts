@@ -1,7 +1,9 @@
 import { EPostType } from '@/types/post-types';
 
 // ----------------------------------------------------------------
-
+/**
+ * These are all the teck stack icons available for rendering. When adding new icon, add name to this list.
+ */
 export const AVAILABLE_TECH_STACK_ICONS = [
   'aws',
   'bitbucket',

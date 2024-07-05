@@ -1,5 +1,5 @@
 import { EPostType } from './post-types';
-import { ITag } from './tag';
+import type { ITag } from './tag';
 
 // ----------------------------------------------------------------
 
@@ -27,7 +27,6 @@ export interface IPostsResponse {
   posts: IPost[];
   totalPages: number;
   hasNextPage: boolean;
-  hasPrevPage: boolean;
 }
 
 export interface IRecentPost {

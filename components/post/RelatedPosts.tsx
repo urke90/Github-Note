@@ -4,10 +4,6 @@ import Image from 'next/image';
 
 // ----------------------------------------------------------------
 
-/**
- * TODO  Check later if list item have onClick handler and what would the flow be????
- */
-
 const RelatedPosts = () => {
   return (
     <div>

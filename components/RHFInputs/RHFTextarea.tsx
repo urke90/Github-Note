@@ -1,4 +1,4 @@
-import { Textarea, TextareaProps } from '../ui/textarea';
+import { Textarea, type TextareaProps } from '../ui/textarea';
 
 import { useFormContext } from 'react-hook-form';
 

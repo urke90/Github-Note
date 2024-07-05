@@ -58,7 +58,7 @@ const PostItemBadge: React.FC<IPostItemBadgeProps> = ({ postType }) => {
 
   const updatePostTypeParam = (value: EQueryPostType) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('postType', value);
+    params.set('type', value);
     params.set('page', '1');
 
     return params.toString();

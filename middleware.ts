@@ -23,7 +23,6 @@ export default auth(async (req) => {
   const isAuthRoute = AUTH_ROUTES.includes(currentRoute);
   const isOnboardingRoute = currentRoute.startsWith(ONBOARDING_ROUTE);
 
-  // if the user IS authenticated
   if (isAuthenticated) {
     const result = await fetch('http://localhost:3000/api/user', {
       headers: {
@@ -46,7 +45,6 @@ export default auth(async (req) => {
     }
   }
 
-  // if the user IS NOT authenticated
   if (!isAuthenticated) {
     if (!isAuthRoute) {
       return NextResponse.redirect(new URL(LOGIN_ROUTE, req.nextUrl));

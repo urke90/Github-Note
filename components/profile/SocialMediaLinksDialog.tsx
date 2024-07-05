@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { updateUserSocialMediaLinks } from '@/lib/actions/user-actions';
 import {
-  ISocialMediaLinks,
+  type ISocialMediaLinks,
   socialMediaLinksSchema,
 } from '@/lib/zod/user-schema';
 

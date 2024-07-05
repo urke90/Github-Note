@@ -100,7 +100,6 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
                   paddingBottom: '4px',
                   backgroundColor: black700,
                   '&:focus': {
-                    border: 'none',
                     outline: 'none',
                   },
                 }),

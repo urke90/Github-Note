@@ -18,6 +18,7 @@ export const validateUserOnLogin = async (email: string, password: string) => {
         'Errors validating email and password on server',
         validatedCredentials.error
       );
+      throw new Error('Bad credentials.');
     }
 
     await connectToMongoDB();
