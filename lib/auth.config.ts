@@ -49,5 +49,3 @@ export const AUTH_CONFIG: NextAuthConfig = {
     }),
   ],
 };
-
-export default AUTH_CONFIG;

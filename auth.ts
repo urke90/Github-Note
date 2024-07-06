@@ -1,8 +1,7 @@
 import { createNewUser, getUserByEmail } from './lib/actions/user-actions';
+import { AUTH_CONFIG } from './lib/auth.config';
 
 import NextAuth from 'next-auth';
-
-import authConfig from '@/auth.config';
 
 // ----------------------------------------------------------------
 
@@ -72,5 +71,5 @@ export const {
   pages: {
     signIn: '/login',
   },
-  ...authConfig,
+  ...AUTH_CONFIG,
 });
