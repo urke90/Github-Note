@@ -9,11 +9,19 @@ import { signOut } from '@/lib/actions/auth';
 
 // ----------------------------------------------------------------
 
-const QuickLinks: React.FC = () => {
+interface IQuickLinksProps {
+  githubUrl: string | undefined;
+}
+
+const QuickLinks: React.FC<IQuickLinksProps> = ({ githubUrl }) => {
   return (
     <div className="flex flex-1 flex-col">
       <p className="mb-5 text-[10px] uppercase text-white-500">Quick Links</p>
-      <Link href="/" className="p3-medium mb-5 flex items-center gap-3">
+      <Link
+        href={githubUrl || '/'}
+        // href={user?.githubLink || '/'}
+        className="p3-medium mb-5 flex items-center gap-3"
+      >
         <Image
           src="/assets/images/github-outline.svg"
           width={16}

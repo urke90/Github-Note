@@ -37,8 +37,4 @@ export const LOGIN_ROUTE = '/login';
  */
 export const API_AUTH_PREFIX = '/api/auth';
 
-/**
- * * NOTE:
- * 1. Created constants in case we need to change some routes throughout the app later
- * 2. PUBLIC_ROUTES are all routes used in the app.
- */
+export const PROTECTED_ROUTES = ['/profile', '/explore', '/post', '/'];

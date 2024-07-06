@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import PostDetails from '@/components/post/PostDetails';
 import { getPostById } from '@/lib/actions/post-actions';
 import type { IPost } from '@/types/post';
@@ -20,11 +18,7 @@ const PostDetailsPage: React.FC<IPostDetailsPage> = async ({ params }) => {
       "Something went wrong. Can't whow Post details at the moment!"
     );
 
-  return (
-    <Suspense fallback="Loading...">
-      <PostDetails post={post} />
-    </Suspense>
-  );
+  return <PostDetails post={post} />;
 };
 
 export default PostDetailsPage;

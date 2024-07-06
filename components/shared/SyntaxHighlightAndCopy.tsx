@@ -53,6 +53,7 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
         style={atomOneDarkReasonable}
         showLineNumbers
         wrapLongLines
+        wrapLines
       >
         {code}
       </SyntaxHighlighter>

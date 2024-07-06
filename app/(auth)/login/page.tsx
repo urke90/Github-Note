@@ -17,7 +17,6 @@ import { loginFormSchema, type ILoginFormData } from '@/lib/zod/user-schema';
 const Login = () => {
   const { toast } = useToast();
   const loginForm = useForm<ILoginFormData>({
-    mode: 'onChange',
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: '',
@@ -50,13 +49,9 @@ const Login = () => {
     }
   };
 
-  const { isSubmitting, isValid } = loginForm.formState;
-
-  const disabledSubmitBtn = isSubmitting || !isValid;
-
   return (
-    <div className="h-screen">
-      <div className="m-auto mt-16 flex w-[382px] flex-col">
+    <section className="px-5">
+      <div className="m-auto my-16 flex w-full max-w-[382px] flex-col">
         <div className="mb-24 flex justify-center">
           <Image
             src="/assets/images/Logo.svg"
@@ -87,7 +82,7 @@ const Login = () => {
               />
             </div>
             <div className="mb-6">
-              <Button type="submit" disabled={disabledSubmitBtn}>
+              <Button type="submit" disabled={loginForm.formState.isSubmitting}>
                 Login
               </Button>
             </div>
@@ -127,7 +122,7 @@ const Login = () => {
           Continue with GitHub
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 
