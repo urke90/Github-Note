@@ -7,6 +7,7 @@ import NavProfileInfo from '../shared/NavProfileInfo';
 
 import Image from 'next/image';
 
+import { auth } from '@/auth';
 import {
   Sheet,
   SheetClose,
@@ -14,12 +15,17 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { getRecentPosts } from '@/lib/actions/post-actions';
+import { getUserById } from '@/lib/actions/user-actions';
 import type { IRecentPost } from '@/types/post';
+import { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
 const Navbar: React.FC = async () => {
-  const recentPosts: IRecentPost[] | null = await getRecentPosts();
+  const recentPosts: IRecentPost[] | undefined = await getRecentPosts();
+  const session = await auth();
+  const user: IUser | undefined =
+    session?.user && (await getUserById(session?.user.id));
 
   return (
     <Sheet>
@@ -48,7 +54,7 @@ const Navbar: React.FC = async () => {
               ))}
             </ul>
           ) : null}
-          <QuickLinks />
+          <QuickLinks githubUrl={user?.githubLink} />
         </div>
       </SheetContent>
     </Sheet>

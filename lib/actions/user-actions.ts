@@ -17,9 +17,7 @@ import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
-export const getUserById = async (
-  userId: string
-): Promise<IUser | undefined> => {
+export const getUserById = async (userId: string) => {
   try {
     await connectToMongoDB();
 

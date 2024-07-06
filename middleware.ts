@@ -20,7 +20,7 @@ export const middleware = async (req: NextRequest) => {
       Cookie: req.cookies.toString(),
     },
   });
-  const session: Session | null = await response.json();
+  const session: Session | undefined = await response.json();
   const isAuthenticated = !!session?.user;
 
   const isOnboardingFinished =
