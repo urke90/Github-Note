@@ -15,7 +15,7 @@ import {
 export const middleware = async (req: NextRequest) => {
   const currentRoute = req.nextUrl.pathname;
 
-  const response = await fetch('http://localhost:3000/api/user', {
+  const response = await fetch(`${req.nextUrl.origin}/api/user`, {
     headers: {
       Cookie: req.cookies.toString(),
     },
