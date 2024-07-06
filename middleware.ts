@@ -1,7 +1,8 @@
+import AUTH_CONFIG from './lib/auth.config';
+
 import NextAuth from 'next-auth';
 import { NextResponse } from 'next/server';
 
-import AUTH_CONFIG from '@/auth.config';
 import {
   AUTH_ROUTES,
   HOME_ROUTE,

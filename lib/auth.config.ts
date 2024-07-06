@@ -1,4 +1,4 @@
-import { validateUserOnLogin } from './lib/actions/user-validate-actions';
+import { validateUserOnLogin } from './actions/user-validate-actions';
 
 import { type NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
