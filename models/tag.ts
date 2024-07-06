@@ -2,7 +2,7 @@ import { Model, model, models, Schema } from 'mongoose';
 
 // ----------------------------------------------------------------
 
-export interface IModelTag {
+interface IModelTag {
   title: string;
   ownerId: Schema.Types.ObjectId;
 }

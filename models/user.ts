@@ -2,7 +2,7 @@ import { Document, Model, model, models, Schema } from 'mongoose';
 
 import { EOnboardingStep } from '@/types/onboarding-step';
 
-export interface ILearningGoals extends Document {
+interface ILearningGoals extends Document {
   isChecked: boolean;
   goal: string;
 }

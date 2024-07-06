@@ -1,3 +1,5 @@
+'use server';
+
 import { connectToMongoDB } from '../database/mongodb';
 import { loginFormSchema } from '../zod/user-schema';
 
