@@ -1,4 +1,4 @@
-import AUTH_CONFIG from './lib/auth.config';
+import { AUTH_CONFIG } from './lib/auth.config';
 
 import NextAuth from 'next-auth';
 import { NextResponse } from 'next/server';
@@ -8,7 +8,7 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   ONBOARDING_ROUTE,
-} from '@/routes';
+} from '@/lib/routes';
 import { EOnboardingStep } from '@/types/onboarding-step';
 
 // ----------------------------------------------------------------
