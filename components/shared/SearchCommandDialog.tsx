@@ -67,16 +67,15 @@ const SearchCommandDialog = () => {
   return (
     <div className="relative">
       <Button
-        className="flex-between h-9 w-full rounded bg-black-700 px-2.5 text-white-300"
+        className="flex-between h-9 w-full rounded bg-black-700 px-2.5 text-white-300 hover:bg-black-700"
         onClick={() => setIsOpen((open) => !open)}
       >
-        <div className="flex-center">
+        <div className="flex-center gap-2">
           <Image
             src="/assets/icons/search.svg"
             width={16}
             height={16}
             alt="Search"
-            className="mr-2"
           />
           <p className="p4-medium">Search...</p>
         </div>

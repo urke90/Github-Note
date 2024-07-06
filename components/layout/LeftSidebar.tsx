@@ -6,13 +6,17 @@ import NavProfileInfo from '../shared/NavProfileInfo';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { auth } from '@/auth';
 import { getRecentPosts } from '@/lib/actions/post-actions';
+import { getUserById } from '@/lib/actions/user-actions';
 import type { IRecentPost } from '@/types/post';
 
 // ----------------------------------------------------------------
 
 const LeftSidebar = async () => {
   const recentPosts: IRecentPost[] | null = await getRecentPosts();
+  const session = await auth();
+  const user = session?.user && (await getUserById(session?.user.id));
 
   return (
     <aside className="flex min-h-screen w-[290px] min-w-[290px] flex-col border-r-[1.5px] border-r-gray-border bg-black-800 px-7 max-md:hidden">
@@ -41,7 +45,7 @@ const LeftSidebar = async () => {
           </div>
         ) : null}
 
-        <QuickLinks />
+        <QuickLinks githubUrl={user?.githubLink} />
       </div>
     </aside>
   );

@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import OnboardingContainer from '@/components/onboarding/OnboardingContainer';
 import { getUserById } from '@/lib/actions/user-actions';
-import type { IUser } from '@/types/user';
 
 // ----------------------------------------------------------------
 
@@ -10,7 +9,7 @@ const OnboardingPage = async () => {
   if (!session?.user.id)
     throw new Error('User data is not available at this moment!');
 
-  const user: IUser | null = await getUserById(session.user.id);
+  const user = await getUserById(session.user.id);
 
   if (!user) throw new Error('User data is not available at this moment!');
 

@@ -21,7 +21,6 @@ const Register = () => {
   const router = useRouter();
 
   const registerForm = useForm<ISignUpFormData>({
-    mode: 'onChange',
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       fullName: '',
@@ -52,13 +51,9 @@ const Register = () => {
     }
   };
 
-  const { isSubmitting, isValid } = registerForm.formState;
-
-  const disabledSubmitBtn = isSubmitting || !isValid;
-
   return (
-    <div className="h-screen">
-      <div className="m-auto mt-16 flex w-[382px] flex-col">
+    <section className="px-5">
+      <div className="m-auto my-16 flex w-full max-w-[382px] flex-col">
         <div className="mb-24 flex justify-center">
           <Image
             src="/assets/images/Logo.svg"
@@ -95,7 +90,10 @@ const Register = () => {
               />
             </div>
             <div className="mb-6">
-              <Button type="submit" disabled={disabledSubmitBtn}>
+              <Button
+                type="submit"
+                disabled={registerForm.formState.isSubmitting}
+              >
                 Create an account
               </Button>
             </div>
@@ -135,7 +133,7 @@ const Register = () => {
           Continue with GitHub
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 

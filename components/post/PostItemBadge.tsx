@@ -73,7 +73,13 @@ const PostItemBadge: React.FC<IPostItemBadgeProps> = ({ postType }) => {
       }
       className={`${styles} flex max-w-[108px] cursor-pointer gap-1 rounded-[3px] py-0.5 pl-1 pr-2 text-sm`}
     >
-      <Image src={imgUrl} alt={label} width={16} height={16} />
+      <Image
+        style={{ position: 'relative' }}
+        src={imgUrl}
+        alt={label}
+        width={16}
+        height={16}
+      />
       {label}
     </Link>
   );
