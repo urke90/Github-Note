@@ -24,13 +24,17 @@ const NavProfileInfo: React.FC = async () => {
 
   return (
     <Link href="/profile" className="flex gap-1.5">
-      <Image
-        src={imageUrl || '/assets/icons/image-upload-placeholder.svg'}
-        width={36}
-        height={36}
-        alt="Profile Image"
-        className="rounded-lg"
-      />
+      <div
+        className={`${!imageUrl ? 'bg-black-700' : ''} flex-center size-9 rounded-sm`}
+      >
+        <Image
+          src={imageUrl || '/assets/images/image-preview.svg'}
+          width={imageUrl ? 36 : 18}
+          height={imageUrl ? 36 : 18}
+          alt="Profile Image"
+          className="rounded-lg"
+        />
+      </div>
       <div>
         <p className="p3-medium text-white-100">{session?.user.name}</p>
         <p className="p4-regular">{session?.user.email}</p>
