@@ -11,7 +11,7 @@ interface IErrorProps {
 
 const Error: React.FC<IErrorProps> = ({ error, reset }) => {
   return (
-    <div className="flex-center h-screen border">
+    <div className="flex-center h-screen">
       <div className="flex-center w-[500px] flex-col gap-2.5">
         <p className="p2-bold !text-red-primary">There was a problem</p>
         <h2 className="h2-bold text-center">

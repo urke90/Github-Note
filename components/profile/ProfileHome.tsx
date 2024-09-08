@@ -1,6 +1,5 @@
 import ChecklistItem from '../shared/ChecklistItem';
 import PostsHeatMap from '../shared/PostsHeatMap';
-import ProfileImage from '../shared/ProfileImage';
 import { Checkbox } from '../ui/checkbox';
 
 import type { HeatMapValue } from '@uiw/react-heat-map';
@@ -23,7 +22,13 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
     <section className="py-10">
       <div className="flex-between mb-8 flex-wrap gap-2.5 px-5 lg:px-[30px]">
         <div className="flex items-center gap-5">
-          <ProfileImage avatarImg={user.avatarImg} />
+          <Image
+            src={user.avatarImg || '/assets/icons/image-upload-placeholder.svg'}
+            width={90}
+            height={90}
+            alt="Avatart"
+            className="size-[90px] shrink-0 rounded-[5px] object-cover"
+          />
           <div className="flex flex-col gap-2.5">
             <h2 className="h2-bold">{user.fullName}</h2>
             <ul className="flex flex-wrap gap-[18px]">

@@ -49,6 +49,11 @@ const parserOptions: HTMLReactParserOptions = {
       }
     }
 
+    if (domNode instanceof Element && domNode.name === 'ul') {
+      domNode.attribs.class = 'list-disc pl-5';
+      return domNode;
+    }
+
     if (domNode instanceof Element && domNode.name === 'a') {
       domNode.attribs.class = 'text-primary-500 underline';
       return domNode;
