@@ -25,8 +25,6 @@ const BasicInformation: React.FC<IBasicInformationProps> = ({
 }) => {
   const { trigger, getValues } = useFormContext();
 
-  const avatarImg = getValues('avatarImg');
-
   const validateAndChangeStep = async () => {
     const validInputs = await trigger([
       'fullName',
