@@ -78,7 +78,7 @@ const ProfileHome: React.FC<IProfileHomeProps> = ({ user, heatMapData }) => {
               ? user.learningGoals.map(({ _id, isChecked, goal }) => (
                   <li
                     key={_id}
-                    className="p2-regular flex items-center gap-1.5"
+                    className="p2-regular flex items-center gap-2.5"
                   >
                     <Checkbox checked={isChecked} /> {goal}
                   </li>

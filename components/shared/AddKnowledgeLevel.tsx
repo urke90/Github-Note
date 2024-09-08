@@ -14,7 +14,7 @@ const AddKnowledgeLevel = () => {
   } = useFormContext();
 
   return (
-    <article className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <p className="p3-medium">Knowledgde Level</p>
       <ul className="mb-1.5 flex flex-col gap-2">
         {fields.length > 0 ? (
@@ -49,7 +49,7 @@ const AddKnowledgeLevel = () => {
         />
         Add knowledge checkmark
       </Button>
-    </article>
+    </div>
   );
 };
 

@@ -41,7 +41,6 @@ export const getTags = async (ownerId: string) => {
 
 //     const popularTags = await Post.find().select('tags').group();
 
-//     console.log('AGREGATE PLIZZZZZZZZZZZZZZZZZZZZZZZZZZ', popularTags);
 //   } catch (error) {
 //     console.log('Error aggregation', error);
 //   }

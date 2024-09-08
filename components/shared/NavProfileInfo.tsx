@@ -8,8 +8,6 @@ import { auth } from '@/auth';
 const NavProfileInfo: React.FC = async () => {
   const session = await auth();
 
-  console.log('session', session);
-
   return (
     <Link href="/profile" className="flex gap-1.5">
       <div

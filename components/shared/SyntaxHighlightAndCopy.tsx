@@ -38,7 +38,7 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
     <div className="relative">
       <Button
         onClick={() => copyToClipboard(code)}
-        className="absolute right-3.5 top-3.5 size-[16px] bg-transparent p-0 transition-transform hover:scale-125"
+        className="absolute right-3.5 top-3.5 size-[16px] bg-transparent p-0 transition-transform hover:scale-125 hover:bg-transparent"
       >
         <Image
           src="/assets/icons/icn-copy.svg"
@@ -48,7 +48,11 @@ const SyntaxHighlightAndCopy: React.FC<ISyntaxHighlightAndCopyProps> = ({
         />
       </Button>
       <SyntaxHighlighter
-        customStyle={{ backgroundColor: '#131625', borderRadius: '6px' }}
+        customStyle={{
+          backgroundColor: '#131625',
+          borderRadius: '6px',
+          padding: '10px',
+        }}
         language="typescript"
         style={atomOneDarkReasonable}
         showLineNumbers
