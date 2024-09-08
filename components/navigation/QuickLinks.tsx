@@ -16,11 +16,11 @@ interface IQuickLinksProps {
 const QuickLinks: React.FC<IQuickLinksProps> = ({ githubUrl }) => {
   return (
     <div className="flex flex-1 flex-col">
-      <p className="mb-5 text-[10px] uppercase text-white-500">Quick Links</p>
+      <p className="mb-5 text-[10px] uppercase ">Quick Links</p>
       <Link
         href={githubUrl || '/'}
         // href={user?.githubLink || '/'}
-        className="p3-medium mb-5 flex items-center gap-3"
+        className="p3-medium mb-5 flex items-center gap-3 text-white-500"
       >
         <Image
           src="/assets/images/github-outline.svg"

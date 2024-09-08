@@ -109,9 +109,9 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
   return (
     <section>
       <div className=" flex flex-col gap-5 border-b border-b-[#55597D1A] px-[30px] pb-8 pt-[30px]">
-        <div className="lg:flex-between  flex gap-2.5 max-lg:flex-col">
+        <div className="lg:flex-between flex gap-3 max-lg:flex-col">
           <h1 className="h1-bold line-clamp-2">{title}</h1>
-          <div className="flex-between lg:flex-center gap-2.5">
+          <div className="flex-between lg:flex-center shrink-0 gap-2.5">
             <PostItemBadge postType={type} />
             <ComponentMenu postId={_id} onDeletePost={handleDeletePost} />
           </div>
@@ -159,7 +159,7 @@ const PostDetails: React.FC<IPostDetailsProps> = ({ post }) => {
       {learningResources && learningResources?.length > 0 && (
         <div className="px-[30px] pb-8 pt-[30px]">
           <p className="p2-bold mb-2 text-white-100">Resources & Links</p>
-          <ul>
+          <ul className="flex flex-col gap-1.5">
             {learningResources.map(({ label, link }) => (
               <LearningResourceItem key={label} label={label} link={link} />
             ))}

@@ -15,7 +15,7 @@ const AddLearningGoal = () => {
   } = useFormContext();
 
   return (
-    <article className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <p className="p3-medium">Learning goals</p>
       <ul className="mb-1.5 flex flex-col gap-2">
         {fields?.length > 0 ? (
@@ -28,7 +28,7 @@ const AddLearningGoal = () => {
           ))
         ) : (
           <li
-            className={`my-2 rounded  px-3 py-2 text-center ${errors.learningGoals ? 'text-red-primary' : ''}`}
+            className={`my-2 rounded px-3 py-2 text-center ${errors.learningGoals ? 'text-red-primary' : ''}`}
           >
             {errors.learningGoals
               ? errors.learningGoals?.message?.toString()
@@ -49,7 +49,7 @@ const AddLearningGoal = () => {
         />
         Add goal checkbox
       </Button>
-    </article>
+    </div>
   );
 };
 

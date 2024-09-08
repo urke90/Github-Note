@@ -28,9 +28,9 @@ const RHFLearningResources: React.FC = () => {
                 name={`learningResources.${index}.link`}
                 placeholder="Resource Link"
               />
-              <div className="flex rounded bg-black-700 p-3.5">
+              <div className="flex rounded bg-black-700 p-2.5">
                 <CloseIcon
-                  className="size-4 cursor-pointer"
+                  className="cursor-pointer"
                   onClick={() => remove(index)}
                 />
               </div>

@@ -11,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'rounded bg-primary-500 font-bold text-black-900 shadow-tw-primary-shadow hover:bg-purple-500 disabled:cursor-not-allowed disabled:bg-slate-400',
+          'rounded bg-primary-500 font-bold text-black-900 shadow-tw-primary-shadow disabled:cursor-not-allowed disabled:bg-slate-400',
         secondary:
           'font-inter shadow-tw-secondary-shadow rounded-[4px] bg-black-600 font-medium text-white-100  disabled:cursor-not-allowed disabled:bg-slate-400',
         gradient: 'bg-gradient-blue text-white-100',
