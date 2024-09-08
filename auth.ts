@@ -1,5 +1,6 @@
 import { createNewUser, getUserByEmail } from './lib/actions/user-actions';
 import { AUTH_CONFIG } from './lib/auth.config';
+import { IUser } from './types/user';
 
 import NextAuth from 'next-auth';
 
@@ -39,11 +40,13 @@ export const {
       try {
         if (!token.email) return token;
 
-        const fetchedUser = await getUserByEmail(token.email);
+        const fetchedUser: IUser = await getUserByEmail(token.email);
+
         if (fetchedUser) {
           token.id = fetchedUser._id.toString();
           token.onboardingStep = fetchedUser.onboardingStep;
           token.picture = fetchedUser.avatarImg;
+          token.userName = fetchedUser.fullName;
         }
 
         return token;
@@ -58,6 +61,7 @@ export const {
         session.user.id = token.id;
         session.user.onboardingStep = token.onboardingStep;
         session.user.image = token.picture;
+        session.user.name = token.userName;
       }
 
       return session;

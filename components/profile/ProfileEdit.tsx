@@ -52,7 +52,6 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
   const endDate = form.getValues('endDate');
 
   const onSubmit = async (data: IUpdateUserData) => {
-    console.log('DATA', data);
     try {
       const response = await updateUserProfileInfo(data);
 
@@ -75,7 +74,7 @@ const ProfileEdit: React.FC<IProfileEditProps> = ({ user }) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="mb-6">
-            <ProfileImageUpload existingAvatarImage={user.avatarImg} />
+            <ProfileImageUpload name="avatarImg" />
           </div>
           <div className="mb-10 flex flex-col gap-[30px]">
             <RHFInput

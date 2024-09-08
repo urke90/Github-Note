@@ -101,12 +101,12 @@ const SocialMediaLinksDialog: React.FC<ISocialMediaLinksDialogProps> = ({
             height={14}
             alt="Update"
           />
-          Update social links
+          Social Media links
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[690px] rounded-lg bg-black-800 sm:w-[646px]">
         <div className="mb-5 flex items-center justify-between text-white-100">
-          <p className="p1-bold lg:p2-bold ">Social Media Links</p>
+          <p className="p1-bold lg:p2-bold">Social Media Links</p>
           <DialogClose>
             <CloseIcon />
           </DialogClose>

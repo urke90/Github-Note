@@ -55,7 +55,7 @@ const BasicInformation: React.FC<IBasicInformationProps> = ({
 
   return (
     <article className="flex flex-col gap-6">
-      <ProfileImageUpload existingAvatarImage={avatarImg} />
+      <ProfileImageUpload name="avatarImg" />
       <RHFInput label="Name" name="fullName" placeholder="Edit your Name" />
       <RHFInput
         label="Portfolio"

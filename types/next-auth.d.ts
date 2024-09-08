@@ -23,6 +23,8 @@ declare module 'next-auth/jwt' {
     /** OCurrent step of user onboarding process. If value is 5 then onboarding is finished */
     onboardingStep: number;
     /** Fetched image from DB */
-    avatarImg: string;
+    // avatarImg: string;
+    /** User full name */
+    userName: string;
   }
 }
