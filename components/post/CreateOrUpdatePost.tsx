@@ -61,7 +61,7 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
     },
   });
 
-  const { handleSubmit, getValues, reset } = form;
+  const { handleSubmit, getValues } = form;
 
   const onSubmit = async (data: IPostSchema) => {
     try {
@@ -84,10 +84,10 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
         }
       } else {
         const response = await createPost(data);
-        // if (response?.ok === true && response?.status === 201) {
-        //   toast({ variant: 'success', title: 'Post created successfully' });
-        //   router.push(response.redirectRoute);
-        // }
+        if (response?.ok === true && response?.status === 201) {
+          toast({ variant: 'success', title: 'Post created successfully' });
+          router.push(response.redirectRoute);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -98,7 +98,6 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
         });
       }
     }
-    reset();
   };
 
   const postType = getValues('type');

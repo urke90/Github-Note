@@ -47,13 +47,13 @@ export const createPost = async (data: IPostSchema) => {
       ownerId: session.user.id,
     });
 
-    // revalidatePath('/');
+    revalidatePath('/');
 
-    // return {
-    //   ok: true,
-    //   status: 201,
-    //   redirectRoute: '/post/' + newPost._id.toString(),
-    // };
+    return {
+      ok: true,
+      status: 201,
+      redirectRoute: '/post/' + newPost._id.toString(),
+    };
   } catch (error) {
     console.log('Error creating new post!', error);
     throw new Error('Error creating new post!');
