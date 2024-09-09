@@ -21,33 +21,34 @@ export const createPost = async (data: IPostSchema) => {
 
     await connectToMongoDB();
 
-    const newTags = [];
-    const tags: string[] = [];
-    for (let i = 0; i < data.tags.length; i++) {
-      const tag = data.tags[i];
+    const tagLabels = data.tags.map((t) => t.label.toLowerCase());
 
-      if (tag.value === tag.label) {
-        newTags.push({ title: tag.label, ownerId: session.user.id });
-        continue;
-      }
+    const existingTags = await Tag.find({
+      title: { $in: tagLabels.map((tag) => new RegExp(`^${tag}$`, 'i')) },
+    });
 
-      tags.push(tag.value);
+    const existingTagsTitles = existingTags?.map((t) => t.title.toLowerCase());
+    const existingTagsIds = existingTags.map((t) => t._id.toString());
+
+    const tagsToCreate = data.tags
+      .filter((t) => !existingTagsTitles.includes(t.label.toLowerCase()))
+      .map((t) => ({ title: t.label, ownerId: session.user.id }));
+
+    let createdTags: string[] = [];
+    if (tagsToCreate.length > 0) {
+      createdTags = (await Tag.insertMany(tagsToCreate, { lean: true }))?.map(
+        (t) => t._id.toString()
+      );
     }
-
-    const createdTags =
-      newTags.length > 0
-        ? (await Tag.insertMany(newTags, { lean: true })).map((t) =>
-            t._id.toString()
-          )
-        : [];
 
     const newPost = await Post.create({
       ...data,
-      tags: [...tags, ...createdTags],
+      tags: [...existingTagsIds, ...createdTags],
       ownerId: session.user.id,
     });
 
     revalidatePath('/');
+
     return {
       ok: true,
       status: 201,
@@ -68,6 +69,7 @@ export const updatePost = async (postId: string, data: IPostSchema) => {
 
     const post = await Post.findById(postId);
     if (!post) return { ok: false, status: 404, message: 'Post not found!' };
+
     if (post.ownerId.toString() !== session.user.id)
       return {
         ok: false,
@@ -75,29 +77,29 @@ export const updatePost = async (postId: string, data: IPostSchema) => {
         message: 'You are not allowed to update the post!',
       };
 
-    const newTags = [];
-    const tags: string[] = [];
-    for (let i = 0; i < data.tags.length; i++) {
-      const tag = data.tags[i];
+    const tagLabels = data.tags.map((t) => t.label.toLowerCase());
 
-      if (tag.value === tag.label) {
-        newTags.push({ title: tag.label, ownerId: session.user.id });
-        continue;
-      }
+    const existingTags = await Tag.find({
+      title: { $in: tagLabels.map((tag) => new RegExp(`^${tag}$`, 'i')) },
+    });
 
-      tags.push(tag.value);
+    const existingTagsTitles = existingTags?.map((t) => t.title.toLowerCase());
+    const existingTagsIds = existingTags.map((t) => t._id.toString());
+
+    const tagsToCreate = data.tags
+      .filter((t) => !existingTagsTitles.includes(t.label.toLowerCase()))
+      .map((t) => ({ title: t.label, ownerId: session.user.id }));
+
+    let createdTags: string[] = [];
+    if (tagsToCreate.length > 0) {
+      createdTags = (await Tag.insertMany(tagsToCreate, { lean: true }))?.map(
+        (t) => t._id.toString()
+      );
     }
-
-    const createdTags =
-      newTags.length > 0
-        ? (await Tag.insertMany(newTags, { lean: true })).map((t) =>
-            t._id.toString()
-          )
-        : [];
 
     await Post.findByIdAndUpdate(postId, {
       ...data,
-      tags: [...tags, ...createdTags],
+      tags: [...existingTagsIds, ...createdTags],
     });
 
     revalidatePath('/post/[id]', 'page');
@@ -108,8 +110,12 @@ export const updatePost = async (postId: string, data: IPostSchema) => {
       redirectRoute: '/post/' + postId,
     };
   } catch (error) {
-    console.log('Error updating post!', error);
-    throw new Error('Error updating post!');
+    console.log('Error updating post in server action!', error);
+    // throw new Error('Error updating post!');
+    return {
+      ok: false,
+      status: 500,
+    };
   }
 };
 
@@ -145,7 +151,6 @@ export const getAllPosts = async ({
     }
 
     if (postType) {
-      console.log('aaaaaa', postType);
       query = { ...query, type: postType.toUpperCase() as EPostType };
     }
 
