@@ -16,7 +16,7 @@ interface IQuickLinksProps {
 const QuickLinks: React.FC<IQuickLinksProps> = ({ githubUrl }) => {
   return (
     <div className="flex flex-1 flex-col">
-      <p className="mb-5 text-[10px] uppercase ">Quick Links</p>
+      <p className="mb-5 text-[10px] uppercase">Quick Links</p>
       <Link
         href={githubUrl || '/'}
         // href={user?.githubLink || '/'}

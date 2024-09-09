@@ -60,6 +60,7 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
       learningResources: post?.learningResources || [],
     },
   });
+
   const { handleSubmit, getValues, reset } = form;
 
   const onSubmit = async (data: IPostSchema) => {
@@ -83,10 +84,10 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
         }
       } else {
         const response = await createPost(data);
-        if (response?.ok === true && response?.status === 201) {
-          toast({ variant: 'success', title: 'Post created successfully' });
-          router.push(response.redirectRoute);
-        }
+        // if (response?.ok === true && response?.status === 201) {
+        //   toast({ variant: 'success', title: 'Post created successfully' });
+        //   router.push(response.redirectRoute);
+        // }
       }
     } catch (error) {
       if (error instanceof Error) {
