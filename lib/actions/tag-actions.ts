@@ -7,11 +7,11 @@ import Tag from '@/models/tag';
 
 // ----------------------------------------------------------------
 
-export const getTags = async (ownerId: string) => {
+export const getTags = async (ownerId: string, limit = 16) => {
   try {
     await connectToMongoDB();
 
-    const tags = await Tag.find({ ownerId }).limit(16);
+    const tags = await Tag.find({ ownerId }).limit(limit);
 
     return JSON.parse(JSON.stringify(tags));
   } catch (error) {

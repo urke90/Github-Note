@@ -13,7 +13,7 @@ const RecentTagsList: React.FC<IRecentTagsListProps> = ({ tags }) => {
     tags?.length > 0 ? (
       <>
         <p className="p3-bold mb-4">Tags</p>
-        <ul className="flex flex-col gap-3">
+        <ul className="line-clamp-1 flex flex-col gap-3">
           {tags.map(({ _id, title }) => (
             <TagItem key={_id} isFilterItem title={title} />
           ))}

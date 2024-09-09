@@ -60,7 +60,8 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
       learningResources: post?.learningResources || [],
     },
   });
-  const { handleSubmit, getValues, reset } = form;
+
+  const { handleSubmit, getValues } = form;
 
   const onSubmit = async (data: IPostSchema) => {
     try {
@@ -97,7 +98,6 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
         });
       }
     }
-    reset();
   };
 
   const postType = getValues('type');

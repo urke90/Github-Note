@@ -68,6 +68,7 @@ const RHFCreatableSelect: React.FC<IRHFReactSelectProps> = ({
               noOptionsMessage={() => 'There are no options available'}
               onChange={field.onChange}
               defaultValue={value}
+              instanceId={field.name}
               styles={{
                 indicatorsContainer: (base) => ({
                   ...base,

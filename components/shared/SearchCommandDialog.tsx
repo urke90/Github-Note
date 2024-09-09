@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import {
   CommandDialog,
@@ -36,6 +37,7 @@ const SearchCommandDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [posts, setPosts] = useState<IPost[]>([]);
   const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebounce(query, 500);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -53,7 +55,7 @@ const SearchCommandDialog = () => {
     const fetchAllPosts = async () => {
       const response = await getAllPosts({
         itemsPerPage: 5,
-        searchQuery: query,
+        searchQuery: debouncedQuery,
       });
 
       if (response?.ok && response?.status === 200) {
@@ -62,7 +64,7 @@ const SearchCommandDialog = () => {
     };
 
     fetchAllPosts();
-  }, [query, isOpen]);
+  }, [isOpen, debouncedQuery]);
 
   return (
     <div className="relative">
@@ -89,7 +91,7 @@ const SearchCommandDialog = () => {
           onValueChange={setQuery}
         />
         <CommandList>
-          <CommandGroup>
+          <CommandGroup forceMount>
             <Link
               href="/explore"
               onClick={() => setIsOpen(false)}

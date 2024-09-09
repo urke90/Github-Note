@@ -38,7 +38,7 @@ const LeftSidebar = async () => {
         <CreateOrSearchForPost />
         {recentPosts && recentPosts?.length > 0 ? (
           <div className="flex flex-col gap-5 border-y-[0.68px] border-white-500 py-6">
-            <p className="subtitle-small">Posts</p>
+            <p className="text-[10px] uppercase">Posts</p>
             <ul className="flex flex-col gap-5 ">
               {recentPosts?.map(({ _id, title, type }) => (
                 <LinkPostItem key={_id} id={_id} title={title} type={type} />
