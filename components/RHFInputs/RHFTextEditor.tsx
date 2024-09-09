@@ -40,6 +40,7 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
             <FormControl>
               <Editor
                 onEditorChange={field.onChange}
+                value={field.value}
                 apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
                 init={{
                   height: 216,
@@ -48,7 +49,8 @@ const RHFTextEditor: React.FC<ITextEditorProps> = ({
                   plugins: ['lists', 'link', 'image', 'codesample'],
                   toolbar:
                     'bold italic blockquote link image numlist bullist codesample',
-                  content_style: 'body { font-size:14px; color: #ADB3CC; }',
+                  content_style:
+                    'body { font-size:14px; color: #ADB3CC; overflow:hidden; }',
                 }}
               />
             </FormControl>

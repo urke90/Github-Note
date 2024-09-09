@@ -65,7 +65,6 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
   const onSubmit = async (data: IPostSchema) => {
     try {
       if (isEditPage) {
-        if (!post?._id) return;
         const response = await updatePost(post?._id, data);
 
         if (response.status === 200) {
@@ -90,8 +89,8 @@ const CreateOrUpdatePost: React.FC<ICreateOrUpdatePostProps> = ({
         }
       }
     } catch (error) {
-      console.log('Error creating new post', error);
       if (error instanceof Error) {
+        console.log('Error creating or update', error);
         toast({
           variant: 'error',
           title: `Something went wrong. Couldn't ${isEditPage ? 'update' : 'create'} post!`,
