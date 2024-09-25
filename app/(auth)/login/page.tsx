@@ -31,7 +31,8 @@ const Login = () => {
       await signIn('credentials', {
         email,
         password,
-        redirect: false,
+        // redirect: false,
+        redirectTo: '/',
       });
     } catch (error) {
       if (error instanceof Error) {
