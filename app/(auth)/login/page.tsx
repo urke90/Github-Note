@@ -63,6 +63,9 @@ const Login = () => {
         </div>
         <div className="mb-5">
           <h2 className="h2-bold text-white-100">Login</h2>
+          <p className="p4-regular text-green-500">
+            Demo account: test@test.com pw: 123123
+          </p>
         </div>
         <Form {...loginForm}>
           <form onSubmit={loginForm.handleSubmit(onSubmit)}>
@@ -74,7 +77,7 @@ const Login = () => {
                 placeholder="Enter your email address"
               />
             </div>
-            <div className="mb-6   max-w-sm items-center gap-1.5">
+            <div className="mb-6 max-w-sm items-center gap-1.5">
               <RHFInput
                 name="password"
                 type="password"

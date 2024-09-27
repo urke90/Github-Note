@@ -38,7 +38,7 @@ const Navbar: React.FC = async () => {
           className="cursor-pointer"
         />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-y-auto">
         <header className="flex-between mb-8">
           <NavProfileInfo />
           <SheetClose>
@@ -49,9 +49,11 @@ const Navbar: React.FC = async () => {
           <CreateOrSearchForPost />
           {recentPosts && recentPosts?.length > 0 ? (
             <ul className="flex flex-col gap-5 border-y-[0.68px] border-white-500 py-6">
-              {recentPosts?.map(({ _id, title, type }) => (
-                <LinkPostItem key={_id} id={_id} title={title} type={type} />
-              ))}
+              {recentPosts
+                ?.slice(0, 8)
+                .map(({ _id, title, type }) => (
+                  <LinkPostItem key={_id} id={_id} title={title} type={type} />
+                ))}
             </ul>
           ) : null}
           <QuickLinks githubUrl={user?.githubLink} />

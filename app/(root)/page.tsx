@@ -43,7 +43,7 @@ const HomePage: React.FC<IHomePageProps> = async ({ searchParams }) => {
 
   return (
     <section className="px-5 lg:px-[30px]">
-      <h1 className="h1-bold mb-2.5 mt-10">Hello {session?.user.name},</h1>
+      <h1 className="h1-bold mb-2.5 mt-10">Hello {session?.user.name}</h1>
       <p className="p1-regular mb-[30px]">
         Time to jot down your latest learnings today!
       </p>
